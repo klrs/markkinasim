@@ -1,9 +1,10 @@
 package otp.markkinasim.modeltest;
 
 import static org.junit.jupiter.api.Assertions.*;
-import model.Core;
 
 import org.junit.jupiter.api.Test;
+
+import otp.markkinasim.model.Core;
 
 class CoreTest {
 
