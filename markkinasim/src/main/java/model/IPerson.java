@@ -2,6 +2,7 @@ package model;
 
 public interface IPerson {
 	
+	//setters and getters
 	public double getMoney();
 
 	public void setMoney(double money);
@@ -14,4 +15,6 @@ public interface IPerson {
 	
 	public void setWork(String work);
 
+	//advanced functions
+	public void findWork();
 }
