@@ -1,4 +1,4 @@
-package model;
+package otp.markkinasim.model;
 
 public interface IPerson {
 	
