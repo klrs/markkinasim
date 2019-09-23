@@ -2,7 +2,7 @@ package otp.markkinasim.model;
 
 import java.util.ArrayList;
 
-public class Party {
+public class Party implements ITrader {
 	
 	private ArrayList<Person> Employees = new ArrayList<Person>();
 	
@@ -91,6 +91,16 @@ public class Party {
 	private void produce() {
 		resources--;
 		productToSell++;
+	}
+
+	public void Buy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void Sell() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
