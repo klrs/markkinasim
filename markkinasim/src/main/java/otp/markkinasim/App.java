@@ -1,5 +1,7 @@
 package otp.markkinasim;
 
+import otp.markkinasim.model.Core;
+
 /**
  * Hello world!
  *
@@ -8,7 +10,8 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
-        //test comment
+        Core core = Core.getInstance();
+        core.init();
+        core.start();
     }
 }

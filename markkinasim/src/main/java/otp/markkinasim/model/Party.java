@@ -4,28 +4,28 @@ import java.util.ArrayList;
 
 public class Party implements ITrader {
 	
-	private ArrayList<Person> Employees = new ArrayList<Person>();
+	private ArrayList<Person> employees = new ArrayList<Person>();
+	private Item productToUse = new Item(new Product("Cow", 0, 10), 500);
+	private Item productToSell = new Item(new Product("Beef patty", 1, 20), 0);
 	
 	private String partyType;
 	private float money;
 	private float expenses;
 	private int actionPoints;
 	private int resources;
-	private int productToSell;
+	//private int productToSell;
 	
 	//private int locationX;
 	//private int locationY;
 	
-	private String productName;
+	//private String productName;
 	
 	public Party() {
-		setPartyType("Example Party");
-		setProductName("Example product");
+		setPartyType("Jimbo's Beef");
 		setMoney(50000);
-		setActionPoints(10);
-		setExpenses(2);
-		
-
+		//setProductName("Example product");
+		//setActionPoints(10);
+		//setExpenses(2);
 	}
 
 	public String getPartyType() {
@@ -60,6 +60,7 @@ public class Party implements ITrader {
 		this.expenses = expenses;
 	}
 
+	/*
 	public String getProductName() {
 		return productName;
 	}
@@ -67,6 +68,7 @@ public class Party implements ITrader {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+	*/
 
 	public int getResources() {
 		return resources;
@@ -77,20 +79,21 @@ public class Party implements ITrader {
 	}
 
 	public ArrayList<Person> getEmployees() {
-		return Employees;
+		return employees;
 	}
 
 	public void addEmployee(Person employee) {
-		Employees.add(employee);
+		employees.add(employee);
 	}
 	
 	public void removeEmployee(int i) {
-		Employees.remove(i);
+		employees.remove(i);
 	}
 	
-	private void produce() {
-		resources--;
-		productToSell++;
+	public void produce() {
+		productToUse.amount--;
+		productToSell.amount += 10;
+		System.out.println(productToUse.amount + " " + productToSell.amount);
 	}
 
 	public void Buy() {
