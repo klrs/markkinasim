@@ -17,6 +17,7 @@ public class View extends Application implements IView{
 	
 	private IMainMenuController MainMenuController;
 	private ISimulationController SimulationController;
+	private ISimulationOptionsController SimulationOptionsController;
 	private Stage window;
 	private Scene mainMenu,simulation,simulationOptions;
 	private List<Scene> sceneList = new ArrayList<Scene>();
@@ -24,6 +25,7 @@ public class View extends Application implements IView{
 	public void init() {
 		MainMenuController = new MainMenuController(this);
 		SimulationController = new SimulationController(this);
+		SimulationOptionsController = new SimulationOptionsController(this);
 	}
 	
 	@Override
@@ -37,6 +39,7 @@ public class View extends Application implements IView{
 		    loader.setController(SimulationController);
 		    Parent simulationParent = loader.load();
 		    loader = new FXMLLoader(getClass().getResource("SimulationOptionsView.fxml"));
+		    loader.setController(SimulationOptionsController);
 		    Parent simulationOptionsParent = loader.load();
 			/*
 			Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenuView.fxml"));

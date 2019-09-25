@@ -1,5 +1,7 @@
 package otp.markkinasim.view;
 
+import javafx.fxml.FXML;
+
 public class SimulationController implements ISimulationController{
 
 	private IView view;
@@ -8,8 +10,8 @@ public class SimulationController implements ISimulationController{
 		this.view = view;
 	}
 	
-	@Override
-	public void backToMenu() {
+	@FXML
+	private void backToMenu() {
 		view.setScene(0);
 	}
 

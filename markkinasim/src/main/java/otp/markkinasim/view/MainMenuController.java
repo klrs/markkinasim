@@ -1,5 +1,7 @@
 package otp.markkinasim.view;
 
+import javafx.fxml.FXML;
+
 public class MainMenuController implements IMainMenuController{
 	
 	private IView view;
@@ -8,19 +10,18 @@ public class MainMenuController implements IMainMenuController{
 		view = view2;
 	}
 	
-	@Override
-	public void startSimulation() {
+	@FXML
+	private void startSimulation() {
 		view.setScene(1);
 	}
 	
-	@Override
-	public void simulationOptions() {
-		//TODO
-		System.out.println("Simulaation asetukset ei valmis");
+	@FXML
+	private void simulationOptions() {
+		view.setScene(2);
 	}
 	
-	@Override
-	public void exitButton() {
+	@FXML
+	private void exitButton() {
 		System.exit(0);
 	}
 }

@@ -1,8 +1,15 @@
 package otp.markkinasim.model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Party {
 	
-	private String partyType;
+	private StringProperty partyType;
+	private StringProperty partyName;
+	private StringProperty product;
+	private StringProperty resource;
+
 	private float money;
 	private int actionPoints;
 	private int expenses;
@@ -11,13 +18,19 @@ public class Party {
 	private int locationX;
 	private int locationY;
 	
-	private String product;
+	
 	
 	private int primaryResources;
 	
 	public Party() {
-		setPartyType("Example Party");
-		setProduct("Example product");
+		this(null,null,null,null);
+	}
+	public Party(String partyType, String partyName, String product, String resource) {
+		this.partyType = new SimpleStringProperty("partyType");
+		this.partyName = new SimpleStringProperty("partyName");
+		this.product = new SimpleStringProperty("product");
+		this.resource = new SimpleStringProperty("resource");
+		
 		setMoney(50000);
 		setActionPoints(10);
 		setExpenses(2);
@@ -27,12 +40,27 @@ public class Party {
 		setLocationY(0);
 	}
 
-	public String getPartyType() {
-		return partyType;
+	public String getPartyName() {
+		return partyName.get();
 	}
-
+	
+	public String getPartyType() {
+		return partyType.get();
+	}
+	
+	public String getResource() {
+		return resource.get();
+	}
+	public void setResource(String resource) {
+		this.resource.set(resource);
+	}
+	
 	public void setPartyType(String partyType) {
-		this.partyType = partyType;
+		this.partyType.set(partyType);
+	}
+	
+	public void setPartyName(String partyName) {
+		this.partyName.set(partyName);
 	}
 
 	public float getMoney() {
@@ -84,11 +112,11 @@ public class Party {
 	}
 
 	public String getProduct() {
-		return product;
+		return product.get();
 	}
 
 	public void setProduct(String product) {
-		this.product = product;
+		this.product.set(product);
 	}
 
 	public int getPrimaryResources() {
@@ -97,6 +125,21 @@ public class Party {
 
 	public void setPrimaryResources(int primaryResources) {
 		this.primaryResources = primaryResources;
+	}
+	
+	public StringProperty partyTypeProperty() {
+		return partyType;
+	}
+	
+	public StringProperty partyNameProperty() {
+		return partyName;
+	}
+	
+	public StringProperty partyProductProperty() {
+		return product;
+	}
+	public StringProperty partyResourceProperty() {
+		return resource;
 	}
 
 }
