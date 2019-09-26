@@ -2,17 +2,15 @@ package otp.markkinasim.model;
 
 import java.util.ArrayList;
 
-public class Party implements ITrader {
+public class Party extends Trader {
 	
-	private ArrayList<Person> employees = new ArrayList<Person>();
-	private Item productToUse = new Item(new Product("Cow", 0, 10), 500);
-	private Item productToSell = new Item(new Product("Beef patty", 1, 20), 0);
-	
-	private String partyType;
+	private String partyName;
 	private float money;
-	private float expenses;
-	private int actionPoints;
-	private int resources;
+	private ArrayList<Person> employees;
+	private Product productToProduce;
+	//private float expenses;
+	//private int actionPoints;
+	//private int resources;
 	//private int productToSell;
 	
 	//private int locationX;
@@ -20,90 +18,32 @@ public class Party implements ITrader {
 	
 	//private String productName;
 	
-	public Party() {
-		setPartyType("Jimbo's Beef");
-		setMoney(50000);
+	public Party(String partyName, float money, Product productToProduce) {
+		super();
+		this.partyName = partyName;
+		this.money = money;
+		this.productToProduce = productToProduce;
 		//setProductName("Example product");
 		//setActionPoints(10);
 		//setExpenses(2);
 	}
-
-	public String getPartyType() {
-		return partyType;
-	}
-
-	public void setPartyType(String partyType) {
-		this.partyType = partyType;
-	}
-
-	public float getMoney() {
-		return money;
-	}
-
-	public void setMoney(float money) {
-		this.money = money;
-	}
-
-	public int getActionPoints() {
-		return actionPoints;
-	}
-
-	public void setActionPoints(int actionPoints) {
-		this.actionPoints = actionPoints;
-	}
-
-	public float getExpenses() {
-		return expenses;
-	}
-
-	public void setExpenses(int expenses) {
-		this.expenses = expenses;
-	}
-
-	/*
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-	*/
-
-	public int getResources() {
-		return resources;
-	}
-
-	public void setPrimaryResources(int resources) {
-		this.resources = resources;
-	}
-
-	public ArrayList<Person> getEmployees() {
-		return employees;
-	}
-
-	public void addEmployee(Person employee) {
-		employees.add(employee);
-	}
 	
-	public void removeEmployee(int i) {
-		employees.remove(i);
+	public void addToInventory(Product product, int amount) {
+		inventory.put(product, amount);
 	}
 	
 	public void produce() {
-		productToUse.amount--;
-		productToSell.amount += 10;
-		System.out.println(productToUse.amount + " " + productToSell.amount);
+		inventory.forEach((k, v) -> if(k == productToProduce.getProductNeeded()) {});
+		productToProduce.getProductNeeded();
 	}
 
-	public void Buy() {
+	public void buy() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void Sell() {
+	public void sell() {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

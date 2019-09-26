@@ -1,5 +1,5 @@
 package otp.markkinasim.model;
 
-public interface IProduct {
+public class Secretary {
 	
 }
