@@ -1,5 +1,9 @@
 package otp.markkinasim.model;
 
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -10,17 +14,14 @@ public class Party {
 	private StringProperty product;
 	private StringProperty resource;
 
-	private float money;
-	private int actionPoints;
-	private int expenses;
-	private int workForce;
+	private FloatProperty money;
+	private IntegerProperty actionPoints;
+	private IntegerProperty expenses;
+	private IntegerProperty workForce;
+	private IntegerProperty primaryResources;
 	
 	private int locationX;
 	private int locationY;
-	
-	
-	
-	private int primaryResources;
 	
 	public Party() {
 		this(null,null,null,null);
@@ -31,13 +32,11 @@ public class Party {
 		this.product = new SimpleStringProperty("product");
 		this.resource = new SimpleStringProperty("resource");
 		
-		setMoney(50000);
-		setActionPoints(10);
-		setExpenses(2);
-		setWorkForce(1);
-		
-		setLocationX(0);
-		setLocationY(0);
+		this.money = new SimpleFloatProperty(50000);
+		this.actionPoints = new SimpleIntegerProperty(10);
+		this.actionPoints = new SimpleIntegerProperty(10);
+		this.expenses = new SimpleIntegerProperty(2);
+		this.workForce = new SimpleIntegerProperty(1);
 	}
 
 	public String getPartyName() {
@@ -64,35 +63,35 @@ public class Party {
 	}
 
 	public float getMoney() {
-		return money;
+		return money.get();
 	}
 
 	public void setMoney(float money) {
-		this.money = money;
+		this.money.set(money);
 	}
 
 	public int getActionPoints() {
-		return actionPoints;
+		return actionPoints.get();
 	}
 
 	public void setActionPoints(int actionPoints) {
-		this.actionPoints = actionPoints;
+		this.actionPoints.set(actionPoints);
 	}
 
 	public int getExpenses() {
-		return expenses;
+		return expenses.get();
 	}
 
 	public void setExpenses(int expenses) {
-		this.expenses = expenses;
+		this.expenses.set(expenses);
 	}
 
 	public int getWorkForce() {
-		return workForce;
+		return workForce.get();
 	}
 
 	public void setWorkForce(int workForce) {
-		this.workForce = workForce;
+		this.workForce.set(workForce);
 	}
 
 	public int getLocationX() {
@@ -120,11 +119,11 @@ public class Party {
 	}
 
 	public int getPrimaryResources() {
-		return primaryResources;
+		return primaryResources.get();
 	}
 
 	public void setPrimaryResources(int primaryResources) {
-		this.primaryResources = primaryResources;
+		this.primaryResources.set(primaryResources);
 	}
 	
 	public StringProperty partyTypeProperty() {
@@ -141,5 +140,10 @@ public class Party {
 	public StringProperty partyResourceProperty() {
 		return resource;
 	}
-
+	public FloatProperty partyMoneyProperty() {
+		return money;
+	}
+	public IntegerProperty partyWorkForceProperty() {
+		return workForce;
+	}
 }

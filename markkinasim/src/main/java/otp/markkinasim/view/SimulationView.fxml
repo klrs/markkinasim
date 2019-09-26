@@ -1,15 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <Button mnemonicParsing="false" onAction="#backToMenu" text="Back" BorderPane.alignment="CENTER" />
-         </center>
-      </BorderPane>
+      <Pane layoutX="138.0" layoutY="122.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="771.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <TableView layoutX="15.0" layoutY="46.0" prefHeight="319.0" prefWidth="771.0">
+              <columns>
+                <TableColumn prefWidth="90.0" text="Tyyppi" />
+                <TableColumn prefWidth="90.0" text="Taho" />
+                  <TableColumn prefWidth="90.0" text="Resurssi" />
+                  <TableColumn prefWidth="90.0" text="Tuote" />
+                  <TableColumn prefWidth="90.0" text="Työntekijät" />
+                  <TableColumn prefWidth="90.0" text="Rahat" />
+                  <TableColumn prefWidth="190.0" text="Tuotto/Kierros" />
+              </columns>
+               <padding>
+                  <Insets left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </TableView>
+            <ToolBar layoutX="14.0" layoutY="365.0" prefHeight="45.0" prefWidth="771.0">
+              <items>
+                <Button mnemonicParsing="false" text="Muokkaa" />
+              </items>
+            </ToolBar>
+            <Button layoutX="662.0" layoutY="556.0" mnemonicParsing="false" text="Seuraava kierros" />
+            <Button layoutX="611.0" layoutY="556.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
+            <TableView layoutX="14.0" layoutY="410.0" prefHeight="92.0" prefWidth="285.0">
+              <columns>
+                <TableColumn prefWidth="95.0" text="Poppulaatio" />
+                <TableColumn prefWidth="95.0" text="Töissä" />
+                  <TableColumn prefWidth="95.0" text="Työttömät" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

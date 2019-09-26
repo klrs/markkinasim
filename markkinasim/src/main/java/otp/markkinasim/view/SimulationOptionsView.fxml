@@ -10,36 +10,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otp.markkinasim.view.SimulationOptionsController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ButtonBar layoutX="507.0" layoutY="546.0" prefHeight="40.0" prefWidth="200.0">
+            <ButtonBar layoutX="488.0" layoutY="546.0" prefHeight="40.0" prefWidth="284.0">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#backToMenu" text="Tallenna" />
+                <Button mnemonicParsing="false" onAction="#backToMenu" prefHeight="31.0" prefWidth="87.0" text="Tallenna" />
                   <Button mnemonicParsing="false" onAction="#backToMenu" text="Ok" />
                   <Button mnemonicParsing="false" onAction="#backToMenu" text="Peruuta" />
               </buttons>
             </ButtonBar>
-            <ButtonBar layoutX="507.0" layoutY="458.0" prefHeight="40.0" prefWidth="265.0">
+            <ButtonBar layoutX="488.0" layoutY="458.0" prefHeight="40.0" prefWidth="284.0">
                <buttons>
-                  <Button mnemonicParsing="false" prefWidth="126.0" text="Lisää" />
+                  <Button mnemonicParsing="false" prefWidth="126.0" text="Lisää" onAction="#handleNewParty" />
                   <Button mnemonicParsing="false" text="Muokkaa" />
                   <Button mnemonicParsing="false" onAction="#handleDeleteParty" text="Poista" />
                </buttons>
             </ButtonBar>
-            <Label layoutX="400.0" layoutY="15.0" prefHeight="32.0" prefWidth="335.0" text="Simuloinnissa käytettävät tahot." />
-            <Label layoutX="29.0" layoutY="22.0" prefHeight="17.0" prefWidth="110.0" text="Simuloinnin pituus:" />
-            <TextField layoutX="139.0" layoutY="18.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulointi kierrosten määrä" />
-            <Label layoutX="64.0" layoutY="50.0" prefHeight="17.0" prefWidth="75.0" text="Populaation:" />
-            <TextField layoutX="139.0" layoutY="46.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulaation person määrä" />
-            <TableView fx:id="partyTable" layoutX="399.0" layoutY="46.0" prefHeight="403.0" prefWidth="373.0">
+            <Label layoutX="381.0" layoutY="17.0" prefHeight="32.0" prefWidth="335.0" text="Simuloinnissa käytettävät tahot." />
+            <Label layoutX="42.0" layoutY="23.0" prefHeight="21.0" prefWidth="132.0" text="Simuloinnin pituus:" />
+            <TextField layoutX="177.0" layoutY="18.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulointi kierrosten määrä" />
+            <Label layoutX="84.0" layoutY="61.0" prefHeight="21.0" prefWidth="90.0" text="Populaation:" />
+            <TextField layoutX="177.0" layoutY="56.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulaation person määrä" />
+            <TableView fx:id="partyTable" layoutX="381.0" layoutY="46.0" prefHeight="403.0" prefWidth="391.0">
               <columns>
                 <TableColumn fx:id="partyType" prefWidth="75.0" text="Tyyppi" />
                 <TableColumn fx:id="partyName" prefWidth="75.0" text="Nimi" />
                   <TableColumn fx:id="partyResource" prefWidth="75.0" text="Resurssi" />
                   <TableColumn fx:id="partyProduct" prefWidth="75.0" text="Tuote" />
-                  <TableColumn fx:id="partyPersons" prefWidth="75.0" text="Työntekijät" />
+                  <TableColumn fx:id="partyPersons" prefWidth="90.0" text="Työntekijät" />
               </columns>
             </TableView>
          </children>

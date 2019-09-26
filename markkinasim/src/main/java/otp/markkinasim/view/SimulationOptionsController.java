@@ -50,11 +50,11 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	}
 	
 	@FXML
-    private void handleNewPerson() {
+    private void handleNewParty() {
         Party tempParty = new Party();
-        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+        boolean okClicked = view.showPartyEditDialog(tempParty);
         if (okClicked) {
-            mainApp.getPersonData().add(tempPerson);
+            view.getPartyData().add(tempParty);
         }
     }
 	
@@ -67,9 +67,9 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	            // Nothing selected.
 	            Alert alert = new Alert(AlertType.WARNING);
 	            alert.initOwner(view.getPrimaryStage());
-	            alert.setTitle("No Selection");
-	            alert.setHeaderText("No Person Selected");
-	            alert.setContentText("Please select a person in the table.");
+	            alert.setTitle("Ei valintaa!");
+	            alert.setHeaderText("Tahoa ei ole valittu.");
+	            alert.setContentText("Valitse taho taulukosta.");
 
 	            alert.showAndWait();
 	        }
