@@ -6,7 +6,7 @@ import java.util.Map;
 public abstract class Trader {
 	private Secretary secretary;
 	
-	protected Map<Product, Integer> inventory;
+	protected ArrayList<Item> inventory;
 	protected ArrayList<Item> sellables;
 	
 	public Trader() {

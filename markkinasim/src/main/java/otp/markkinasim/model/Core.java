@@ -36,9 +36,10 @@ public class Core {
 		personList.add(new Person());
 		
 		productList.add(new Product("Cow"));
-		productList.add(new Product("Beef patty", productList.get(0)));	//INDEX????
+		productList.add(new Product("Beef patty", 0));	//INDEX????
 		
 		partyList.add(new Party("Jimbo's Beef", 1000.0f, productList.get(1)));
+		System.out.println(partyList.get(0));
 		partyList.get(0).addToInventory(productList.get(0), 10);
 	}
 	

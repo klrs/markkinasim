@@ -2,8 +2,10 @@ package otp.markkinasim.model;
 
 import java.util.ArrayList;
 
-public class Party extends Trader {
+public class Party {
 	
+	private Inventory inventory;
+	private ArrayList<Item> sellables;
 	private String partyName;
 	private float money;
 	private ArrayList<Person> employees;
@@ -29,12 +31,31 @@ public class Party extends Trader {
 	}
 	
 	public void addToInventory(Product product, int amount) {
-		inventory.put(product, amount);
+		try {
+			inventory.add(new Item(product, amount));
+		}
+		catch(InvalidParametersException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public void produce() {
-		inventory.forEach((k, v) -> if(k == productToProduce.getProductNeeded()) {});
-		productToProduce.getProductNeeded();
+		if(checkProducable(productToProduce)) {
+			Item item = inventory.search(productToProduce.id);
+			try {
+				item.subtractAmount(1);
+				inventory.add(new Item(productToProduce, 1));
+			}
+			catch(InvalidParametersException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		else {
+			System.out.println("Too few resources to produce!");
+		}
+	}
+	private boolean checkProducable(Product productToProduce) {
+		if(inventory.search(productToProduce.id) != null) { return true; } else { return false; }
 	}
 
 	public void buy() {
