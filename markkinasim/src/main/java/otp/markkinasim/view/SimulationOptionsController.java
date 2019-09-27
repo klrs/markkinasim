@@ -58,6 +58,24 @@ public class SimulationOptionsController implements ISimulationOptionsController
         }
     }
 	
+    @FXML
+    private void handleEditParty() {
+        Party selectedParty = partyTable.getSelectionModel().getSelectedItem();
+        if (selectedParty != null) {
+            boolean okClicked = view.showPartyEditDialog(selectedParty);
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(view.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Party Selected");
+            alert.setContentText("Please select a party in the table.");
+
+            alert.showAndWait();
+        }
+    }
+	
 	@FXML
 	private void handleDeleteParty() {
 	        int selectedIndex = partyTable.getSelectionModel().getSelectedIndex();

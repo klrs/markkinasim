@@ -23,8 +23,8 @@
             </ButtonBar>
             <ButtonBar layoutX="488.0" layoutY="458.0" prefHeight="40.0" prefWidth="284.0">
                <buttons>
-                  <Button mnemonicParsing="false" prefWidth="126.0" text="Lisää" onAction="#handleNewParty" />
-                  <Button mnemonicParsing="false" text="Muokkaa" />
+                  <Button mnemonicParsing="false" onAction="#handleNewParty" prefWidth="126.0" text="Lisää" />
+                  <Button mnemonicParsing="false" onAction="#handleEditParty" text="Muokkaa" />
                   <Button mnemonicParsing="false" onAction="#handleDeleteParty" text="Poista" />
                </buttons>
             </ButtonBar>
