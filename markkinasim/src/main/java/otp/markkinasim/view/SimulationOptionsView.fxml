@@ -16,30 +16,31 @@
          <children>
             <ButtonBar layoutX="488.0" layoutY="546.0" prefHeight="40.0" prefWidth="284.0">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#backToMenu" prefHeight="31.0" prefWidth="87.0" text="Tallenna" />
-                  <Button mnemonicParsing="false" onAction="#backToMenu" text="Ok" />
-                  <Button mnemonicParsing="false" onAction="#backToMenu" text="Peruuta" />
+                <Button mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" prefWidth="87.0" text="Tallenna" />
+                  <Button mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="Ok" />
+                  <Button mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="Peruuta" />
               </buttons>
             </ButtonBar>
-            <ButtonBar layoutX="488.0" layoutY="458.0" prefHeight="40.0" prefWidth="284.0">
+            <ButtonBar layoutX="361.0" layoutY="449.0" prefHeight="40.0" prefWidth="421.0">
                <buttons>
                   <Button mnemonicParsing="false" onAction="#handleNewParty" prefWidth="126.0" text="Lisää" />
                   <Button mnemonicParsing="false" onAction="#handleEditParty" text="Muokkaa" />
                   <Button mnemonicParsing="false" onAction="#handleDeleteParty" text="Poista" />
                </buttons>
             </ButtonBar>
-            <Label layoutX="381.0" layoutY="17.0" prefHeight="32.0" prefWidth="335.0" text="Simuloinnissa käytettävät tahot." />
+            <Label layoutX="361.0" layoutY="15.0" prefHeight="32.0" prefWidth="411.0" text="Simuloinnissa käytettävät tahot." />
             <Label layoutX="42.0" layoutY="23.0" prefHeight="21.0" prefWidth="132.0" text="Simuloinnin pituus:" />
             <TextField layoutX="177.0" layoutY="18.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulointi kierrosten määrä" />
             <Label layoutX="84.0" layoutY="61.0" prefHeight="21.0" prefWidth="90.0" text="Populaation:" />
             <TextField layoutX="177.0" layoutY="56.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulaation person määrä" />
-            <TableView fx:id="partyTable" layoutX="381.0" layoutY="46.0" prefHeight="403.0" prefWidth="391.0">
+            <TableView fx:id="partyTable" layoutX="361.0" layoutY="46.0" prefHeight="403.0" prefWidth="421.0">
               <columns>
-                <TableColumn fx:id="partyType" prefWidth="75.0" text="Tyyppi" />
-                <TableColumn fx:id="partyName" prefWidth="75.0" text="Nimi" />
-                  <TableColumn fx:id="partyResource" prefWidth="75.0" text="Resurssi" />
-                  <TableColumn fx:id="partyProduct" prefWidth="75.0" text="Tuote" />
-                  <TableColumn fx:id="partyPersons" prefWidth="90.0" text="Työntekijät" />
+                <TableColumn fx:id="partyType" prefWidth="70.0" text="Tyyppi" />
+                <TableColumn fx:id="partyName" prefWidth="70.0" text="Nimi" />
+                  <TableColumn fx:id="partyResource" prefWidth="70.0" text="Resurssi" />
+                  <TableColumn fx:id="partyProduct" prefWidth="70.0" text="Tuote" />
+                  <TableColumn fx:id="partyPersons" prefWidth="70.0" text="Työntekijät" />
+                  <TableColumn fx:id="partyMoney" prefWidth="70.0" text="Rahat" />
               </columns>
             </TableView>
          </children>

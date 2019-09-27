@@ -1,6 +1,6 @@
 package otp.markkinasim.model;
 
-public class Person implements IPerson {
+public class Person {
 
 	private double money;
 	private double salary;

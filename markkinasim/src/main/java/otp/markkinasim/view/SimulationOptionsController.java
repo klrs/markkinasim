@@ -21,7 +21,9 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	@FXML
 	private TableColumn<Party, String> partyProduct;
 	@FXML
-	private TableColumn<Party, String> partyPersons;
+	private TableColumn<Party, Number> partyPersons;
+	@FXML
+	private TableColumn<Party, Number> partyMoney;
 	
 	//constructor
 	public SimulationOptionsController(View view) {
@@ -31,7 +33,7 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	//inits
 	@FXML
     private void initialize() {
-        // Initialize the party table with the four columns.
+        // Initialize the party table with the five columns.
 		partyType.setCellValueFactory(
                 cellData -> cellData.getValue().partyTypeProperty());
 		partyName.setCellValueFactory(
@@ -41,7 +43,13 @@ public class SimulationOptionsController implements ISimulationOptionsController
 		partyProduct.setCellValueFactory(
                 cellData -> cellData.getValue().partyProductProperty());
 		partyPersons.setCellValueFactory(
-                cellData -> cellData.getValue().partyNameProperty());
+                cellData -> cellData.getValue().partyWorkForceProperty());
+		partyMoney.setCellValueFactory(
+                cellData -> cellData.getValue().partyMoneyProperty());
+		
+	/*partyTable.getSelectionModel().selectedItemProperty().addListener(
+	            (observable, oldValue, newValue) -> showPersonDetails(newValue));*/
+		partyTable.setItems(view.getPartyData());
 	}
 	
 	@FXML
@@ -68,9 +76,9 @@ public class SimulationOptionsController implements ISimulationOptionsController
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(view.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Party Selected");
-            alert.setContentText("Please select a party in the table.");
+            alert.setTitle("Ei valintaa");
+            alert.setHeaderText("Tahoa ei ole valitty.");
+            alert.setContentText("Valitse taho taulukosta.");
 
             alert.showAndWait();
         }
@@ -85,7 +93,7 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	            // Nothing selected.
 	            Alert alert = new Alert(AlertType.WARNING);
 	            alert.initOwner(view.getPrimaryStage());
-	            alert.setTitle("Ei valintaa!");
+	            alert.setTitle("Ei valintaa");
 	            alert.setHeaderText("Tahoa ei ole valittu.");
 	            alert.setContentText("Valitse taho taulukosta.");
 
