@@ -27,10 +27,10 @@ public class Party {
 		this(null,null,null,null);
 	}
 	public Party(String partyType, String partyName, String product, String resource) {
-		this.partyType = new SimpleStringProperty("partyType");
-		this.partyName = new SimpleStringProperty("partyName");
-		this.product = new SimpleStringProperty("product");
-		this.resource = new SimpleStringProperty("resource");
+		this.partyType = new SimpleStringProperty(partyType);
+		this.partyName = new SimpleStringProperty(partyName);
+		this.product = new SimpleStringProperty(product);
+		this.resource = new SimpleStringProperty(resource);
 		
 		this.money = new SimpleFloatProperty(50000);
 		this.actionPoints = new SimpleIntegerProperty(10);

@@ -13,7 +13,7 @@ public class PartyEditDialogController {
 	private Stage dialogStage;
     private Party party;
     private boolean okClicked = false;
-    
+    private IView view;
     @FXML
     private ChoiceBox<String> partyTypeChoice;
     @FXML
@@ -33,15 +33,16 @@ public class PartyEditDialogController {
   		partyTypeChoice.getItems().addAll("Raaka-aine","Jalostus");
   	}
   	
+  	public void setView(View view) {
+  		this.view = view;
+  	}
 	public Stage getDialogStage() {
 		return dialogStage;
 	}
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
-	public Party getParty() {
-		return party;
-	}
+	
 	public void setParty(Party party) {
 		this.party = party;
 		

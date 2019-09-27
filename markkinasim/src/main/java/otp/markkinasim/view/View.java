@@ -19,6 +19,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import otp.markkinasim.model.Party;
+import otp.markkinasim.model.Product;
+import otp.markkinasim.model.Rawmaterial;
 
 public class View extends Application implements IView{
 	
@@ -30,6 +32,8 @@ public class View extends Application implements IView{
 	private Scene mainMenu,simulation,simulationOptions;
 	private List<Scene> sceneList = new ArrayList<Scene>();
 	private ObservableList<Party> partyData = FXCollections.observableArrayList();
+	private ObservableList<Product> productData = FXCollections.observableArrayList();
+	private ObservableList<Rawmaterial> rawmaterialData = FXCollections.observableArrayList();
 	
 	public void init() {
 		MainMenuController = new MainMenuController(this);
@@ -77,13 +81,20 @@ public class View extends Application implements IView{
 
 	@Override
 	public Window getPrimaryStage() {
-		// TODO Auto-generated method stub
 		return window;
 	}
 	
 	@Override
 	public ObservableList<Party> getPartyData() {
 		return partyData;
+	}
+	@Override
+	public ObservableList<Product> getProductData() {
+		return productData;
+	}
+	@Override
+	public ObservableList<Rawmaterial> getRawmaterialData() {
+		return rawmaterialData;
 	}
 	
 	@Override
@@ -117,4 +128,66 @@ public class View extends Application implements IView{
         }
     }
 	
+	@Override
+    public boolean showProductEditDialog(Product product) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(View.class.getResource("ProductEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Product");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(window);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            ProductEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setProduct(product);
+            controller.setRawmaterials(rawmaterialData);
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+	
+	@Override
+    public boolean showRawmaterialEditDialog(Rawmaterial rawmaterial) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(View.class.getResource("RawmaterialEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Rawmaterial");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(window);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            RawmaterialEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setRawmaterial(rawmaterial);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
+

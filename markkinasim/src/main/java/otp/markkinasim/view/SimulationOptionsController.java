@@ -1,11 +1,14 @@
 package otp.markkinasim.view;
 
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import otp.markkinasim.model.Party;
+import otp.markkinasim.model.Product;
+import otp.markkinasim.model.Rawmaterial;
 
 public class SimulationOptionsController implements ISimulationOptionsController {
 	
@@ -24,6 +27,22 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	private TableColumn<Party, Number> partyPersons;
 	@FXML
 	private TableColumn<Party, Number> partyMoney;
+	@FXML
+	private TableView<Product> productTable;
+	@FXML
+	private TableColumn<Product, String> productName;
+	@FXML
+	private TableColumn<Product, String> productRawmaterial;
+	@FXML
+	private TableColumn<Product, Number> productRawmaterialNeeded;
+	@FXML
+	private TableView<Rawmaterial> rawmaterialTable;
+	@FXML
+	private TableColumn<Rawmaterial, String> rawmaterialName;
+	@FXML
+	private TableColumn<Rawmaterial, String> rawmaterialSource;
+	@FXML
+	private TableColumn<Rawmaterial, Number> rawmaterialSourcePool;
 	
 	//constructor
 	public SimulationOptionsController(View view) {
@@ -46,10 +65,23 @@ public class SimulationOptionsController implements ISimulationOptionsController
                 cellData -> cellData.getValue().partyWorkForceProperty());
 		partyMoney.setCellValueFactory(
                 cellData -> cellData.getValue().partyMoneyProperty());
-		
-	/*partyTable.getSelectionModel().selectedItemProperty().addListener(
-	            (observable, oldValue, newValue) -> showPersonDetails(newValue));*/
 		partyTable.setItems(view.getPartyData());
+		
+		rawmaterialName.setCellValueFactory(
+				cellData -> cellData.getValue().rawmaterialNameProperty());
+		rawmaterialSource.setCellValueFactory(
+				cellData -> cellData.getValue().rawmaterialSourceProperty());
+		rawmaterialSourcePool.setCellValueFactory(
+				cellData -> cellData.getValue().rawmaterialSourcePoolProperty());
+		rawmaterialTable.setItems(view.getRawmaterialData());
+		
+		productName.setCellValueFactory(
+				cellData -> cellData.getValue().productNameProperty());
+		productRawmaterial.setCellValueFactory(
+				cellData -> cellData.getValue().rawmaterialNameProperty());
+		productRawmaterialNeeded.setCellValueFactory(
+				cellData -> cellData.getValue().rawmaterialNeededProperty());
+		productTable.setItems(view.getProductData());
 	}
 	
 	@FXML
@@ -96,6 +128,106 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	            alert.setTitle("Ei valintaa");
 	            alert.setHeaderText("Tahoa ei ole valittu.");
 	            alert.setContentText("Valitse taho taulukosta.");
+
+	            alert.showAndWait();
+	        }
+	    }
+	@FXML
+    private void handleNewRawmaterial() {
+        Rawmaterial tempRawmaterial = new Rawmaterial();
+        boolean okClicked = view.showRawmaterialEditDialog(tempRawmaterial);
+        if (okClicked) {
+            view.getRawmaterialData().add(tempRawmaterial);
+        }
+    }
+	
+    @FXML
+    private void handleEditRawmaterial() {
+        Rawmaterial selectedRawmaterial = rawmaterialTable.getSelectionModel().getSelectedItem();
+        if (selectedRawmaterial != null) {
+            boolean okClicked = view.showRawmaterialEditDialog(selectedRawmaterial);
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(view.getPrimaryStage());
+            alert.setTitle("Ei valintaa");
+            alert.setHeaderText("Raaka-ainetta ei ole valittu.");
+            alert.setContentText("Valitse raaka-aine taulukosta.");
+
+            alert.showAndWait();
+        }
+    }
+	
+	@FXML
+	private void handleDeleteRawmaterial() {
+	        int selectedIndex = rawmaterialTable.getSelectionModel().getSelectedIndex();
+	        if (selectedIndex >= 0) {
+	            rawmaterialTable.getItems().remove(selectedIndex);
+	        } else {
+	            // Nothing selected.
+	            Alert alert = new Alert(AlertType.WARNING);
+	            alert.initOwner(view.getPrimaryStage());
+	            alert.setTitle("Ei valintaa");
+	            alert.setHeaderText("Raaka-ainetta ei ole valittu.");
+	            alert.setContentText("Valitse raaka-aine taulukosta.");
+
+	            alert.showAndWait();
+	        }
+	    }
+	
+	@FXML
+    private void handleNewProduct() {
+		if(!view.getRawmaterialData().isEmpty()) {
+			
+			Product tempProduct = new Product();
+        	boolean okClicked = view.showProductEditDialog(tempProduct);
+		
+        	if (okClicked) {
+            	view.getProductData().add(tempProduct);
+        	}
+		}else {
+   		 // No rawmaterials.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(view.getPrimaryStage());
+            alert.setTitle("Ei raaka-aineita");
+            alert.setHeaderText("Ei raaka-aineita.");
+            alert.setContentText("Luo vähintään yksi raaka-aine ennen kuin luot tuotteen.");
+
+            alert.showAndWait();
+    	}
+    }
+	
+    @FXML
+    private void handleEditProduct() {
+    	Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
+        if (selectedProduct != null) {
+            boolean okClicked = view.showProductEditDialog(selectedProduct);
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(view.getPrimaryStage());
+            alert.setTitle("Ei valintaa");
+            alert.setHeaderText("Tuotetta ei ole valittu.");
+            alert.setContentText("Valitse tuote taulukosta.");
+
+            alert.showAndWait();
+        }
+    }
+	
+	@FXML
+	private void handleDeleteProduct() {
+	        int selectedIndex = productTable.getSelectionModel().getSelectedIndex();
+	        if (selectedIndex >= 0) {
+	        	productTable.getItems().remove(selectedIndex);
+	        } else {
+	            // Nothing selected.
+	            Alert alert = new Alert(AlertType.WARNING);
+	            alert.initOwner(view.getPrimaryStage());
+	            alert.setTitle("Ei valintaa");
+	            alert.setHeaderText("Tuotetta ei ole valittu.");
+	            alert.setContentText("Valitse tuote taulukosta.");
 
 	            alert.showAndWait();
 	        }

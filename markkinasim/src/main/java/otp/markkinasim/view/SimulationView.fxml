@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane layoutX="138.0" layoutY="122.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="771.0">
+            <MenuBar layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="993.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -33,7 +33,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <TableView layoutX="15.0" layoutY="46.0" prefHeight="319.0" prefWidth="771.0">
+            <TableView layoutX="15.0" layoutY="46.0" prefHeight="319.0" prefWidth="993.0">
               <columns>
                 <TableColumn prefWidth="90.0" text="Tyyppi" />
                 <TableColumn prefWidth="90.0" text="Taho" />
@@ -44,13 +44,13 @@
                   <TableColumn prefWidth="105.0" text="Tuotto/Kierros" />
               </columns>
             </TableView>
-            <ToolBar layoutX="14.0" layoutY="365.0" prefHeight="45.0" prefWidth="771.0">
+            <ToolBar layoutX="14.0" layoutY="365.0" prefHeight="45.0" prefWidth="993.0">
               <items>
                 <Button mnemonicParsing="false" text="Muokkaa" />
               </items>
             </ToolBar>
-            <Button layoutX="662.0" layoutY="556.0" mnemonicParsing="false" text="Seuraava kierros" />
-            <Button layoutX="611.0" layoutY="556.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
+            <Button layoutX="904.0" layoutY="554.0" mnemonicParsing="false" text="Seuraava kierros" />
+            <Button layoutX="853.0" layoutY="554.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
             <TableView layoutX="14.0" layoutY="410.0" prefHeight="92.0" prefWidth="285.0">
               <columns>
                 <TableColumn prefWidth="95.0" text="Poppulaatio" />
