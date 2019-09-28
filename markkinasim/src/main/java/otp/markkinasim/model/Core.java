@@ -1,5 +1,6 @@
 package otp.markkinasim.model;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -40,7 +41,12 @@ public class Core {
 		
 		partyList.add(new Party("Jimbo's Beef", 1000.0f, productList.get(1)));
 		System.out.println(partyList.get(0));
-		partyList.get(0).addToInventory(productList.get(0), 10);
+		
+		try {
+			partyList.get(0).addToInventory(productList.get(0), 10);
+		} catch (InvalidParameterException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public void start() {

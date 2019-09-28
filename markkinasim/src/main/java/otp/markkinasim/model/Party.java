@@ -1,5 +1,6 @@
 package otp.markkinasim.model;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 public class Party {
@@ -30,13 +31,8 @@ public class Party {
 		//setExpenses(2);
 	}
 	
-	public void addToInventory(Product product, int amount) {
-		try {
-			inventory.add(new Item(product, amount));
-		}
-		catch(InvalidParametersException e) {
-			System.out.println(e.getMessage());
-		}
+	public void addToInventory(Product product, int amount) throws InvalidParameterException {
+		inventory.add(new Item(product, amount));
 	}
 	
 	public void produce() {
@@ -46,7 +42,7 @@ public class Party {
 				item.subtractAmount(1);
 				inventory.add(new Item(productToProduce, 1));
 			}
-			catch(InvalidParametersException e) {
+			catch(InvalidParameterException e) {
 				System.out.println(e.getMessage());
 			}
 		}
@@ -55,6 +51,8 @@ public class Party {
 		}
 	}
 	private boolean checkProducable(Product productToProduce) {
+		//Testaa onko Product tuotettavissa vertaamalla sitä inventoryssä oleviin itemeihin.
+		//HUOM. TOIMII VAIN YHDELLÄ PRODUCTILLA. EI LISTOILLA. MUUTA?
 		if(inventory.search(productToProduce.id) != null) { return true; } else { return false; }
 	}
 
