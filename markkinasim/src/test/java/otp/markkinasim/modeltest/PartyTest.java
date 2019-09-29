@@ -31,11 +31,4 @@ class PartyTest {
 			party.addToInventory(productNeeded, -100);
 		});
 	}
-	
-	@Test
-	public void testInventoryAddSuccess() {
-		assertEquals(InvalidParameterException.class, () -> {
-			party.addToInventory(productNeeded, -100);
-		});
-	}
 }

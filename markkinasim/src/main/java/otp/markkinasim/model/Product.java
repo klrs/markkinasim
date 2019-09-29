@@ -3,7 +3,7 @@ package otp.markkinasim.model;
 import java.util.ArrayList;
 
 public class Product {
-	public static int nextId = 0;
+	public static int nextId = 0;	//ID JÄRJESTELMÄ AINA OLIOTA ILMENNETTÄESSÄ. KTS. CONSTRUCTOR.
 	public final int id;
 	
 	private String productName;
@@ -15,7 +15,7 @@ public class Product {
 		nextId++;
 		
 		this.productName = productName;
-		this.productNeededId = -1; //MIGHT CAUSE PROBLEMS?
+		this.productNeededId = -1; //SAATTAA AIHEUTTAA ONGELMIA!!
 	}
 	public Product(String productName, ArrayList<Product> productsNeeded) {
 		id = nextId;
@@ -34,5 +34,8 @@ public class Product {
 	}
 	public int getProductNeededId() {
 		return productNeededId;
+	}
+	public String getProductName() {
+		return productName;
 	}
 }

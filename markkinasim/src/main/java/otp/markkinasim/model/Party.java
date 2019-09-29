@@ -4,65 +4,42 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 public class Party {
+	//party elikkä kaupankäyntiä harrastava taho
 	
-	private Inventory inventory;
-	private ArrayList<Item> sellables;
-	private String partyName;
-	private float money;
-	private ArrayList<Person> employees;
-	private Product productToProduce;
-	//private float expenses;
-	//private int actionPoints;
-	//private int resources;
-	//private int productToSell;
-	
-	//private int locationX;
-	//private int locationY;
-	
-	//private String productName;
+	protected Inventory inventory;
+	protected ArrayList<Item> sellables;	//Myytävät productit -lista. EI KÄYTTÖÄ VIELÄ. TODO TODO TODO
+	protected String partyName;
+	protected float money;
+	protected ArrayList<Person> employees;	//TODO TODO
+	protected Product productToProduce;		//TUOTETTAVA TUOTE. TÄLLÄ HETKELLÄ PARTYT TUOTTAVAT VAIN YHTÄ TUOTETTA
 	
 	public Party(String partyName, float money, Product productToProduce) {
-		super();
+		inventory = new Inventory();
 		this.partyName = partyName;
 		this.money = money;
 		this.productToProduce = productToProduce;
-		//setProductName("Example product");
-		//setActionPoints(10);
-		//setExpenses(2);
+	}
+	public String getPartyName() {
+		return partyName;
 	}
 	
 	public void addToInventory(Product product, int amount) throws InvalidParameterException {
+		//LISÄÄ INVENTORYYN PRODUCTIN JA MÄÄRÄN WRAPPAAMALLA SEN ENSIN ITEM-OLIOON.
+		//MUISTA KÄSITELLÄ InvalidParameterException!!!!!
 		inventory.add(new Item(product, amount));
 	}
 	
 	public void produce() {
-		if(checkProducable(productToProduce)) {
-			Item item = inventory.search(productToProduce.id);
-			try {
-				item.subtractAmount(1);
-				inventory.add(new Item(productToProduce, 1));
-			}
-			catch(InvalidParameterException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		else {
-			System.out.println("Too few resources to produce!");
-		}
+		//TÄTÄ KUTSUTAAN KERRAN PÄIVÄSSÄ. LISÄÄ YHDEN PRODUCTIN INVENTORYYN.
+		inventory.add(new Item(productToProduce, 1));
 	}
-	private boolean checkProducable(Product productToProduce) {
-		//Testaa onko Product tuotettavissa vertaamalla sitä inventoryssä oleviin itemeihin.
-		//HUOM. TOIMII VAIN YHDELLÄ PRODUCTILLA. EI LISTOILLA. MUUTA?
-		if(inventory.search(productToProduce.id) != null) { return true; } else { return false; }
+	
+	public ArrayList<Item> searchInventory() {
+		//HAE *KAIKKI* ITEMIT INVENTORYSTÄ
+		return inventory.getItemList();
 	}
-
-	public void buy() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void sell() {
-		// TODO Auto-generated method stub
-		
+	public Item searchInventoryItem(int productId) {
+		//HAE TIETTY ITEM INVENTORYSTÄ
+		return inventory.search(productId);
 	}
 }

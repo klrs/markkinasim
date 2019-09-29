@@ -39,11 +39,11 @@ public class Core {
 		productList.add(new Product("Cow"));
 		productList.add(new Product("Beef patty", 0));	//INDEX????
 		
-		partyList.add(new Party("Jimbo's Beef", 1000.0f, productList.get(1)));
-		System.out.println(partyList.get(0));
+		partyList.add(new Manufacturer("Jimbo's Beef", 1000.0f, productList.get(1)));
+		partyList.add(new Party("Cowman", 100, productList.get(0)));
 		
 		try {
-			partyList.get(0).addToInventory(productList.get(0), 10);
+			partyList.get(0).addToInventory(productList.get(0), 3);
 		} catch (InvalidParameterException e) {
 			System.out.println(e.getMessage());
 		}
@@ -53,11 +53,19 @@ public class Core {
 		Scanner scan = new Scanner(System.in);
 		while(true) {
 			day++;
+			System.out.println("Day: " + day);
+
+			for(Party p : partyList) {
+				p.produce();
+				for(Item i : p.searchInventory()) {
+					System.out.println(p.getPartyName() + " inventory: " + i.product.getProductName() + " " + i.amount);
+				}
+				scan.nextLine();
+			}
+			//partyList.get(0).produce();
+
+			//System.out.println(partyList.get(0).searchInventoryItem(1).amount);
 			
-			partyList.get(0).produce();
-			
-			
-			scan.nextLine();
 		}
 	}
 }
