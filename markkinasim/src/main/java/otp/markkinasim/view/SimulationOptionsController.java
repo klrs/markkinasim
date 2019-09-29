@@ -91,11 +91,22 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	
 	@FXML
     private void handleNewParty() {
+		if(!view.getRawmaterialData().isEmpty() && !view.getProductData().isEmpty()) {
         Party tempParty = new Party();
         boolean okClicked = view.showPartyEditDialog(tempParty);
         if (okClicked) {
             view.getPartyData().add(tempParty);
         }
+		}else {
+   		 // No rawmaterials.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(view.getPrimaryStage());
+            alert.setTitle("Ei raaka-aineita tai tuotteita");
+            alert.setHeaderText("Ei raaka-aineita tai tuotteita.");
+            alert.setContentText("Luo vähintään yksi raaka-aine ja tuote ennen kuin luot tahon.");
+
+            alert.showAndWait();
+    	}
     }
 	
     @FXML
@@ -163,7 +174,18 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	private void handleDeleteRawmaterial() {
 	        int selectedIndex = rawmaterialTable.getSelectionModel().getSelectedIndex();
 	        if (selectedIndex >= 0) {
-	            rawmaterialTable.getItems().remove(selectedIndex);
+	        	if(!rawmaterialUsed(rawmaterialTable.getSelectionModel().getSelectedItem())) {
+	        		rawmaterialTable.getItems().remove(selectedIndex);
+	        	}else {
+	        		// Rawmaterial in use
+		            Alert alert = new Alert(AlertType.WARNING);
+		            alert.initOwner(view.getPrimaryStage());
+		            alert.setTitle("Valittu raaka-aine käytössä");
+		            alert.setHeaderText("Käytössä olevaa raaka-ainetta ei voida poistaa.");
+		            alert.setContentText("Poista tuotte/tuotteet, jotka käyttävät raaka-ainetta.");
+
+		            alert.showAndWait();
+	        	}
 	        } else {
 	            // Nothing selected.
 	            Alert alert = new Alert(AlertType.WARNING);
@@ -176,6 +198,24 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	        }
 	    }
 	
+	private boolean rawmaterialUsed(Rawmaterial rawmaterial) {
+		for(Product i:view.getProductData()) {
+			if(i.getRawmaterialName()==rawmaterial.getRawmaterialName()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean productUsed(Product product) {
+		for(Party i:view.getPartyData()) {
+			if(i.getProduct()==product.getProductName()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@FXML
     private void handleNewProduct() {
 		if(!view.getRawmaterialData().isEmpty()) {
@@ -220,7 +260,19 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	private void handleDeleteProduct() {
 	        int selectedIndex = productTable.getSelectionModel().getSelectedIndex();
 	        if (selectedIndex >= 0) {
-	        	productTable.getItems().remove(selectedIndex);
+	        	if(productUsed(productTable.getSelectionModel().getSelectedItem())) {
+	        		productTable.getItems().remove(selectedIndex);
+	        	}else {
+	        		 // Nothing selected.
+		            Alert alert = new Alert(AlertType.WARNING);
+		            alert.initOwner(view.getPrimaryStage());
+		            alert.setTitle("Valittu tuote on käytössä");
+		            alert.setHeaderText("Käytössä olevaa tuotetta ei voida poistaa.");
+		            alert.setContentText("Poista tai muokkaa tahoa/tahoja, jotka käyttävät tuotetta.");
+
+		            alert.showAndWait();
+	        	}
+	        	
 	        } else {
 	            // Nothing selected.
 	            Alert alert = new Alert(AlertType.WARNING);

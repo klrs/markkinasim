@@ -7,6 +7,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import otp.markkinasim.model.Party;
+import otp.markkinasim.model.Product;
+import otp.markkinasim.model.Rawmaterial;
 
 public class PartyEditDialogController {
 	
@@ -66,11 +68,15 @@ public class PartyEditDialogController {
 		partyRawmaterialChoice.getItems().clear();
 		partyProductChoice.getItems().clear();
 		if(partyTypeChoice.getValue()=="Raaka-aine") {
-			partyRawmaterialChoice.getItems().addAll("Rautamalmi","Karja");
-	  		partyProductChoice.getItems().addAll("Rauta","Liha");
+			for(Rawmaterial i: view.getRawmaterialData()) {
+				partyRawmaterialChoice.getItems().add(i.getRawmaterialSource());
+				partyProductChoice.getItems().add(i.getRawmaterialName());
+			}					
 		}else if(partyTypeChoice.getValue()=="Jalostus") {
-			partyRawmaterialChoice.getItems().addAll("Rauta","Liha");
-	  		partyProductChoice.getItems().addAll("Teräs","Pihvi");
+			for(Product i: view.getProductData()) {
+				partyRawmaterialChoice.getItems().add(i.getRawmaterialName());
+	  			partyProductChoice.getItems().add(i.getProductName());
+			}
 		}
 	}
 	

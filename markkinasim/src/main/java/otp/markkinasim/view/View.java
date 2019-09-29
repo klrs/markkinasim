@@ -117,6 +117,7 @@ public class View extends Application implements IView{
             PartyEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setParty(party);
+            controller.setView(this);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
