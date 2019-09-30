@@ -1,30 +1,31 @@
 package otp.markkinasim.model;
 
-public class Party {
+import java.util.ArrayList;
+
+public class Party implements ITrader {
+	
+	private ArrayList<Person> Employees = new ArrayList<Person>();
 	
 	private String partyType;
 	private float money;
+	private float expenses;
 	private int actionPoints;
-	private int expenses;
-	private int workForce;
+	private int resources;
+	private int productToSell;
 	
-	private int locationX;
-	private int locationY;
+	//private int locationX;
+	//private int locationY;
 	
-	private String product;
-	
-	private int primaryResources;
+	private String productName;
 	
 	public Party() {
 		setPartyType("Example Party");
-		setProduct("Example product");
+		setProductName("Example product");
 		setMoney(50000);
 		setActionPoints(10);
 		setExpenses(2);
-		setWorkForce(1);
 		
-		setLocationX(0);
-		setLocationY(0);
+
 	}
 
 	public String getPartyType() {
@@ -51,7 +52,7 @@ public class Party {
 		this.actionPoints = actionPoints;
 	}
 
-	public int getExpenses() {
+	public float getExpenses() {
 		return expenses;
 	}
 
@@ -59,44 +60,47 @@ public class Party {
 		this.expenses = expenses;
 	}
 
-	public int getWorkForce() {
-		return workForce;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setWorkForce(int workForce) {
-		this.workForce = workForce;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
-	public int getLocationX() {
-		return locationX;
+	public int getResources() {
+		return resources;
 	}
 
-	public void setLocationX(int locationX) {
-		this.locationX = locationX;
+	public void setPrimaryResources(int resources) {
+		this.resources = resources;
 	}
 
-	public int getLocationY() {
-		return locationY;
+	public ArrayList<Person> getEmployees() {
+		return Employees;
 	}
 
-	public void setLocationY(int locationY) {
-		this.locationY = locationY;
+	public void addEmployee(Person employee) {
+		Employees.add(employee);
+	}
+	
+	public void removeEmployee(int i) {
+		Employees.remove(i);
+	}
+	
+	private void produce() {
+		resources--;
+		productToSell++;
 	}
 
-	public String getProduct() {
-		return product;
+	public void Buy() {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
-	}
-
-	public int getPrimaryResources() {
-		return primaryResources;
-	}
-
-	public void setPrimaryResources(int primaryResources) {
-		this.primaryResources = primaryResources;
+	public void Sell() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
