@@ -2,25 +2,28 @@ package otp.markkinasim.model;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.beans.property.*;
 
 public class Party {
 	//party elikkä kaupankäyntiä harrastava taho
 	
 	protected Inventory inventory;
-	protected ArrayList<Item> sellables;	//Myytävät productit -lista. EI KÄYTTÖÄ VIELÄ. TODO TODO TODO
-	protected String partyName;
-	protected float money;
-	protected ArrayList<Person> employees;	//TODO TODO
+	protected ObservableList<Item> sellables;	//Myytävät productit -lista. EI KÄYTTÖÄ VIELÄ. TODO TODO TODO
+	protected StringProperty partyName;
+	protected FloatProperty money;
+	protected ObservableList<Person> employees;	//TODO TODO
 	protected Product productToProduce;		//TUOTETTAVA TUOTE. TÄLLÄ HETKELLÄ PARTYT TUOTTAVAT VAIN YHTÄ TUOTETTA
 	
 	public Party(String partyName, float money, Product productToProduce) {
 		inventory = new Inventory();
-		this.partyName = partyName;
-		this.money = money;
+		this.partyName = new SimpleStringProperty(partyName);
+		this.money = new SimpleFloatProperty(money);
 		this.productToProduce = productToProduce;
 	}
 	public String getPartyName() {
-		return partyName;
+		return partyName.get();
 	}
 	
 	public void addToInventory(Product product, int amount) throws InvalidParameterException {

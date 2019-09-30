@@ -17,7 +17,7 @@ public class Manufacturer extends Party {
 				//Poistaa yhden raaka-aineen ja lisää yhden tuotettavan tuotteen inventoryyn.
 				item.subtractAmount(1);
 				
-				if(item.amount == 0) {
+				if(item.amount.get() == 0) {
 					inventory.deleteItem(item);
 				}
 				

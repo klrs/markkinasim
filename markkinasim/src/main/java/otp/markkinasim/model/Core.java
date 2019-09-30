@@ -4,6 +4,9 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+
 public class Core {
 	//SINGLETON PATTERN//////////////////
 	//mahdollistaa vain yhden Core-olion olemassaolon!
@@ -18,16 +21,16 @@ public class Core {
 	}
 	////////////////////////////////////
 	
-	private ArrayList<Person> personList;
-	private ArrayList<Party> partyList;
-	private ArrayList<Product> productList;
+	private ObservableList<Person> personList;
+	private ObservableList<Party> partyList;
+	private ObservableList<Product> productList;
 
 	private int day = 0;
 	
 	public void init() {
-		personList = new ArrayList<Person>();
-		partyList = new ArrayList<Party>();
-		productList = new ArrayList<Product>();
+		personList = FXCollections.observableArrayList();
+		partyList = FXCollections.observableArrayList();
+		productList = FXCollections.observableArrayList();
 		
 //		int personAmount = 100;
 //		

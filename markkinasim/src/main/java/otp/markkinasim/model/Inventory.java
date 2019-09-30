@@ -18,7 +18,7 @@ public class Inventory {
 			//Jos lisättä Product löytyy jo listalta, sen amounttiin lisätään.
 			for(Item i : itemList) {
 				if(item.product.id == i.product.id) {
-					i.amount += item.amount;
+					i.amount.add(item.amount);
 					itemNotFound = false;
 					break;
 				}

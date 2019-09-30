@@ -1,10 +1,12 @@
 package otp.markkinasim.model;
 
+import javafx.beans.property.*;
+
 public class Person {
 
-	private double money;
+	private FloatProperty money;
 	
 	public Person() {
-		this.money = 1000;
+		this.money = new SimpleFloatProperty(100);
 	}
 }
