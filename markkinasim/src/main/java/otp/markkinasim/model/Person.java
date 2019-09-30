@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class Person implements IPerson {
 	
 	private static int count;
+	@Id
 	@Column(name="id")
 	private int id;
 	
@@ -35,6 +36,10 @@ public class Person implements IPerson {
 		this.id=count++;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
 	public String getStatus() {
 		return status;
 	}
