@@ -1,12 +1,8 @@
 package otp.markkinasim;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import otp.markkinasim.model.*;
 import org.junit.jupiter.api.Test;
-
-import otp.markkinasim.model.Inventory;
-import otp.markkinasim.model.Item;
-import otp.markkinasim.model.Product;
 
 class InventoryTest {
 

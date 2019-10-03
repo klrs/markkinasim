@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import otp.markkinasim.model.Party;
 import otp.markkinasim.model.Product;
 
-class PartyTest {
+public class PartyTest {
 
 	//TODO TESTAA INVENTORY OMANA MODUULINAAN!!!!!
 	
