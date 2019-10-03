@@ -1,4 +1,4 @@
-package otp.markkinasim.modeltest;
+package otp.markkinasim;
 
 import static org.junit.jupiter.api.Assertions.*;
 
