@@ -9,12 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import otp.markkinasim.model.Product;
-import otp.markkinasim.model.Rawmaterial;
 
 public class ProductEditDialogController {
 	private Stage dialogStage;
     private Product product;
-    private Rawmaterial rawmaterial;
     private boolean okClicked = false;
     private IView view;
     
@@ -22,8 +20,6 @@ public class ProductEditDialogController {
     private TextField productName;
     @FXML
     private ChoiceBox<String> productRawmaterial;
-    @FXML
-    private TextField productRawmaterialNeeded;
     
     //inits
   	@FXML
@@ -37,12 +33,24 @@ public class ProductEditDialogController {
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
-	
+	public void setView(View view) {
+		this.view=view;
+  		if(!view.getRawmaterialData().isEmpty()) {
+  			for(Product i: view.getRawmaterialData()) {
+  				productRawmaterial.getItems().add(i.getProductName());
+  			}
+  		}
+	}
 	public void setProduct(Product product) {
 		this.product = product;
 		productName.setText(product.getProductName());
-		productRawmaterial.setValue(product.getRawmaterialName()); //TODO
-		productRawmaterialNeeded.setText(Float.toString(product.getRawmaterialNeeded()));
+		if(product.getProductNeededId()>=0) {
+			for(Product i: view.getRawmaterialData()) {
+     	   		if(i.getId()==product.getProductNeededId()) {
+     		   		productRawmaterial.setValue(i.getProductName());
+     	   		}
+        	}
+		}
 	}
 	
 	public boolean isOkClicked() {
@@ -56,12 +64,15 @@ public class ProductEditDialogController {
 	    dialogStage.close();
 	}
 	@FXML
-	   private void handleOk() {
-	       if (isInputValid()) {
+	private void handleOk() {
+	    if (isInputValid()) {
 	           product.setProductName(productName.getText());
-	           product.setRawmaterialName(productRawmaterial.getValue());
-	           product.setRawmaterialNeeded(Float.parseFloat(productRawmaterialNeeded.getText()));
-
+	           
+	           for(Product i: view.getRawmaterialData()) {
+	        	   if(i.getProductName()==productRawmaterial.getValue()) {
+	        		   product.setProductNeededId(i.getId());
+	        	   }
+	           }
 	           okClicked = true;
 	           dialogStage.close();
 	       }
@@ -75,16 +86,6 @@ public class ProductEditDialogController {
         }
         if (productRawmaterial.getValue() == null) {
             errorMessage += "Valitse raaka-aine!\n"; 
-        }
-        if (productRawmaterialNeeded.getText() == null || productRawmaterialNeeded.getText().length() == 0) {
-            errorMessage += "Anna tarvittavan raaka-aineen m‰‰r‰!\n"; 
-        } else {
-            // try to parse the money amount into an float.
-            try {
-                Float.parseFloat(productRawmaterialNeeded.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "Tarvittavan raaka-aineen m‰‰r‰n t‰ytyy olla numeroarvo!\n"; 
-            }
         }
 
         if (errorMessage.length() == 0) {
@@ -102,11 +103,4 @@ public class ProductEditDialogController {
             return false;
         }
     }
-
-	public void setRawmaterials(ObservableList<Rawmaterial> rawmaterialData) {
-		for(Rawmaterial i: rawmaterialData) {
-			productRawmaterial.getItems().add(i.getRawmaterialName());
-		}
-		
-	}
 }

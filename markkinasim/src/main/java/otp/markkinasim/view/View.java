@@ -1,6 +1,7 @@
 package otp.markkinasim.view;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,27 +19,56 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import otp.markkinasim.model.Core;
+import otp.markkinasim.model.Manufacturer;
 import otp.markkinasim.model.Party;
 import otp.markkinasim.model.Product;
-import otp.markkinasim.model.Rawmaterial;
+
 
 public class View extends Application implements IView{
 	
-	private IMainMenuController MainMenuController;
-	private ISimulationController SimulationController;
-	private ISimulationOptionsController SimulationOptionsController;
+	private static View view;
+	
+	private MainMenuController MainMenuController;
+	private SimulationController SimulationController;
+	private SimulationOptionsController SimulationOptionsController;
 	
 	private Stage window;
 	private Scene mainMenu,simulation,simulationOptions;
 	private List<Scene> sceneList = new ArrayList<Scene>();
+	
 	private ObservableList<Party> partyData = FXCollections.observableArrayList();
+	private ObservableList<Product> allProductData = FXCollections.observableArrayList();
 	private ObservableList<Product> productData = FXCollections.observableArrayList();
-	private ObservableList<Rawmaterial> rawmaterialData = FXCollections.observableArrayList();
+	private ObservableList<Product> rawmaterialData = FXCollections.observableArrayList();
 	
 	public void init() {
+		//Luodaan perus scenet
 		MainMenuController = new MainMenuController(this);
 		SimulationController = new SimulationController(this);
 		SimulationOptionsController = new SimulationOptionsController(this);
+		
+		//default datan luonti
+		allProductData.add(new Product("Cow"));
+		allProductData.add(new Product("Beef patty", 0));	//INDEX????
+		
+		partyData.add(new Manufacturer("Jimbo's Beef", 1000.0f, allProductData.get(1)));
+		partyData.add(new Party("Cowman", 100, allProductData.get(0)));
+		
+		try {
+			partyData.get(0).addToInventory(allProductData.get(0), 3);
+		} catch (InvalidParameterException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		//erotellaan raaka-aineet ja tuotteet
+		for(Product i : allProductData) {
+			if(i.getProductNeededId()>=0) {
+				productData.add(i);
+			}else {
+				rawmaterialData.add(i);
+			}
+		}
 	}
 	
 	@Override
@@ -54,14 +84,11 @@ public class View extends Application implements IView{
 		    loader = new FXMLLoader(getClass().getResource("SimulationOptionsView.fxml"));
 		    loader.setController(SimulationOptionsController);
 		    Parent simulationOptionsParent = loader.load();
-			/*
-			Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenuView.fxml"));
-			Parent simulationParent = FXMLLoader.load(getClass().getResource("SimulationView.fxml"));
-			Parent simulationOptionsParent = FXMLLoader.load(getClass().getResource("SimulationOptionsView.fxml"));
-			*/
+
 			sceneList.add((mainMenu = new Scene(mainMenuParent)));
 			sceneList.add((simulation = new Scene(simulationParent)));
 			sceneList.add(simulationOptions = new Scene(simulationOptionsParent));
+			System.out.println(sceneList);
 			window = primaryStage;
 			window.setScene(mainMenu);
 			window.show();
@@ -69,10 +96,18 @@ public class View extends Application implements IView{
 			e.printStackTrace();
 		}
 	}
-
-	public static void main(String[] args) {
-		launch(args);
+	
+	public static View getInstance() {
+		//kutsu tätä funktiota luodaksesi Core olion!
+		if (view == null) {
+			view = new View();
+		}
+		return view;
 	}
+	
+	/*public static void main(String[] args) {
+		launch(args);
+	}*/
 	
 	@Override
 	public void setScene(int id) {
@@ -93,8 +128,16 @@ public class View extends Application implements IView{
 		return productData;
 	}
 	@Override
-	public ObservableList<Rawmaterial> getRawmaterialData() {
+	public ObservableList<Product> getRawmaterialData() {
 		return rawmaterialData;
+	}
+	@Override
+	public ObservableList<Product> getAllProductData(){
+		return allProductData;
+	}
+	@Override
+	public void writeSimulationLog(String msg) {
+		SimulationController.printText(msg);
 	}
 	
 	@Override
@@ -116,9 +159,9 @@ public class View extends Application implements IView{
             // Set the person into the controller.
             PartyEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setParty(party);
             controller.setView(this);
-
+            controller.setParty(party);
+                        
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
@@ -148,8 +191,8 @@ public class View extends Application implements IView{
             // Set the person into the controller.
             ProductEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setView(this);
             controller.setProduct(product);
-            controller.setRawmaterials(rawmaterialData);
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
@@ -161,7 +204,7 @@ public class View extends Application implements IView{
     }
 	
 	@Override
-    public boolean showRawmaterialEditDialog(Rawmaterial rawmaterial) {
+    public boolean showRawmaterialEditDialog(Product product) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -179,7 +222,7 @@ public class View extends Application implements IView{
             // Set the person into the controller.
             RawmaterialEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setRawmaterial(rawmaterial);
+            controller.setRawmaterial(product);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

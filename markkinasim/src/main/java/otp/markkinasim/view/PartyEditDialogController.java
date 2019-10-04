@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import otp.markkinasim.model.Party;
 import otp.markkinasim.model.Product;
-import otp.markkinasim.model.Rawmaterial;
 
 public class PartyEditDialogController {
 	
@@ -17,26 +16,27 @@ public class PartyEditDialogController {
     private boolean okClicked = false;
     private IView view;
     @FXML
-    private ChoiceBox<String> partyTypeChoice;
-    @FXML
     private TextField partyName;
-    @FXML
-    private ChoiceBox<String> partyRawmaterialChoice;
     @FXML
     private ChoiceBox<String> partyProductChoice;
     @FXML
     private TextField partyMoney;
-    @FXML
-    private TextField partyPersons;
-    
-  //inits
+    @FXML 
+    private TextField partyRawmaterial;
+
+//inits
   	@FXML
     private void initialize() {
-  		partyTypeChoice.getItems().addAll("Raaka-aine","Jalostus");
+
   	}
   	
   	public void setView(View view) {
   		this.view = view;
+  		if(!view.getAllProductData().isEmpty()) {
+  			for(Product i:view.getAllProductData()) {
+  				partyProductChoice.getItems().add(i.getProductName());
+  			}
+  		}
   	}
 	public Stage getDialogStage() {
 		return dialogStage;
@@ -47,14 +47,34 @@ public class PartyEditDialogController {
 	
 	public void setParty(Party party) {
 		this.party = party;
-		
-		partyTypeChoice.setValue(party.getPartyType());
+
 		partyName.setText(party.getPartyName());
-		partyRawmaterialChoice.setValue(party.getResource());
-		partyProductChoice.setValue(party.getProduct());
+		if(party.getProductToProduce()!=null) {
+		partyProductChoice.setValue(party.getProductToProduceName());
+		}
 		partyMoney.setText(Float.toString(party.getMoney()));
-		partyPersons.setText(Integer.toString(party.getWorkForce()));
+
 	}
+	
+	@FXML
+	public void handleProductChoice() {
+		for(Product i:view.getAllProductData()) {
+			if(i.getProductName() == partyProductChoice.getValue()) {
+				if(i.getProductNeededId()>=0) {
+					for(Product I:view.getRawmaterialData()) {
+						if(i.getProductNeededId() == I.getId()) {
+							partyRawmaterial.setText(I.getProductName());
+							break;
+						}
+					}
+				}else {
+					partyRawmaterial.setText("Raaka-ainetta ei tarvita.");
+					break;
+				}
+			}
+		}
+	}
+	
 	public boolean isOkClicked() {
 		return okClicked;
 	}
@@ -63,23 +83,7 @@ public class PartyEditDialogController {
 	}
 	
 	//asettaa raaka-aineet ja tuotettavat tuotteet käyttäjän valitseman taho tyypin mukaan.
-	@FXML 
-	private void handleType() {
-		partyRawmaterialChoice.getItems().clear();
-		partyProductChoice.getItems().clear();
-		if(partyTypeChoice.getValue()=="Raaka-aine") {
-			for(Rawmaterial i: view.getRawmaterialData()) {
-				partyRawmaterialChoice.getItems().add(i.getRawmaterialSource());
-				partyProductChoice.getItems().add(i.getRawmaterialName());
-			}					
-		}else if(partyTypeChoice.getValue()=="Jalostus") {
-			for(Product i: view.getProductData()) {
-				partyRawmaterialChoice.getItems().add(i.getRawmaterialName());
-	  			partyProductChoice.getItems().add(i.getProductName());
-			}
-		}
-	}
-	
+		
 	@FXML
 	private void handleCancel() {
 	    dialogStage.close();
@@ -88,12 +92,13 @@ public class PartyEditDialogController {
 	@FXML
 	   private void handleOk() {
 	       if (isInputValid()) {
-	           party.setPartyType(partyTypeChoice.getValue());
 	           party.setPartyName(partyName.getText());
-	           party.setResource(partyRawmaterialChoice.getValue());
-	           party.setProduct(partyProductChoice.getValue());
+	           for(Product i:view.getAllProductData()) {
+	        	   if(partyProductChoice.getValue() == i.getProductName()) {
+	        		   party.setProductToProduce(i);
+	        	   }
+	           }
 	           party.setMoney(Float.parseFloat(partyMoney.getText()));
-	           party.setWorkForce(Integer.parseInt(partyPersons.getText()));
 
 	           okClicked = true;
 	           dialogStage.close();
@@ -104,16 +109,10 @@ public class PartyEditDialogController {
 	private boolean isInputValid() {
         String errorMessage = "";
 
-        if (partyTypeChoice.getValue() == null) {
-            errorMessage += "Valitse taho tyyppi!\n"; 
-        }
         if (partyName.getText() == null || partyName.getText().length() == 0) {
             errorMessage += "Nimeä taho!\n"; 
         }
-        if (partyRawmaterialChoice.getValue() == null) {
-            errorMessage += "Valitse tahon tarvitsema raaka-aine\n"; 
-        }
-
+        
         if (partyProductChoice.getValue() == null) {
             errorMessage += "Valitse tahon tuottama tuote!\n"; 
         }
@@ -126,17 +125,6 @@ public class PartyEditDialogController {
                 Float.parseFloat(partyMoney.getText());
             } catch (NumberFormatException e) {
                 errorMessage += "Tahon aloitus rahamäärän täytyy olla numero!\n"; 
-            }
-        }
-
-        if (partyPersons.getText() == null || partyPersons.getText().length() == 0) {
-            errorMessage += "Tahon aloitus työntekijöiden määrän on virheellinen!\n";
-        } else {
-            // parse Int persons.
-            try {
-                Integer.parseInt(partyPersons.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "Tahon aloitus työntekijöiden määrän täytyy olla kokonaisluku!\n"; 
             }
         }
 

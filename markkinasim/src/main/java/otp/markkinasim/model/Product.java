@@ -1,85 +1,65 @@
 package otp.markkinasim.model;
 
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import java.util.ArrayList;
+import javafx.beans.property.*;
 
 public class Product {
+	public static int nextId = 0;	//ID JÄRJESTELMÄ AINA OLIOTA ILMENNETTÄESSÄ. KTS. CONSTRUCTOR.
+	public final int id;
 	
-	public static int nextId = 0;
-	
-	public final IntegerProperty id;
 	private StringProperty productName;
-	private StringProperty rawmaterialName;
-	private IntegerProperty rawmaterialId;
-	private FloatProperty rawmaterialNeeded; //kuinka monta raaka-ainetta yhteen tuotteeseen tarvitaan esim, 10 tai 0.1
+	private IntegerProperty productNeededId;
+	private IntegerProperty price;
 	
-	public Product() {
-		id = new SimpleIntegerProperty(nextId);
+	public Product () {
+		id = nextId;
 		nextId++;
 		
-		this.productName = new SimpleStringProperty(null);
-		this.rawmaterialId = new SimpleIntegerProperty(0);
-		this.rawmaterialNeeded = new SimpleFloatProperty(0);
-		this.rawmaterialName = new SimpleStringProperty(null);
+		this.productName = new SimpleStringProperty();
+		this.productNeededId = new SimpleIntegerProperty(-1);
 	}
-	
-	public Product(String productName, int rawmaterialId, String rawmaterialName, int rawmaterialNeeded) {
-		id = new SimpleIntegerProperty(nextId);
+	public Product(String productName) {
+		id = nextId;
 		nextId++;
 		
 		this.productName = new SimpleStringProperty(productName);
-		this.rawmaterialId = new SimpleIntegerProperty(rawmaterialId);
-		this.rawmaterialNeeded = new SimpleFloatProperty(rawmaterialNeeded);
-		this.rawmaterialName = new SimpleStringProperty(rawmaterialName);
+		this.productNeededId = new SimpleIntegerProperty(-1); //SAATTAA AIHEUTTAA ONGELMIA!!
+	}
+	public Product(String productName, ArrayList<Product> productsNeeded) {
+		id = nextId;
+		nextId++;
+		
+		this.productName = new SimpleStringProperty(productName);
+		//this.productNeeded = productsNeeded;
+	}
+	public Product(String productName, int productNeededId) {
+		id = nextId;
+		nextId++;
+		
+		this.productName = new SimpleStringProperty(productName);
+		//productNeeded = new ArrayList<Product>();
+		this.productNeededId = new SimpleIntegerProperty(productNeededId);
+	}
+	public int getId() {
+		return id;
+	}
+	public int getProductNeededId() {
+		return productNeededId.get();
 	}
 	
-	//setterit ja getterit propertyille
-	public String getRawmaterialName() {
-		return rawmaterialName.get();
+	public void setProductNeededId(int id) {
+		productNeededId.set(id);
 	}
 	
-	public void setRawmaterialName(String rawmaterialName) {
-		this.rawmaterialName.set(rawmaterialName);
-	}
 	public String getProductName() {
 		return productName.get();
 	}
-
+		
 	public void setProductName(String productName) {
 		this.productName.set(productName);
 	}
-
-	public int getRawmaterialId() {
-		return rawmaterialId.get();
-	}
 	
-	public void setRawmaterialId(int rawmaterialId) {
-		this.rawmaterialId.set(rawmaterialId);
-	}
-	
-	public float getRawmaterialNeeded() {
-		return rawmaterialNeeded.get();
-	}
-	
-	public void setRawmaterialNeeded(float rawmaterialNeeded) {
-		this.rawmaterialNeeded.set(rawmaterialNeeded);
-	}
-	public int getId() {
-		return id.get();
-	}
-	
-	//property getterit
 	public StringProperty productNameProperty() {
 		return productName;
-	}
-	public FloatProperty rawmaterialNeededProperty() {
-		return rawmaterialNeeded;		
-	}
-	public StringProperty rawmaterialNameProperty() {
-		return rawmaterialName;		
 	}
 }

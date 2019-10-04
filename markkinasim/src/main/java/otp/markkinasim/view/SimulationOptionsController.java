@@ -1,48 +1,47 @@
 package otp.markkinasim.view;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.util.Callback;
 import otp.markkinasim.model.Party;
 import otp.markkinasim.model.Product;
-import otp.markkinasim.model.Rawmaterial;
 
-public class SimulationOptionsController implements ISimulationOptionsController {
+
+public class SimulationOptionsController {
 	
 	private IView view;
 	@FXML
 	private TableView<Party> partyTable;
-	@FXML
-	private TableColumn<Party, String> partyType;
+
 	@FXML
 	private TableColumn<Party, String> partyName;
 	@FXML
-	private TableColumn<Party, String> partyResource;
-	@FXML
 	private TableColumn<Party, String> partyProduct;
 	@FXML
-	private TableColumn<Party, Number> partyPersons;
+	private TableColumn<Party, String> partyRawmaterial;
 	@FXML
 	private TableColumn<Party, Number> partyMoney;
+	
 	@FXML
 	private TableView<Product> productTable;
 	@FXML
 	private TableColumn<Product, String> productName;
 	@FXML
 	private TableColumn<Product, String> productRawmaterial;
+
 	@FXML
-	private TableColumn<Product, Number> productRawmaterialNeeded;
+	private TableView<Product> rawmaterialTable;
 	@FXML
-	private TableView<Rawmaterial> rawmaterialTable;
+	private TableColumn<Product, Number> rawmaterialId;
 	@FXML
-	private TableColumn<Rawmaterial, String> rawmaterialName;
-	@FXML
-	private TableColumn<Rawmaterial, String> rawmaterialSource;
-	@FXML
-	private TableColumn<Rawmaterial, Number> rawmaterialSourcePool;
+	private TableColumn<Product, String> rawmaterialName;
 	
 	//constructor
 	public SimulationOptionsController(View view) {
@@ -52,41 +51,66 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	//inits
 	@FXML
     private void initialize() {
-        // Initialize the party table with the five columns.
-		partyType.setCellValueFactory(
-                cellData -> cellData.getValue().partyTypeProperty());
+		
+        // Party taulukko alustus
 		partyName.setCellValueFactory(
-                cellData -> cellData.getValue().partyNameProperty());
-		partyResource.setCellValueFactory(
-                cellData -> cellData.getValue().partyResourceProperty());
+                cellData -> cellData.getValue().partyNameProperty());	
 		partyProduct.setCellValueFactory(
-                cellData -> cellData.getValue().partyProductProperty());
-		partyPersons.setCellValueFactory(
-                cellData -> cellData.getValue().partyWorkForceProperty());
+				cellData -> cellData.getValue().productToProduceProperty());
+		partyRawmaterial.setCellValueFactory(new Callback<CellDataFeatures<Party, String>, ObservableValue<String>>() {
+		     public ObservableValue<String> call(CellDataFeatures<Party, String> p) {
+		         // p.getValue() returns the Party instance for a particular TableView row
+		    	 if(p.getValue().getProductToProduce().getProductNeededId()>=0) {
+		    		 for(Product i:view.getRawmaterialData()) {
+		    			 if(p.getValue().getProductToProduce().getProductNeededId()==i.getId()) {
+		    				 return i.productNameProperty();
+		    			 }
+		    		 }
+		    	 }return null;
+		     }
+		  });
 		partyMoney.setCellValueFactory(
-                cellData -> cellData.getValue().partyMoneyProperty());
+                cellData -> cellData.getValue().moneyProperty());
+		
 		partyTable.setItems(view.getPartyData());
 		
+		
+		//Rawmaterial taulukon alustus
+		rawmaterialId.setCellValueFactory(new Callback<CellDataFeatures<Product, Number>, ObservableValue<Number>>() {
+		     public ObservableValue<Number> call(CellDataFeatures<Product, Number> p) {
+		         // p.getValue() returns the Product instance for a particular TableView row
+		    	 ObservableValue<Number> obsInt = new ReadOnlyObjectWrapper<>(p.getValue().getId());
+		         return obsInt;
+		     }
+		  });
 		rawmaterialName.setCellValueFactory(
-				cellData -> cellData.getValue().rawmaterialNameProperty());
-		rawmaterialSource.setCellValueFactory(
-				cellData -> cellData.getValue().rawmaterialSourceProperty());
-		rawmaterialSourcePool.setCellValueFactory(
-				cellData -> cellData.getValue().rawmaterialSourcePoolProperty());
+				cellData -> cellData.getValue().productNameProperty());
 		rawmaterialTable.setItems(view.getRawmaterialData());
 		
+		//Tuote taulukon alustus
 		productName.setCellValueFactory(
 				cellData -> cellData.getValue().productNameProperty());
-		productRawmaterial.setCellValueFactory(
-				cellData -> cellData.getValue().rawmaterialNameProperty());
-		productRawmaterialNeeded.setCellValueFactory(
-				cellData -> cellData.getValue().rawmaterialNeededProperty());
+		productRawmaterial.setCellValueFactory(new Callback<CellDataFeatures<Product, String>, ObservableValue<String>>() {
+		     public ObservableValue<String> call(CellDataFeatures<Product, String> p) {
+		         // p.getValue() returns the Product instance for a particular TableView row
+		   		 for(Product i:view.getRawmaterialData()) {
+		   			 if(p.getValue().getProductNeededId()==i.getId()) {
+		   				 return i.productNameProperty();
+		   			 }
+		   		 }return null;
+		     }
+		  });
 		productTable.setItems(view.getProductData());
 	}
 	
 	@FXML
 	private void backToMenu() {
 		view.setScene(0);
+	}
+	private void tableRefresh() {
+		partyTable.refresh();
+		productTable.refresh();
+		rawmaterialTable.refresh();
 	}
 	
 	@FXML
@@ -96,6 +120,7 @@ public class SimulationOptionsController implements ISimulationOptionsController
         boolean okClicked = view.showPartyEditDialog(tempParty);
         if (okClicked) {
             view.getPartyData().add(tempParty);
+            tableRefresh();
         }
 		}else {
    		 // No rawmaterials.
@@ -114,7 +139,7 @@ public class SimulationOptionsController implements ISimulationOptionsController
         Party selectedParty = partyTable.getSelectionModel().getSelectedItem();
         if (selectedParty != null) {
             boolean okClicked = view.showPartyEditDialog(selectedParty);
-
+            tableRefresh();
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -145,19 +170,21 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	    }
 	@FXML
     private void handleNewRawmaterial() {
-        Rawmaterial tempRawmaterial = new Rawmaterial();
+        Product tempRawmaterial = new Product();
         boolean okClicked = view.showRawmaterialEditDialog(tempRawmaterial);
         if (okClicked) {
             view.getRawmaterialData().add(tempRawmaterial);
+            view.getAllProductData().add(tempRawmaterial);
+            tableRefresh();
         }
     }
 	
     @FXML
     private void handleEditRawmaterial() {
-        Rawmaterial selectedRawmaterial = rawmaterialTable.getSelectionModel().getSelectedItem();
+        Product selectedRawmaterial = rawmaterialTable.getSelectionModel().getSelectedItem();
         if (selectedRawmaterial != null) {
             boolean okClicked = view.showRawmaterialEditDialog(selectedRawmaterial);
-
+            tableRefresh();
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -198,9 +225,9 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	        }
 	    }
 	
-	private boolean rawmaterialUsed(Rawmaterial rawmaterial) {
+	private boolean rawmaterialUsed(Product rawmaterial) {
 		for(Product i:view.getProductData()) {
-			if(i.getRawmaterialName()==rawmaterial.getRawmaterialName()) {
+			if(i.getProductNeededId()==rawmaterial.getId()) {
 				return true;
 			}
 		}
@@ -209,7 +236,7 @@ public class SimulationOptionsController implements ISimulationOptionsController
 	
 	private boolean productUsed(Product product) {
 		for(Party i:view.getPartyData()) {
-			if(i.getProduct()==product.getProductName()) {
+			if(i.getProductToProduceName()==product.getProductName()) {
 				return true;
 			}
 		}
@@ -225,6 +252,8 @@ public class SimulationOptionsController implements ISimulationOptionsController
 		
         	if (okClicked) {
             	view.getProductData().add(tempProduct);
+            	view.getAllProductData().add(tempProduct);
+            	tableRefresh();
         	}
 		}else {
    		 // No rawmaterials.
@@ -243,7 +272,7 @@ public class SimulationOptionsController implements ISimulationOptionsController
     	Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {
             boolean okClicked = view.showProductEditDialog(selectedProduct);
-
+            tableRefresh();
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);

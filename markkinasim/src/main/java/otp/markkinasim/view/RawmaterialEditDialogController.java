@@ -6,19 +6,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import otp.markkinasim.model.Rawmaterial;
+import otp.markkinasim.model.Product;
+
 
 public class RawmaterialEditDialogController {
 	private Stage dialogStage;
-    private Rawmaterial rawmaterial;
+    private Product rawmaterial;
     private boolean okClicked = false;
     
     @FXML
     private TextField rawmaterialName;
-    @FXML
-    private TextField rawmaterialSource;
-    @FXML
-    private TextField rawmaterialSourcePool;
     
   	public Stage getDialogStage() {
 		return dialogStage;
@@ -27,11 +24,9 @@ public class RawmaterialEditDialogController {
 		this.dialogStage = dialogStage;
 	}
 	
-	public void setRawmaterial(Rawmaterial rawmaterial) {
+	public void setRawmaterial(Product rawmaterial) {
 		this.rawmaterial = rawmaterial;
-		rawmaterialName.setText(rawmaterial.getRawmaterialName());
-		rawmaterialSource.setText(rawmaterial.getRawmaterialSource()); 
-		rawmaterialSourcePool.setText(Float.toString(rawmaterial.getrawmaterialSourcePool()));
+		rawmaterialName.setText(rawmaterial.getProductName());
 	}
 	
 	public boolean isOkClicked() {
@@ -46,15 +41,13 @@ public class RawmaterialEditDialogController {
 	    dialogStage.close();
 	}
 	@FXML
-	   private void handleOk() {
-	       if (isInputValid()) {
-	           rawmaterial.setRawmaterialName(rawmaterialName.getText());
-	           rawmaterial.setRawmaterialSource(rawmaterialSource.getText());
-	           rawmaterial.setRawmaterialSourcePool(Float.parseFloat(rawmaterialSourcePool.getText()));
-
-	           okClicked = true;
-	           dialogStage.close();
-	       }
+	private void handleOk() {
+	    if (isInputValid()) {
+	       rawmaterial.setProductName(rawmaterialName.getText());
+	          
+	       okClicked = true;
+	       dialogStage.close();
+	    }
 	}
 	
 	@FXML
@@ -64,20 +57,7 @@ public class RawmaterialEditDialogController {
         if (rawmaterialName.getText() == null || rawmaterialName.getText().length() == 0) {
             errorMessage += "Nimeä raaka-aine!\n"; 
         }
-        if (rawmaterialSource.getText() == null || rawmaterialSource.getText().length() == 0) {
-            errorMessage += "Anna raaka-aineelle lähde!\n"; 
-        }
-        if (rawmaterialSourcePool.getText() == null || rawmaterialSourcePool.getText().length() == 0) {
-            errorMessage += "Anna lähteelle koko!\n"; 
-        } else {
-            // try to parse the money amount into an float.
-            try {
-                Float.parseFloat(rawmaterialSourcePool.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "Raaka-aineen lähteen koko täytyy olla numeroarvo!\n"; 
-            }
-        }
-
+       
         if (errorMessage.length() == 0) {
             return true;
         } else {

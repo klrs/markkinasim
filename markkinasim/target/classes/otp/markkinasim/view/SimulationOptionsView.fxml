@@ -45,11 +45,9 @@
             <TextField layoutX="146.0" layoutY="62.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulaation person määrä" />
             <TableView fx:id="partyTable" layoutX="580.0" layoutY="46.0" prefHeight="454.0" prefWidth="421.0">
               <columns>
-                <TableColumn fx:id="partyType" prefWidth="70.0" text="Tyyppi" />
                 <TableColumn fx:id="partyName" prefWidth="70.0" text="Nimi" />
-                  <TableColumn fx:id="partyResource" prefWidth="70.0" text="Resurssi" />
                   <TableColumn fx:id="partyProduct" prefWidth="70.0" text="Tuote" />
-                  <TableColumn fx:id="partyPersons" prefWidth="70.0" text="Työntekijät" />
+                  <TableColumn fx:id="partyRawmaterial" prefWidth="75.0" text="Raaka-aine" />
                   <TableColumn fx:id="partyMoney" prefWidth="70.0" text="Rahat" />
               </columns>
             </TableView>
@@ -57,7 +55,6 @@
               <columns>
                 <TableColumn fx:id="productName" prefWidth="87.0" text="Nimi" />
                   <TableColumn fx:id="productRawmaterial" prefWidth="87.0" text="Raaka-aine" />
-                <TableColumn fx:id="productRawmaterialNeeded" prefWidth="133.0" text="Raaka-aine per.tuote" />
               </columns>
             </TableView>
             <Label layoutX="38.0" layoutY="327.0" text="Simuloinnissa käytettävät tuotteet.">
@@ -79,9 +76,8 @@
             </Label>
             <TableView fx:id="rawmaterialTable" layoutX="38.0" layoutY="127.0" prefHeight="148.0" prefWidth="308.0">
                <columns>
+                  <TableColumn fx:id="rawmaterialId" prefWidth="75.0" text="Id" />
                   <TableColumn fx:id="rawmaterialName" prefWidth="87.0" text="Nimi" />
-                  <TableColumn fx:id="rawmaterialSource" prefWidth="87.0" text="Resurssi" />
-                  <TableColumn fx:id="rawmaterialSourcePool" prefWidth="133.0" text="Resurssin lkm." />
                </columns>
             </TableView>
             <ButtonBar layoutX="38.0" layoutY="273.0" prefHeight="40.0" prefWidth="308.0">

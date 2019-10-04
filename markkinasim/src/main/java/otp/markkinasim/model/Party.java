@@ -1,149 +1,90 @@
 package otp.markkinasim.model;
 
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.beans.property.*;
 
 public class Party {
+	//party elikkä kaupankäyntiä harrastava taho
 	
-	private StringProperty partyType;
-	private StringProperty partyName;
-	private StringProperty product;
-	private StringProperty resource;
-
-	private FloatProperty money;
-	private IntegerProperty actionPoints;
-	private IntegerProperty expenses;
-	private IntegerProperty workForce;
-	private IntegerProperty primaryResources;
+	protected Inventory inventory;
+	protected ObservableList<Item> sellables;	//Myytävät productit -lista. EI KÄYTTÖÄ VIELÄ. TODO TODO TODO
+	protected StringProperty partyName;
+	protected FloatProperty money;
+	protected ObservableList<Person> employees;	//TODO TODO
+	protected Product productToProduce;		//TUOTETTAVA TUOTE. TÄLLÄ HETKELLÄ PARTYT TUOTTAVAT VAIN YHTÄ TUOTETTA
 	
-	private int locationX;
-	private int locationY;
 	
 	public Party() {
-		this(null,null,null,null);
+		inventory = new Inventory();
+		this.partyName = new SimpleStringProperty();
+		this.money = new SimpleFloatProperty();
+		productToProduce=null;
 	}
-	public Party(String partyType, String partyName, String product, String resource) {
-		this.partyType = new SimpleStringProperty(partyType);
+	
+	public Party(String partyName, float money, Product productToProduce) {
+		inventory = new Inventory();
 		this.partyName = new SimpleStringProperty(partyName);
-		this.product = new SimpleStringProperty(product);
-		this.resource = new SimpleStringProperty(resource);
-		
-		this.money = new SimpleFloatProperty(50000);
-		this.actionPoints = new SimpleIntegerProperty(10);
-		this.actionPoints = new SimpleIntegerProperty(10);
-		this.expenses = new SimpleIntegerProperty(2);
-		this.workForce = new SimpleIntegerProperty(1);
+		this.money = new SimpleFloatProperty(money);
+		this.productToProduce = productToProduce;
 	}
-
 	public String getPartyName() {
 		return partyName.get();
 	}
-	
-	public String getPartyType() {
-		return partyType.get();
-	}
-	
-	public String getResource() {
-		return resource.get();
-	}
-	public void setResource(String resource) {
-		this.resource.set(resource);
-	}
-	
-	public void setPartyType(String partyType) {
-		this.partyType.set(partyType);
-	}
-	
-	public void setPartyName(String partyName) {
+	public void setPartyName(String partyName ) {
 		this.partyName.set(partyName);
-	}
-
-	public float getMoney() {
-		return money.get();
-	}
-
-	public void setMoney(float money) {
-		this.money.set(money);
-	}
-
-	public int getActionPoints() {
-		return actionPoints.get();
-	}
-
-	public void setActionPoints(int actionPoints) {
-		this.actionPoints.set(actionPoints);
-	}
-
-	public int getExpenses() {
-		return expenses.get();
-	}
-
-	public void setExpenses(int expenses) {
-		this.expenses.set(expenses);
-	}
-
-	public int getWorkForce() {
-		return workForce.get();
-	}
-
-	public void setWorkForce(int workForce) {
-		this.workForce.set(workForce);
-	}
-
-	public int getLocationX() {
-		return locationX;
-	}
-
-	public void setLocationX(int locationX) {
-		this.locationX = locationX;
-	}
-
-	public int getLocationY() {
-		return locationY;
-	}
-
-	public void setLocationY(int locationY) {
-		this.locationY = locationY;
-	}
-
-	public String getProduct() {
-		return product.get();
-	}
-
-	public void setProduct(String product) {
-		this.product.set(product);
-	}
-
-	public int getPrimaryResources() {
-		return primaryResources.get();
-	}
-
-	public void setPrimaryResources(int primaryResources) {
-		this.primaryResources.set(primaryResources);
-	}
-	
-	public StringProperty partyTypeProperty() {
-		return partyType;
 	}
 	
 	public StringProperty partyNameProperty() {
 		return partyName;
 	}
 	
-	public StringProperty partyProductProperty() {
-		return product;
+	public float getMoney() {
+		return money.get();
 	}
-	public StringProperty partyResourceProperty() {
-		return resource;
+	
+	public void setMoney(float money) {
+		this.money.set(money);
 	}
-	public FloatProperty partyMoneyProperty() {
+	
+	public FloatProperty moneyProperty() {
 		return money;
 	}
-	public IntegerProperty partyWorkForceProperty() {
-		return workForce;
+	
+	public Product getProductToProduce(){
+		return productToProduce;
 	}
+	public void setProductToProduce(Product productToProduce) {
+		this.productToProduce = productToProduce;
+	}
+	public void addToInventory(Product product, int amount) throws InvalidParameterException {
+		//LISÄÄ INVENTORYYN PRODUCTIN JA MÄÄRÄN WRAPPAAMALLA SEN ENSIN ITEM-OLIOON.
+		//MUISTA KÄSITELLÄ InvalidParameterException!!!!!
+		inventory.add(new Item(product, amount));
+	}
+	
+	public void produce() {
+		//TÄTÄ KUTSUTAAN KERRAN PÄIVÄSSÄ. LISÄÄ YHDEN PRODUCTIN INVENTORYYN.
+		inventory.add(new Item(productToProduce, 1));
+	}
+	
+	public ArrayList<Item> searchInventory() {
+		//HAE *KAIKKI* ITEMIT INVENTORYSTÄ
+		return inventory.getItemList();
+	}
+	public Item searchInventoryItem(int productId) {
+		//HAE TIETTY ITEM INVENTORYSTÄ
+		return inventory.search(productId);
+	}
+	
+	public String getProductToProduceName() {
+		return productToProduce.getProductName();
+	}
+	public StringProperty productToProduceProperty() {
+		return productToProduce.productNameProperty();
+	}
+	
+	
 }

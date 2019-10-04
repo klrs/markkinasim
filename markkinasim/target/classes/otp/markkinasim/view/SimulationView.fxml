@@ -6,6 +6,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -14,7 +15,7 @@
    <children>
       <Pane layoutX="138.0" layoutY="122.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="993.0">
+            <MenuBar layoutX="-1.0" layoutY="7.0" prefHeight="31.0" prefWidth="1024.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -33,31 +34,31 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <TableView layoutX="15.0" layoutY="46.0" prefHeight="319.0" prefWidth="993.0">
+            <TableView fx:id="simulationPartyTable" layoutY="38.0" prefHeight="318.0" prefWidth="637.0">
               <columns>
-                <TableColumn prefWidth="90.0" text="Tyyppi" />
-                <TableColumn prefWidth="90.0" text="Taho" />
-                  <TableColumn prefWidth="90.0" text="Resurssi" />
-                  <TableColumn prefWidth="90.0" text="Tuote" />
-                  <TableColumn prefWidth="90.0" text="Työntekijät" />
-                  <TableColumn prefWidth="90.0" text="Rahat" />
-                  <TableColumn prefWidth="105.0" text="Tuotto/Kierros" />
+                <TableColumn fx:id="partyName" prefWidth="90.0" text="Taho" />
+                  <TableColumn fx:id="partyProduct" prefWidth="90.0" text="Tuote" />
+                  <TableColumn fx:id="partyProductAmount" prefWidth="75.0" text="Tuote kpl." />
+                  <TableColumn fx:id="partyRawmaterial" prefWidth="90.0" text="Raaka-aine" />
+                  <TableColumn fx:id="partyRawmaterialAmount" prefWidth="94.0" text="Raaka-aine kpl." />
+                  <TableColumn fx:id="partyMoney" prefWidth="71.0" text="Rahat" />
               </columns>
             </TableView>
-            <ToolBar layoutX="14.0" layoutY="365.0" prefHeight="45.0" prefWidth="993.0">
+            <ToolBar layoutY="357.0" prefHeight="45.0" prefWidth="1024.0">
               <items>
                 <Button mnemonicParsing="false" text="Muokkaa" />
               </items>
             </ToolBar>
-            <Button layoutX="904.0" layoutY="554.0" mnemonicParsing="false" text="Seuraava kierros" />
+            <Button fx:id="nextRoundBtn" layoutX="904.0" layoutY="554.0" mnemonicParsing="false" onAction="#nextRound" text="Seuraava kierros" />
             <Button layoutX="853.0" layoutY="554.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
-            <TableView layoutX="14.0" layoutY="410.0" prefHeight="92.0" prefWidth="285.0">
+            <TableView layoutY="402.0" prefHeight="92.0" prefWidth="285.0">
               <columns>
                 <TableColumn prefWidth="95.0" text="Poppulaatio" />
                 <TableColumn prefWidth="95.0" text="Töissä" />
                   <TableColumn prefWidth="95.0" text="Työttömät" />
               </columns>
             </TableView>
+            <TextArea fx:id="simulationLog" editable="false" layoutX="637.0" layoutY="38.0" prefHeight="318.0" prefWidth="387.0" />
          </children>
       </Pane>
    </children>
