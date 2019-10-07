@@ -34,7 +34,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <TableView fx:id="simulationPartyTable" layoutY="38.0" prefHeight="318.0" prefWidth="637.0">
+            <TableView fx:id="partyTable" layoutY="38.0" prefHeight="318.0" prefWidth="637.0">
               <columns>
                 <TableColumn fx:id="partyName" prefWidth="90.0" text="Taho" />
                   <TableColumn fx:id="partyProduct" prefWidth="90.0" text="Tuote" />
