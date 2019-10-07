@@ -8,9 +8,9 @@ class CoreTest {
 
 	private Core core = Core.getInstance();
 	
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}
 
 }

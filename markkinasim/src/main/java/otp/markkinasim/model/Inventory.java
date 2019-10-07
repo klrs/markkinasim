@@ -2,6 +2,8 @@ package otp.markkinasim.model;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class Inventory {
 	//itemList ei voi sisältää duplikaatteja produkteja!
 	//tämä on koko inventoryn idea! Muuten olisi voinut vaan pitää ArrayListinä
@@ -18,7 +20,7 @@ public class Inventory {
 			//Jos lisättä Product löytyy jo listalta, sen amounttiin lisätään.
 			for(Item i : itemList) {
 				if(item.product.id == i.product.id) {
-					i.amount.add(item.amount);
+					i.amount.set(i.amount.get() + item.amount.get());
 					itemNotFound = false;
 					break;
 				}

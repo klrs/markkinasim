@@ -23,7 +23,7 @@ class InventoryTest {
 	void testInventoryAdd2() {
 		inventory.add(item);
 		inventory.add(item2);
-		assertEquals(15, inventory.search(product.id).amount, "Adding didn't work!");
+		assertEquals(15, inventory.search(product.id).amount.get(), "Adding didn't work!");
 	}
 	
 	@Test

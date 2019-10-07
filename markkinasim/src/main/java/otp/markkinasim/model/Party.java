@@ -8,7 +8,7 @@ import javafx.beans.property.*;
 
 public class Party {
 	//party elikkä kaupankäyntiä harrastava taho
-	
+
 	protected Inventory inventory;
 	protected ObservableList<Item> sellables;	//Myytävät productit -lista. EI KÄYTTÖÄ VIELÄ. TODO TODO TODO
 	protected StringProperty partyName;

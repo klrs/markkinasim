@@ -34,7 +34,7 @@ public class Item {
 	public void subtractAmount(int subtractableAmount) throws InvalidParameterException {
 		//PIENENNÄ ITEMIN MÄÄRÄÄ! KUNHAN PIENENNETTÄVÄ ARVO EI OLE ISOMPI KUIN ITEMIN MÄÄRÄ
 		if(amount.get()-subtractableAmount >= 0) {
-			amount.add(-subtractableAmount);
+			amount.set(amount.get() - subtractableAmount);
 		}
 		else { throw new InvalidParameterException("Subtractable value too large!"); }
 	}
