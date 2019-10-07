@@ -8,6 +8,9 @@ import javafx.beans.property.*;
 
 public class Party {
 	//party elikkä kaupankäyntiä harrastava taho
+	
+	protected static int nextId = 0;	//ID JÄRJESTELMÄ AINA OLIOTA ILMENNETTÄESSÄ. KTS. CONSTRUCTOR.
+	protected final int id;
 
 	protected Inventory inventory;
 	protected ObservableList<Item> sellables;	//Myytävät productit -lista. EI KÄYTTÖÄ VIELÄ. TODO TODO TODO HUOM SIIRRÄ INVENTORYYN??
@@ -17,6 +20,9 @@ public class Party {
 	protected Product productToProduce;		//TUOTETTAVA TUOTE. TÄLLÄ HETKELLÄ PARTYT TUOTTAVAT VAIN YHTÄ TUOTETTA
 	
 	public Party(String partyName, float money, Product productToProduce) {
+		id = nextId;
+		nextId++;
+		
 		inventory = new Inventory();
 		sellables = FXCollections.observableArrayList();
 		this.partyName = new SimpleStringProperty(partyName);
