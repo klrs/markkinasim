@@ -19,7 +19,6 @@ public class SimulationOptionsController {
 	private IView view;
 	@FXML
 	private TableView<Party> partyTable;
-
 	@FXML
 	private TableColumn<Party, String> partyName;
 	@FXML

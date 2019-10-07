@@ -33,7 +33,8 @@ public class View extends Application implements IView{
 	private SimulationController SimulationController;
 	private SimulationOptionsController SimulationOptionsController;
 	
-	private Stage window;
+	private Core core = Core.getInstance();
+	private static Stage window;
 	private Scene mainMenu,simulation,simulationOptions;
 	private List<Scene> sceneList = new ArrayList<Scene>();
 	
@@ -48,6 +49,7 @@ public class View extends Application implements IView{
 		SimulationController = new SimulationController(this);
 		SimulationOptionsController = new SimulationOptionsController(this);
 		
+	    core.init(this);
 		//default datan luonti
 		allProductData.add(new Product("Cow"));
 		allProductData.add(new Product("Beef patty", 0));	//INDEX????
@@ -69,6 +71,7 @@ public class View extends Application implements IView{
 				rawmaterialData.add(i);
 			}
 		}
+
 	}
 	
 	@Override
@@ -84,7 +87,7 @@ public class View extends Application implements IView{
 		    loader = new FXMLLoader(getClass().getResource("SimulationOptionsView.fxml"));
 		    loader.setController(SimulationOptionsController);
 		    Parent simulationOptionsParent = loader.load();
-
+		   
 			sceneList.add((mainMenu = new Scene(mainMenuParent)));
 			sceneList.add((simulation = new Scene(simulationParent)));
 			sceneList.add(simulationOptions = new Scene(simulationOptionsParent));

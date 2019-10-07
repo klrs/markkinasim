@@ -9,6 +9,11 @@ public class Item {
 	public FloatProperty priceEach;
 	public IntegerProperty amount;
 	
+	public Item() {
+		this.product = null;
+		this.priceEach = new SimpleFloatProperty(0);
+		this.amount = new SimpleIntegerProperty(0);
+	}
 	public Item(Product product, int amount) throws InvalidParameterException {
 		if(amount > 0) {
 			//jos m‰‰r‰ on <1 heitt‰‰ exceptionia, koska item on tarkoitettu olemassaolevaksi vain kun itemiss‰ on jtn.
@@ -44,5 +49,8 @@ public class Item {
 	}
 	public int getAmount() {
 		return amount.get();
+	}
+	public IntegerProperty amountProperty() {
+		return amount;		
 	}
 }

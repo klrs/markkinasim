@@ -20,7 +20,7 @@ public class Manufacturer extends Party {
 				if(item.amount.get() == 0) {
 					inventory.deleteItem(item);
 				}
-				
+			
 				inventory.add(new Item(productToProduce, 1));
 			}
 			catch(InvalidParameterException e) {

@@ -11,17 +11,17 @@ import javafx.application.Application;
  */
 public class App 
 {
+	private IView view;
     public static void main( String[] args )
     {
-    	View view = new View();
-    	view.init();
-    	
-    	Core core = Core.getInstance();
-        core.init();
-       // core.start();
-        
+       Core core = Core.getInstance();
+
        Application.launch(View.class, args);
-       
-        
     }
+    
+    public void setView(View view) {
+    	this.view = view;
+
+        System.out.println(view);
+       }
 }

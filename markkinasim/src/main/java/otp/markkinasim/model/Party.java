@@ -86,5 +86,9 @@ public class Party {
 		return productToProduce.productNameProperty();
 	}
 	
+	public IntegerProperty inventoryItemAmountProperty(int productToSearchId) {
+		return inventory.search(productToSearchId).amountProperty();
+	}
+	
 	
 }

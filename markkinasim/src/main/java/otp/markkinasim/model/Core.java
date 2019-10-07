@@ -33,9 +33,9 @@ public class Core {
 
 	private int day = 0;
 	
-	public void init() {
+	public void init(View view) {
 		//JOONAS MODAUS
-		view = View.getInstance();
+		this.view = view;
 		partyList = view.getPartyData();
 		productList = view.getAllProductData();
 		//###########################
@@ -69,18 +69,19 @@ public class Core {
 		//while(true) {
 			day++;
 			System.out.println("Day: " + day);
+			view.writeSimulationLog("Day: " + day +"\n");
 			for(Party p : partyList) {
 				p.produce();
 				for(Item i : p.searchInventory()) {
 					System.out.println(p.getPartyName() + " inventory: " + i.product.getProductName() + " " + i.getAmount());
-					view.writeSimulationLog(p.getPartyName() + " inventory: " + i.product.getProductName() + " " + i.amount);
+					view.writeSimulationLog(p.getPartyName() + " inventory: " + i.product.getProductName() + " " + i.getAmount()+"\n");
 				}
 			//	scan.nextLine();
 			//}
 			partyList.get(0).produce();
 
 			System.out.println(partyList.get(0).searchInventoryItem(1).getAmount());
-			
+			//view.writeSimulationLog(partyList.get(0).searchInventoryItem(1).getAmount()+"\n");
 		}
 	}
 }
