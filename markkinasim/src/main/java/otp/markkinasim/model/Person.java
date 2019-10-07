@@ -1,14 +1,14 @@
 package otp.markkinasim.model;
 
-import javafx.beans.property.*
+import javafx.beans.property.*;
 import javax.persistence.*;
 
 @Entity
 @Table(name="Person")
 
-public class Person implements IPerson {
+public class Person {
 	
-	private FloatProperty money;
+	//private FloatProperty money;
 	private static int count;
 	@Id
 	@Column(name="id")
@@ -30,7 +30,7 @@ public class Person implements IPerson {
 	private String work;
 	
 	public Person() {
-		this.money = new SimpleFloatProperty(100);
+		//this.money = new SimpleFloatProperty(100);
 		this.status = "idle";
 		this.money = 1000;
 		this.salary = 0;
