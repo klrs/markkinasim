@@ -60,10 +60,15 @@ public class Core {
 
 			for(Party p : partyList) {
 				p.produce();
+				p.setItemSellable();
 				for(Item i : p.searchInventory()) {
 					System.out.println(p.getPartyName() + " inventory: " + i.product.getProductName() + " " + i.amount.get());
 				}
 				scan.nextLine();
+			}
+			
+			for(Person p : personList) {
+				p.consume(partyList);
 			}
 			//partyList.get(0).produce();
 

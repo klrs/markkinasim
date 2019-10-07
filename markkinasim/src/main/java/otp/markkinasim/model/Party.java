@@ -10,7 +10,7 @@ public class Party {
 	//party elikkä kaupankäyntiä harrastava taho
 
 	protected Inventory inventory;
-	protected ObservableList<Item> sellables;	//Myytävät productit -lista. EI KÄYTTÖÄ VIELÄ. TODO TODO TODO
+	protected ObservableList<Item> sellables;	//Myytävät productit -lista. EI KÄYTTÖÄ VIELÄ. TODO TODO TODO HUOM SIIRRÄ INVENTORYYN??
 	protected StringProperty partyName;
 	protected FloatProperty money;
 	protected ObservableList<Person> employees;	//TODO TODO
@@ -18,6 +18,7 @@ public class Party {
 	
 	public Party(String partyName, float money, Product productToProduce) {
 		inventory = new Inventory();
+		sellables = FXCollections.observableArrayList();
 		this.partyName = new SimpleStringProperty(partyName);
 		this.money = new SimpleFloatProperty(money);
 		this.productToProduce = productToProduce;
@@ -44,5 +45,22 @@ public class Party {
 	public Item searchInventoryItem(int productId) {
 		//HAE TIETTY ITEM INVENTORYSTÄ
 		return inventory.search(productId);
+	}
+	public void setItemSellable(int productId) {
+		//laittaa KAIKKI kyseiset itemit sellableksi!
+		Item itemToSell = searchInventoryItem(productId);
+		if(itemToSell != null) {
+			itemToSell.priceEach = new SimpleFloatProperty(10);
+			sellables.add(itemToSell);
+			inventory.deleteItem(itemToSell);
+		}
+		//else ilmoita?
+	}
+	public void setItemSellable() {
+		//laittaa kaikki productit tyyppiä productToProduce sellableksi!!
+		setItemSellable(productToProduce.id);
+	}
+	public void searchSellables() {
+		
 	}
 }

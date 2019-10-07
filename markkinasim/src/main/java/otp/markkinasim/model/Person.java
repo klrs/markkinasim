@@ -1,6 +1,10 @@
 package otp.markkinasim.model;
 
 import javafx.beans.property.*;
+import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
+
 import javax.persistence.*;
 
 @Entity
@@ -38,41 +42,16 @@ public class Person {
 		
 		this.id=count++;
 	}
-	
-	public int getId() {
-		return id;
+	public void consume(ObservableList<Party> partyList) {
+		searchConsumables(partyList);
 	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
-	public double getMoney() {
-		return money;
-	}
-	public void setMoney(double money) {
-		this.money = money;
-	}
-	public double getSalary() {
-		return salary;
-	}
-	public void setSalary(double salary) {
-		this.salary = salary;
-	}
-	public String getWork() {
-		return work;
-	}
-	public void setWork(String work) {
-		this.work = work;
-	}
-	public void findWork() {
-		// TODO Auto-generated method stub
+	public ArrayList<Item> searchConsumables(ObservableList<Party> partyList) {
+		//TODO CHANGE CHANGE CHANGE THIS IS PAINFUL
+		ArrayList<Item> buyables = new ArrayList<Item>();
+		for(Party p : partyList) {
+			p.searchSellables();
+		}
 		
+		return buyables;
 	}
-	
-	
 }
