@@ -22,7 +22,7 @@ class ProductTest {
 		}
 		
 		for(int i = 0; products.size() > i; i++) {
-			assertEquals(i, products.get(i).id, "Id doesn't match");
+			assertEquals(i, products.get(i).getId(), "Id doesn't match");
 		}
 	}
 	
@@ -33,10 +33,10 @@ class ProductTest {
 			products.add(new Product("Product" + i));
 		}
 		
-		System.out.println(products.get(0).id + "   " + products.size());
+		System.out.println(products.get(0).getId() + "   " + products.size());
 		
 		for(int i = 0; products.size() > i; i++) {
-			assertEquals(i, products.get(i).id, "Id doesn't match");
+			assertEquals(i, products.get(i).getId(), "Id doesn't match");
 		}
 	}
 }

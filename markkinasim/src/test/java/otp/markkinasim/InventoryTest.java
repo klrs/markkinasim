@@ -1,8 +1,12 @@
 package otp.markkinasim;
 
 import static org.junit.jupiter.api.Assertions.*;
-import otp.markkinasim.model.*;
+
 import org.junit.jupiter.api.Test;
+
+import otp.markkinasim.model.Inventory;
+import otp.markkinasim.model.Item;
+import otp.markkinasim.model.Product;
 
 class InventoryTest {
 
@@ -16,14 +20,14 @@ class InventoryTest {
 	@Test
 	void testInventoryAdd1() {
 		inventory.add(item);
-		assertEquals(item, inventory.search(product.id), "Adding didn't work!");
+		assertEquals(item, inventory.search(product.getId()), "Adding didn't work!");
 	}
 	
 	@Test
 	void testInventoryAdd2() {
 		inventory.add(item);
 		inventory.add(item2);
-		assertEquals(15, inventory.search(product.id).amount, "Adding didn't work!");
+		assertEquals(15, inventory.search(product.getId()).amount.get(), "Adding didn't work!");
 	}
 	
 	@Test
@@ -31,6 +35,6 @@ class InventoryTest {
 		inventory.add(item);
 		inventory.add(item2);
 		inventory.add(item3);
-		assertEquals(item3, inventory.search(product2.id), "Adding didn't work!");
+		assertEquals(item3, inventory.search(product2.getId()), "Adding didn't work!");
 	}
 }

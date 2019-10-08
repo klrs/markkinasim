@@ -13,12 +13,11 @@ public class Inventory {
 	public void add(Item item) {
 		boolean itemNotFound = true;
 		if(itemList.size() != 0) {
-			
 			//Tarkistaa yritetäänkö lisätä itemListissä toista samaa Productia
 			//Jos lisättä Product löytyy jo listalta, sen amounttiin lisätään.
 			for(Item i : itemList) {
 				if(item.product.id == i.product.id) {
-					i.amount.add(item.amount);
+					i.amount.set(i.amount.get() + item.amount.get());
 					itemNotFound = false;
 					break;
 				}
