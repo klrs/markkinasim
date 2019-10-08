@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ButtonBar layoutX="717.0" layoutY="549.0" prefHeight="40.0" prefWidth="284.0">
+              <buttons>
+                <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" prefWidth="87.0" text="Tallenna" />
+                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="Ok" />
+                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="Peruuta" />
+              </buttons>
+            </ButtonBar>
+            <ButtonBar layoutX="580.0" layoutY="502.0" prefHeight="40.0" prefWidth="421.0">
+               <buttons>
+                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#handleNewParty" prefWidth="126.0" text="Lisää" />
+                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#handleEditParty" text="Muokkaa" />
+                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#handleDeleteParty" text="Poista" />
+               </buttons>
+            </ButtonBar>
+            <Label layoutX="580.0" layoutY="15.0" prefHeight="32.0" prefWidth="411.0" text="Simuloinnissa käytettävät tahot.">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="42.0" layoutY="17.0" prefHeight="27.0" prefWidth="159.0" text="Simuloinnin pituus:">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <TextField layoutX="201.0" layoutY="18.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulointi kierrosten määrä" />
+            <Label layoutX="42.0" layoutY="61.0" prefHeight="27.0" prefWidth="132.0" text="Populaation:">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <TextField layoutX="146.0" layoutY="62.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulaation person määrä" />
+            <TableView fx:id="partyTable" layoutX="580.0" layoutY="46.0" prefHeight="454.0" prefWidth="421.0">
+              <columns>
+                <TableColumn fx:id="partyName" prefWidth="70.0" text="Nimi" />
+                  <TableColumn fx:id="partyProduct" prefWidth="70.0" text="Tuote" />
+                  <TableColumn fx:id="partyRawmaterial" prefWidth="75.0" text="Raaka-aine" />
+                  <TableColumn fx:id="partyMoney" prefWidth="70.0" text="Rahat" />
+              </columns>
+            </TableView>
+            <TableView fx:id="productTable" layoutX="38.0" layoutY="354.0" prefHeight="148.0" prefWidth="308.0">
+              <columns>
+                <TableColumn fx:id="productName" prefWidth="87.0" text="Nimi" />
+                  <TableColumn fx:id="productRawmaterial" prefWidth="87.0" text="Raaka-aine" />
+              </columns>
+            </TableView>
+            <Label layoutX="38.0" layoutY="327.0" text="Simuloinnissa käytettävät tuotteet.">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ButtonBar layoutX="38.0" layoutY="502.0" prefHeight="40.0" prefWidth="308.0">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#handleNewProduct" text="Lisää" />
+                  <Button mnemonicParsing="false" onAction="#handleEditProduct" text="Muokkaa" />
+                  <Button mnemonicParsing="false" onAction="#handleDeleteProduct" text="Poista" />
+              </buttons>
+            </ButtonBar>
+            <Label layoutX="38.0" layoutY="100.0" text="Simuloinnissa käytettävät raaka-aineet.">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TableView fx:id="rawmaterialTable" layoutX="38.0" layoutY="127.0" prefHeight="148.0" prefWidth="308.0">
+               <columns>
+                  <TableColumn fx:id="rawmaterialId" prefWidth="75.0" text="Id" />
+                  <TableColumn fx:id="rawmaterialName" prefWidth="87.0" text="Nimi" />
+               </columns>
+            </TableView>
+            <ButtonBar layoutX="38.0" layoutY="273.0" prefHeight="40.0" prefWidth="308.0">
+               <buttons>
+                  <Button mnemonicParsing="false" onAction="#handleNewRawmaterial" text="Lisää" />
+                  <Button mnemonicParsing="false" onAction="#handleEditRawmaterial" text="Muokkaa" />
+                  <Button mnemonicParsing="false" onAction="#handleDeleteRawmaterial" text="Poista" />
+               </buttons>
+            </ButtonBar>
+         </children>
+         <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </padding>
+      </Pane>
+   </children>
+</AnchorPane>
