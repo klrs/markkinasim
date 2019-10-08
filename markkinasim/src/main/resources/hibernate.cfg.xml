@@ -21,6 +21,7 @@
         <property name="hbm2ddl.auto">create</property>
  
         <!-- Mapping With Model Class Containing Annotations -->
-        <mapping class="otp.markkinasim.model.Person" />
+        <mapping class="otp.markkinasim.model.Product" />
+        <mapping class="otp.markkinasim.model.Party" />
     </session-factory>
 </hibernate-configuration>

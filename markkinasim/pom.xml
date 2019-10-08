@@ -16,9 +16,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.5.2</version>
       <scope>test</scope>
     </dependency>
     
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.3.6.Final</version>
+            <version>5.4.1.Final</version>
         </dependency>
         <!-- Mysql Connector -->
         <dependency>
@@ -43,4 +43,24 @@
             <version>5.1.21</version>
         </dependency>
   </dependencies>
+  
+    <build>
+    <sourceDirectory>markkinasim/src/main/java</sourceDirectory>
+    <testSourceDirectory>markkinasim/src/test/java</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.1</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>
