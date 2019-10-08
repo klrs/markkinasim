@@ -8,6 +8,7 @@ import otp.markkinasim.model.Core;
  */
 public class App 
 {
+	//test
     public static void main( String[] args )
     {
         Core core = Core.getInstance();
