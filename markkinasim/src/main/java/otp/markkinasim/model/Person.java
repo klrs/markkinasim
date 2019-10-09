@@ -46,7 +46,8 @@ public class Person {
 		this.id=count++;
 	}
 	
-	public void consume(ObservableList<Party> partyList) {
+	public String consume(ObservableList<Party> partyList) {
+		String print = null;
 		ArrayList<Item> buyables = searchConsumables(partyList);
 		for(Item i : buyables) {
 			if(i.amount.get() > 0) {
@@ -54,17 +55,18 @@ public class Person {
 				money =- i.priceEach.get();
 				try {
 					i.subtractAmount(1);
-					System.out.println("Person " + id + " bought " + i.product.getProductName());
+					print = "Person " + id + " bought " + i.product.getProductName()+"\n";
 				} catch (InvalidParameterException e) {
 					// TODO Auto-generated catch block
-					System.out.println("Nothing to buy!");
+					print = "Nothing to buy!";
 				}
 				break;
 			}
 			else {
-				System.out.println("Person " + id + " would like to buy " + i.product.getProductName());
+				print += "Person " + id + " would like to buy " + i.product.getProductName()+"\n";
 			}
 		}
+		return print;
 	}
 	public ArrayList<Item> searchConsumables(ObservableList<Party> partyList) {
 		//TODO CHANGE CHANGE CHANGE THIS IS PAINFUL
@@ -76,15 +78,17 @@ public class Person {
 		return buyables;
 	}
 	
-	public void findWork(ObservableList<Party> partyList) {
+	public String findWork(ObservableList<Party> partyList) {
+		String print = null;
 		for(Party p : partyList) {
 			if(p.employeesNeeded()) {
 				employer = p;
 				p.addEmployee(this);
-				System.out.println("Person " + id + " now working for " + employer.getPartyName());
+				print = "Person " + id + " now working for " + employer.getPartyName()+"\n";
 				break;
 			}
 		}
+		return print;
 	}
 	public void addMoney(float addableMoney) {
 		this.money =+ addableMoney;

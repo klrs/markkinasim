@@ -35,8 +35,8 @@ public class ProductEditDialogController {
 	}
 	public void setView(View view) {
 		this.view=view;
-  		if(!view.getRawmaterialData().isEmpty()) {
-  			for(Product i: view.getRawmaterialData()) {
+  		if(!view.getAllProductData().isEmpty()) {
+  			for(Product i: view.getAllProductData()) {
   				productRawmaterial.getItems().add(i.getProductName());
   			}
   		}
@@ -45,7 +45,7 @@ public class ProductEditDialogController {
 		this.product = product;
 		productName.setText(product.getProductName());
 		if(product.getProductNeededId()>=0) {
-			for(Product i: view.getRawmaterialData()) {
+			for(Product i: view.getAllProductData()) {
      	   		if(i.getId()==product.getProductNeededId()) {
      		   		productRawmaterial.setValue(i.getProductName());
      	   		}
@@ -68,7 +68,7 @@ public class ProductEditDialogController {
 	    if (isInputValid()) {
 	           product.setProductName(productName.getText());
 	           
-	           for(Product i: view.getRawmaterialData()) {
+	           for(Product i: view.getAllProductData()) {
 	        	   if(i.getProductName()==productRawmaterial.getValue()) {
 	        		   product.setProductNeededId(i.getId());
 	        	   }
@@ -82,7 +82,7 @@ public class ProductEditDialogController {
         String errorMessage = "";
 
         if (productName.getText() == null || productName.getText().length() == 0) {
-            errorMessage += "Nimeä tuote!\n"; 
+            errorMessage += "Nimeï¿½ tuote!\n"; 
         }
         if (productRawmaterial.getValue() == null) {
             errorMessage += "Valitse raaka-aine!\n"; 
@@ -95,7 +95,7 @@ public class ProductEditDialogController {
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Korjaa väärin täytetyt kentät");
+            alert.setHeaderText("Korjaa vï¿½ï¿½rin tï¿½ytetyt kentï¿½t");
             alert.setContentText(errorMessage);
             
             alert.showAndWait();

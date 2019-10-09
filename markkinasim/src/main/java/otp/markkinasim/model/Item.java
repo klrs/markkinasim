@@ -2,6 +2,7 @@ package otp.markkinasim.model;
 
 import java.security.InvalidParameterException;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 
 public class Item {
 	//DATA TYPE FOR WRAPPING PRODUCT AND AMOUNT TOGETHER. HUOM PUBLIC FIELDIT!!
@@ -44,5 +45,9 @@ public class Item {
 	public void addAmount(int addableAmount) {
 		//lisää määrä itemin amounttiin.
 		amount.set(amount.get() + addableAmount);
+	}
+	public IntegerProperty amountProperty() {
+		// TODO Auto-generated method stub
+		return amount;
 	}
 }

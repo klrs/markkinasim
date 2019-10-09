@@ -19,9 +19,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import otp.markkinasim.App;
 import otp.markkinasim.model.Core;
 import otp.markkinasim.model.Manufacturer;
 import otp.markkinasim.model.Party;
+import otp.markkinasim.model.Person;
 import otp.markkinasim.model.Product;
 
 
@@ -33,15 +35,11 @@ public class View extends Application implements IView{
 	private SimulationController SimulationController;
 	private SimulationOptionsController SimulationOptionsController;
 	
-	private Core core = Core.getInstance();
+	private App app;
+	private Core core;
 	private static Stage window;
 	private Scene mainMenu,simulation,simulationOptions;
 	private List<Scene> sceneList = new ArrayList<Scene>();
-	
-	private ObservableList<Party> partyData = FXCollections.observableArrayList();
-	private ObservableList<Product> allProductData = FXCollections.observableArrayList();
-	private ObservableList<Product> productData = FXCollections.observableArrayList();
-	private ObservableList<Product> rawmaterialData = FXCollections.observableArrayList();
 	
 	public void init() {
 		//Luodaan perus scenet
@@ -49,29 +47,9 @@ public class View extends Application implements IView{
 		SimulationController = new SimulationController(this);
 		SimulationOptionsController = new SimulationOptionsController(this);
 		
+		core = Core.getInstance();
+		app = App.getInstance();
 	    core.init(this);
-		//default datan luonti
-		allProductData.add(new Product("Cow"));
-		allProductData.add(new Product("Beef patty", 0));	//INDEX????
-		
-		partyData.add(new Manufacturer("Jimbo's Beef", 1000.0f, allProductData.get(1)));
-		partyData.add(new Party("Cowman", 100, allProductData.get(0)));
-		
-		try {
-			partyData.get(0).addToInventory(allProductData.get(0), 3);
-		} catch (InvalidParameterException e) {
-			System.out.println(e.getMessage());
-		}
-		
-		//erotellaan raaka-aineet ja tuotteet
-		for(Product i : allProductData) {
-			if(i.getProductNeededId()>=0) {
-				productData.add(i);
-			}else {
-				rawmaterialData.add(i);
-			}
-		}
-
 	}
 	
 	@Override
@@ -101,7 +79,7 @@ public class View extends Application implements IView{
 	}
 	
 	public static View getInstance() {
-		//kutsu tätä funktiota luodaksesi Core olion!
+		//kutsu tï¿½tï¿½ funktiota luodaksesi Core olion!
 		if (view == null) {
 			view = new View();
 		}
@@ -124,19 +102,11 @@ public class View extends Application implements IView{
 	
 	@Override
 	public ObservableList<Party> getPartyData() {
-		return partyData;
-	}
-	@Override
-	public ObservableList<Product> getProductData() {
-		return productData;
-	}
-	@Override
-	public ObservableList<Product> getRawmaterialData() {
-		return rawmaterialData;
+		return app.getPartyList();
 	}
 	@Override
 	public ObservableList<Product> getAllProductData(){
-		return allProductData;
+		return app.getProductList();
 	}
 	@Override
 	public void writeSimulationLog(String msg) {
@@ -236,5 +206,10 @@ public class View extends Application implements IView{
             return false;
         }
     }
+
+	@Override
+	public ObservableList<Person> getPersonData() {
+		return app.getPersonList();
+	}
 }
 

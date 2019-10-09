@@ -3,9 +3,12 @@ package otp.markkinasim.view;
 import javafx.collections.ObservableList;
 import javafx.stage.Window;
 import otp.markkinasim.model.Party;
+import otp.markkinasim.model.Person;
 import otp.markkinasim.model.Product;
 
 public interface IView {
+
+	public abstract ObservableList<Person> getPersonData();
 
 	public abstract void setScene(int i);
 
@@ -14,10 +17,6 @@ public interface IView {
 	public abstract ObservableList<Party> getPartyData();
 
 	public boolean showPartyEditDialog(Party party);
-
-	public abstract ObservableList<Product> getRawmaterialData();
-
-	public abstract ObservableList<Product> getProductData();
 
 	public boolean showProductEditDialog(Product product);
 

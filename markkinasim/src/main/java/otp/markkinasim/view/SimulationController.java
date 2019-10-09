@@ -1,8 +1,12 @@
 package otp.markkinasim.view;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -13,6 +17,7 @@ import javafx.util.Callback;
 import otp.markkinasim.model.Core;
 import otp.markkinasim.model.Item;
 import otp.markkinasim.model.Party;
+import otp.markkinasim.model.Person;
 import otp.markkinasim.model.Product;
 
 public class SimulationController{
@@ -36,7 +41,16 @@ public class SimulationController{
 	private TableColumn<Party, Number> partyRawmaterialAmount;
 	@FXML
 	private TableColumn<Party, Number> partyMoney;
-		
+	
+	@FXML
+	private TableView<Person> personTable;
+	@FXML
+	private TableColumn<Person, Number> personCount;
+	@FXML
+	private TableColumn<Person, String> personWork;
+	@FXML
+	private TableColumn<Person, Number> personMoney;
+	
 	public SimulationController(View view) {
 		this.view = view;
 		core = Core.getInstance();
@@ -52,7 +66,7 @@ public class SimulationController{
 				cellData -> cellData.getValue().productToProduceProperty());
 		partyProductAmount.setCellValueFactory(new Callback<CellDataFeatures<Party, Number>, ObservableValue<Number>>() {
 		     public ObservableValue<Number> call(CellDataFeatures<Party, Number> p) {
-		    	 Item item = p.getValue().searchInventoryItem(p.getValue().getProductToProduce().getId());
+		    	 Item item = p.getValue().searchSellablesItem(p.getValue().getProductToProduce().getId());
 		    	 IntegerProperty fill = new SimpleIntegerProperty(0);	
 		    	 if(item!=null) {
 		    	 		return item.amountProperty();
@@ -63,7 +77,7 @@ public class SimulationController{
 		     public ObservableValue<String> call(CellDataFeatures<Party, String> p) {
 		         // p.getValue() returns the Party instance for a particular TableView row
 		    	 if(p.getValue().getProductToProduce().getProductNeededId()>=0) {
-		    		 for(Product i:view.getRawmaterialData()) {
+		    		 for(Product i:view.getAllProductData()) {
 		    			 if(p.getValue().getProductToProduce().getProductNeededId()==i.getId()) {
 		    				 return i.productNameProperty();
 		    			 }
@@ -81,13 +95,35 @@ public class SimulationController{
 		  });
 		partyMoney.setCellValueFactory(
                 cellData -> cellData.getValue().moneyProperty());
-		partyTable.setItems(view.getPartyData());		
+		partyTable.setItems(view.getPartyData());
+		
+		personCount.setCellValueFactory(new Callback<CellDataFeatures<Person, Number>, ObservableValue<Number>>() {
+		     public ObservableValue<Number> call(CellDataFeatures<Person, Number> p) {
+		    	 IntegerProperty fill = new SimpleIntegerProperty(p.getValue().getId());	
+		    	 return fill;
+		     }
+		  });
+		personWork.setCellValueFactory(new Callback<CellDataFeatures<Person, String>, ObservableValue<String>>() {
+		     public ObservableValue<String> call(CellDataFeatures<Person, String> p) {
+		    	 if(p.getValue().getEmployer() != null) { return p.getValue().getEmployer().partyNameProperty();}
+		    	 StringProperty fill = new SimpleStringProperty("Työtön");
+		    	 return fill;
+		     }
+		  });		
+		personMoney.setCellValueFactory(new Callback<CellDataFeatures<Person, Number>, ObservableValue<Number>>() {
+		     public ObservableValue<Number> call(CellDataFeatures<Person, Number> p) {
+		    	 DoubleProperty fill = new SimpleDoubleProperty(p.getValue().getMoney());	
+		    	 return fill;
+		     }
+		  });
+		personTable.setItems(view.getPersonData());
 	}
 	
 	@FXML
 	private void nextRound() {	
 		core.start();
 		partyTable.refresh();
+		personTable.refresh();
 	}
 	@FXML
 	private void backToMenu() {

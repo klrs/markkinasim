@@ -165,7 +165,23 @@ public class Party {
 	public void setPartyName(String partyName) {
 		this.partyName.set(partyName);
 	}
+	public String getProductToProduceName() {
+
+		return productToProduce.getProductName();
+	}
+	public StringProperty partyNameProperty() {
+		return partyName;
+	}
+	public StringProperty productToProduceProperty() {
+		return productToProduce.productNameProperty();
+	}
+	public FloatProperty moneyProperty() {
+		return money;
+	}
 	
-	
+	public Item searchSellablesItem(int productId) {
+		//HAE TIETTY ITEM Sellablesseista;
+		return sellables.search(productId);
+	}
 	
 }

@@ -77,6 +77,10 @@ public class Product {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public StringProperty productNameProperty() {
+
+		return productName;
+	}
 	
 	
 

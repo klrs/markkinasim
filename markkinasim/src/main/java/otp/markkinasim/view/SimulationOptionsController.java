@@ -60,7 +60,7 @@ public class SimulationOptionsController {
 		     public ObservableValue<String> call(CellDataFeatures<Party, String> p) {
 		         // p.getValue() returns the Party instance for a particular TableView row
 		    	 if(p.getValue().getProductToProduce().getProductNeededId()>=0) {
-		    		 for(Product i:view.getRawmaterialData()) {
+		    		 for(Product i:view.getAllProductData()) {
 		    			 if(p.getValue().getProductToProduce().getProductNeededId()==i.getId()) {
 		    				 return i.productNameProperty();
 		    			 }
@@ -84,7 +84,7 @@ public class SimulationOptionsController {
 		  });
 		rawmaterialName.setCellValueFactory(
 				cellData -> cellData.getValue().productNameProperty());
-		rawmaterialTable.setItems(view.getRawmaterialData());
+		rawmaterialTable.setItems(view.getAllProductData());
 		
 		//Tuote taulukon alustus
 		productName.setCellValueFactory(
@@ -92,14 +92,14 @@ public class SimulationOptionsController {
 		productRawmaterial.setCellValueFactory(new Callback<CellDataFeatures<Product, String>, ObservableValue<String>>() {
 		     public ObservableValue<String> call(CellDataFeatures<Product, String> p) {
 		         // p.getValue() returns the Product instance for a particular TableView row
-		   		 for(Product i:view.getRawmaterialData()) {
+		   		 for(Product i:view.getAllProductData()) {
 		   			 if(p.getValue().getProductNeededId()==i.getId()) {
 		   				 return i.productNameProperty();
 		   			 }
 		   		 }return null;
 		     }
 		  });
-		productTable.setItems(view.getProductData());
+		productTable.setItems(view.getAllProductData());
 	}
 	
 	@FXML
@@ -114,7 +114,7 @@ public class SimulationOptionsController {
 	
 	@FXML
     private void handleNewParty() {
-		if(!view.getRawmaterialData().isEmpty() && !view.getProductData().isEmpty()) {
+		if(!view.getAllProductData().isEmpty() && !view.getAllProductData().isEmpty()) {
         Party tempParty = new Party();
         boolean okClicked = view.showPartyEditDialog(tempParty);
         if (okClicked) {
@@ -127,7 +127,7 @@ public class SimulationOptionsController {
             alert.initOwner(view.getPrimaryStage());
             alert.setTitle("Ei raaka-aineita tai tuotteita");
             alert.setHeaderText("Ei raaka-aineita tai tuotteita.");
-            alert.setContentText("Luo vähintään yksi raaka-aine ja tuote ennen kuin luot tahon.");
+            alert.setContentText("Luo vï¿½hintï¿½ï¿½n yksi raaka-aine ja tuote ennen kuin luot tahon.");
 
             alert.showAndWait();
     	}
@@ -172,7 +172,6 @@ public class SimulationOptionsController {
         Product tempRawmaterial = new Product();
         boolean okClicked = view.showRawmaterialEditDialog(tempRawmaterial);
         if (okClicked) {
-            view.getRawmaterialData().add(tempRawmaterial);
             view.getAllProductData().add(tempRawmaterial);
             tableRefresh();
         }
@@ -206,9 +205,9 @@ public class SimulationOptionsController {
 	        		// Rawmaterial in use
 		            Alert alert = new Alert(AlertType.WARNING);
 		            alert.initOwner(view.getPrimaryStage());
-		            alert.setTitle("Valittu raaka-aine käytössä");
-		            alert.setHeaderText("Käytössä olevaa raaka-ainetta ei voida poistaa.");
-		            alert.setContentText("Poista tuotte/tuotteet, jotka käyttävät raaka-ainetta.");
+		            alert.setTitle("Valittu raaka-aine kï¿½ytï¿½ssï¿½");
+		            alert.setHeaderText("Kï¿½ytï¿½ssï¿½ olevaa raaka-ainetta ei voida poistaa.");
+		            alert.setContentText("Poista tuotte/tuotteet, jotka kï¿½yttï¿½vï¿½t raaka-ainetta.");
 
 		            alert.showAndWait();
 	        	}
@@ -225,7 +224,7 @@ public class SimulationOptionsController {
 	    }
 	
 	private boolean rawmaterialUsed(Product rawmaterial) {
-		for(Product i:view.getProductData()) {
+		for(Product i:view.getAllProductData()) {
 			if(i.getProductNeededId()==rawmaterial.getId()) {
 				return true;
 			}
@@ -244,13 +243,12 @@ public class SimulationOptionsController {
 
 	@FXML
     private void handleNewProduct() {
-		if(!view.getRawmaterialData().isEmpty()) {
+		if(!view.getAllProductData().isEmpty()) {
 			
 			Product tempProduct = new Product();
         	boolean okClicked = view.showProductEditDialog(tempProduct);
 		
         	if (okClicked) {
-            	view.getProductData().add(tempProduct);
             	view.getAllProductData().add(tempProduct);
             	tableRefresh();
         	}
@@ -260,7 +258,7 @@ public class SimulationOptionsController {
             alert.initOwner(view.getPrimaryStage());
             alert.setTitle("Ei raaka-aineita");
             alert.setHeaderText("Ei raaka-aineita.");
-            alert.setContentText("Luo vähintään yksi raaka-aine ennen kuin luot tuotteen.");
+            alert.setContentText("Luo vï¿½hintï¿½ï¿½n yksi raaka-aine ennen kuin luot tuotteen.");
 
             alert.showAndWait();
     	}
@@ -294,9 +292,9 @@ public class SimulationOptionsController {
 	        		 // Nothing selected.
 		            Alert alert = new Alert(AlertType.WARNING);
 		            alert.initOwner(view.getPrimaryStage());
-		            alert.setTitle("Valittu tuote on käytössä");
-		            alert.setHeaderText("Käytössä olevaa tuotetta ei voida poistaa.");
-		            alert.setContentText("Poista tai muokkaa tahoa/tahoja, jotka käyttävät tuotetta.");
+		            alert.setTitle("Valittu tuote on kï¿½ytï¿½ssï¿½");
+		            alert.setHeaderText("Kï¿½ytï¿½ssï¿½ olevaa tuotetta ei voida poistaa.");
+		            alert.setContentText("Poista tai muokkaa tahoa/tahoja, jotka kï¿½yttï¿½vï¿½t tuotetta.");
 
 		            alert.showAndWait();
 	        	}

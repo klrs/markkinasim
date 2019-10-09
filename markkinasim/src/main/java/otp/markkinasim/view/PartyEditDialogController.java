@@ -52,7 +52,7 @@ public class PartyEditDialogController {
 		if(party.getProductToProduce()!=null) {
 		partyProductChoice.setValue(party.getProductToProduceName());
 		}
-		partyMoney.setText(Float.toString(party.getMoney()));
+		partyMoney.setText(Float.toString(party.getMoney().get()));
 
 	}
 	
@@ -61,7 +61,7 @@ public class PartyEditDialogController {
 		for(Product i:view.getAllProductData()) {
 			if(i.getProductName() == partyProductChoice.getValue()) {
 				if(i.getProductNeededId()>=0) {
-					for(Product I:view.getRawmaterialData()) {
+					for(Product I:view.getAllProductData()) {
 						if(i.getProductNeededId() == I.getId()) {
 							partyRawmaterial.setText(I.getProductName());
 							break;
@@ -82,7 +82,7 @@ public class PartyEditDialogController {
 		this.okClicked = okClicked;
 	}
 	
-	//asettaa raaka-aineet ja tuotettavat tuotteet käyttäjän valitseman taho tyypin mukaan.
+	//asettaa raaka-aineet ja tuotettavat tuotteet kï¿½yttï¿½jï¿½n valitseman taho tyypin mukaan.
 		
 	@FXML
 	private void handleCancel() {
@@ -98,7 +98,7 @@ public class PartyEditDialogController {
 	        		   party.setProductToProduce(i);
 	        	   }
 	           }
-	           party.setMoney(Float.parseFloat(partyMoney.getText()));
+	           party.getMoney().set(Float.parseFloat(partyMoney.getText()));
 
 	           okClicked = true;
 	           dialogStage.close();
@@ -110,7 +110,7 @@ public class PartyEditDialogController {
         String errorMessage = "";
 
         if (partyName.getText() == null || partyName.getText().length() == 0) {
-            errorMessage += "Nimeä taho!\n"; 
+            errorMessage += "Nimeï¿½ taho!\n"; 
         }
         
         if (partyProductChoice.getValue() == null) {
@@ -118,13 +118,13 @@ public class PartyEditDialogController {
         }
 
         if (partyMoney.getText() == null || partyMoney.getText().length() == 0) {
-            errorMessage += "Tahon aloitus rahamäärä on virheellinen!\n"; 
+            errorMessage += "Tahon aloitus rahamï¿½ï¿½rï¿½ on virheellinen!\n"; 
         } else {
             // try to parse the money amount into an float.
             try {
                 Float.parseFloat(partyMoney.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "Tahon aloitus rahamäärän täytyy olla numero!\n"; 
+                errorMessage += "Tahon aloitus rahamï¿½ï¿½rï¿½n tï¿½ytyy olla numero!\n"; 
             }
         }
 
@@ -135,7 +135,7 @@ public class PartyEditDialogController {
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Korjaa väärin täytetyt kentät");
+            alert.setHeaderText("Korjaa vï¿½ï¿½rin tï¿½ytetyt kentï¿½t");
             alert.setContentText(errorMessage);
             
             alert.showAndWait();
