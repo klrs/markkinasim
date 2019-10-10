@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>SimulationController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">App (10.10.2019 12:16:16)</a> &gt; <a href="../../index.html" class="el_group">markkinasim</a> &gt; <a href="../index.html" class="el_bundle">markkinasim/src/main/java</a> &gt; <a href="index.source.html" class="el_package">otp.markkinasim.view</a> &gt; <span class="el_source">SimulationController.java</span></div><h1>SimulationController.java</h1><pre class="source lang-java linenums">package otp.markkinasim.view;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.util.Callback;
+import otp.markkinasim.model.Core;
+import otp.markkinasim.model.Item;
+import otp.markkinasim.model.Party;
+import otp.markkinasim.model.Person;
+import otp.markkinasim.model.Product;
+
+public class SimulationController{
+
+	private IView view;
+	private Core core;
+	
+	@FXML
+	private TextArea simulationLog;
+	@FXML
+	private TableView&lt;Party&gt; partyTable;
+	@FXML
+	private TableColumn&lt;Party, String&gt; partyName;
+	@FXML
+	private TableColumn&lt;Party, String&gt; partyProduct;
+	@FXML
+	private TableColumn&lt;Party, Number&gt; partyProductAmount;
+	@FXML
+	private TableColumn&lt;Party, String&gt; partyRawmaterial;
+	@FXML
+	private TableColumn&lt;Party, Number&gt; partyRawmaterialAmount;
+	@FXML
+	private TableColumn&lt;Party, Number&gt; partyMoney;
+	
+	@FXML
+	private TableView&lt;Person&gt; personTable;
+	@FXML
+	private TableColumn&lt;Person, Number&gt; personCount;
+	@FXML
+	private TableColumn&lt;Person, String&gt; personWork;
+	@FXML
+	private TableColumn&lt;Person, Number&gt; personMoney;
+	
+<span class="fc" id="L54">	public SimulationController(View view) {</span>
+<span class="fc" id="L55">		this.view = view;</span>
+<span class="fc" id="L56">		core = Core.getInstance();</span>
+	
+<span class="fc" id="L58">	}</span>
+	
+	@FXML
+	private void initialize() {
+		 // Party taulukko alustus
+<span class="fc" id="L63">		partyName.setCellValueFactory(</span>
+<span class="fc" id="L64">                cellData -&gt; cellData.getValue().partyNameProperty());	</span>
+<span class="fc" id="L65">		partyProduct.setCellValueFactory(</span>
+<span class="fc" id="L66">				cellData -&gt; cellData.getValue().productToProduceProperty());</span>
+<span class="fc" id="L67">		partyProductAmount.setCellValueFactory(new Callback&lt;CellDataFeatures&lt;Party, Number&gt;, ObservableValue&lt;Number&gt;&gt;() {</span>
+		     public ObservableValue&lt;Number&gt; call(CellDataFeatures&lt;Party, Number&gt; p) {
+<span class="fc" id="L69">		    	 Item item = p.getValue().searchSellablesItem(p.getValue().getProductToProduce().getId());</span>
+<span class="fc" id="L70">		    	 IntegerProperty fill = new SimpleIntegerProperty(0);	</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">		    	 if(item!=null) {</span>
+<span class="fc" id="L72">		    	 		return item.amountProperty();</span>
+<span class="fc" id="L73">		    	 }return fill;</span>
+		     }
+		  });
+<span class="fc" id="L76">		partyRawmaterial.setCellValueFactory(new Callback&lt;CellDataFeatures&lt;Party, String&gt;, ObservableValue&lt;String&gt;&gt;() {</span>
+		     public ObservableValue&lt;String&gt; call(CellDataFeatures&lt;Party, String&gt; p) {
+		         // p.getValue() returns the Party instance for a particular TableView row
+<span class="fc bfc" id="L79" title="All 2 branches covered.">		    	 if(p.getValue().getProductToProduce().getProductNeededId()&gt;=0) {</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">		    		 for(Product i:view.getAllProductData()) {</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">		    			 if(p.getValue().getProductToProduce().getProductNeededId()==i.getId()) {</span>
+<span class="fc" id="L82">		    				 return i.productNameProperty();</span>
+		    			 }
+		    		 }
+<span class="fc" id="L85">		    	 }return null;</span>
+		     }
+		  });
+<span class="fc" id="L88">		partyRawmaterialAmount.setCellValueFactory(new Callback&lt;CellDataFeatures&lt;Party, Number&gt;, ObservableValue&lt;Number&gt;&gt;() {</span>
+		     public ObservableValue&lt;Number&gt; call(CellDataFeatures&lt;Party, Number&gt; p) {
+<span class="fc" id="L90">		    	 Item item = p.getValue().searchInventoryItem(p.getValue().getProductToProduce().getProductNeededId());</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">		    	 	if(item!=null) {</span>
+<span class="fc" id="L92">		    	 		return item.amountProperty();</span>
+<span class="fc" id="L93">		    	 	}return null;</span>
+		     }
+		  });
+<span class="fc" id="L96">		partyMoney.setCellValueFactory(</span>
+<span class="fc" id="L97">                cellData -&gt; cellData.getValue().moneyProperty());</span>
+<span class="fc" id="L98">		partyTable.setItems(view.getPartyData());</span>
+		
+<span class="fc" id="L100">		personCount.setCellValueFactory(new Callback&lt;CellDataFeatures&lt;Person, Number&gt;, ObservableValue&lt;Number&gt;&gt;() {</span>
+		     public ObservableValue&lt;Number&gt; call(CellDataFeatures&lt;Person, Number&gt; p) {
+<span class="fc" id="L102">		    	 IntegerProperty fill = new SimpleIntegerProperty(p.getValue().getId());	</span>
+<span class="fc" id="L103">		    	 return fill;</span>
+		     }
+		  });
+<span class="fc" id="L106">		personWork.setCellValueFactory(new Callback&lt;CellDataFeatures&lt;Person, String&gt;, ObservableValue&lt;String&gt;&gt;() {</span>
+		     public ObservableValue&lt;String&gt; call(CellDataFeatures&lt;Person, String&gt; p) {
+<span class="fc bfc" id="L108" title="All 2 branches covered.">		    	 if(p.getValue().getEmployer() != null) { return p.getValue().getEmployer().partyNameProperty();}</span>
+<span class="fc" id="L109">		    	 StringProperty fill = new SimpleStringProperty(&quot;TyÃ¶tÃ¶n&quot;);</span>
+<span class="fc" id="L110">		    	 return fill;</span>
+		     }
+		  });		
+<span class="fc" id="L113">		personMoney.setCellValueFactory(new Callback&lt;CellDataFeatures&lt;Person, Number&gt;, ObservableValue&lt;Number&gt;&gt;() {</span>
+		     public ObservableValue&lt;Number&gt; call(CellDataFeatures&lt;Person, Number&gt; p) {
+<span class="fc" id="L115">		    	 DoubleProperty fill = new SimpleDoubleProperty(p.getValue().getMoney());	</span>
+<span class="fc" id="L116">		    	 return fill;</span>
+		     }
+		  });
+<span class="fc" id="L119">		personTable.setItems(view.getPersonData());</span>
+<span class="fc" id="L120">	}</span>
+	
+	@FXML
+	private void nextRound() {	
+<span class="fc" id="L124">		core.start();</span>
+<span class="fc" id="L125">		partyTable.refresh();</span>
+<span class="fc" id="L126">		personTable.refresh();</span>
+<span class="fc" id="L127">	}</span>
+	@FXML
+	private void backToMenu() {
+<span class="fc" id="L130">		view.setScene(0);</span>
+<span class="fc" id="L131">	}</span>
+	
+	public void printText(String msg) {
+<span class="fc" id="L134">		simulationLog.appendText(msg);</span>
+<span class="fc" id="L135">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span>App (10.10.2019 12:16:16)</div></body></html>

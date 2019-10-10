@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>PartyEditDialogController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">App (10.10.2019 12:16:16)</a> &gt; <a href="../../index.html" class="el_group">markkinasim</a> &gt; <a href="../index.html" class="el_bundle">markkinasim/src/main/java</a> &gt; <a href="index.source.html" class="el_package">otp.markkinasim.view</a> &gt; <span class="el_source">PartyEditDialogController.java</span></div><h1>PartyEditDialogController.java</h1><pre class="source lang-java linenums">package otp.markkinasim.view;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import otp.markkinasim.model.Party;
+import otp.markkinasim.model.Product;
+
+<span class="fc" id="L12">public class PartyEditDialogController {</span>
+	
+	private Stage dialogStage;
+    private Party party;
+<span class="fc" id="L16">    private boolean okClicked = false;</span>
+    private IView view;
+    @FXML
+    private TextField partyName;
+    @FXML
+    private ChoiceBox&lt;String&gt; partyProductChoice;
+    @FXML
+    private TextField partyMoney;
+    @FXML 
+    private TextField partyRawmaterial;
+
+//inits
+  	@FXML
+    private void initialize() {
+
+<span class="fc" id="L31">  	}</span>
+  	
+  	public void setView(View view) {
+<span class="fc" id="L34">  		this.view = view;</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">  		if(!view.getAllProductData().isEmpty()) {</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">  			for(Product i:view.getAllProductData()) {</span>
+<span class="fc" id="L37">  				partyProductChoice.getItems().add(i.getProductName());</span>
+  			}
+  		}
+<span class="fc" id="L40">  	}</span>
+	public Stage getDialogStage() {
+<span class="nc" id="L42">		return dialogStage;</span>
+	}
+	public void setDialogStage(Stage dialogStage) {
+<span class="fc" id="L45">		this.dialogStage = dialogStage;</span>
+<span class="fc" id="L46">	}</span>
+	
+	public void setParty(Party party) {
+<span class="fc" id="L49">		this.party = party;</span>
+
+<span class="fc" id="L51">		partyName.setText(party.getPartyName());</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">		if(party.getProductToProduce()!=null) {</span>
+<span class="fc" id="L53">		partyProductChoice.setValue(party.getProductToProduceName());</span>
+		}
+<span class="fc" id="L55">		partyMoney.setText(Float.toString(party.getMoney().get()));</span>
+
+<span class="fc" id="L57">	}</span>
+	
+	@FXML
+	public void handleProductChoice() {
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">		for(Product i:view.getAllProductData()) {</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">			if(i.getProductName() == partyProductChoice.getValue()) {</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">				if(i.getProductNeededId()&gt;=0) {</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">					for(Product I:view.getAllProductData()) {</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">						if(i.getProductNeededId() == I.getId()) {</span>
+<span class="nc" id="L66">							partyRawmaterial.setText(I.getProductName());</span>
+<span class="nc" id="L67">							break;</span>
+						}
+					}
+<span class="nc" id="L70">				}else {</span>
+<span class="fc" id="L71">					partyRawmaterial.setText(&quot;Raaka-ainetta ei tarvita.&quot;);</span>
+<span class="fc" id="L72">					break;</span>
+				}
+			}
+		}
+<span class="fc" id="L76">	}</span>
+	
+	public boolean isOkClicked() {
+<span class="fc" id="L79">		return okClicked;</span>
+	}
+	public void setOkClicked(boolean okClicked) {
+<span class="nc" id="L82">		this.okClicked = okClicked;</span>
+<span class="nc" id="L83">	}</span>
+	
+	//asettaa raaka-aineet ja tuotettavat tuotteet kï¿½yttï¿½jï¿½n valitseman taho tyypin mukaan.
+		
+	@FXML
+	private void handleCancel() {
+<span class="nc" id="L89">	    dialogStage.close();</span>
+<span class="nc" id="L90">	}</span>
+	
+	@FXML
+	   private void handleOk() {
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">	       if (isInputValid()) {</span>
+<span class="fc" id="L95">	           party.setPartyName(partyName.getText());</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">	           for(Product i:view.getAllProductData()) {</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">	        	   if(partyProductChoice.getValue() == i.getProductName()) {</span>
+<span class="fc" id="L98">	        		   party.setProductToProduce(i);</span>
+	        	   }
+	           }
+<span class="fc" id="L101">	           party.getMoney().set(Float.parseFloat(partyMoney.getText()));</span>
+
+<span class="fc" id="L103">	           okClicked = true;</span>
+<span class="fc" id="L104">	           dialogStage.close();</span>
+	       }
+<span class="fc" id="L106">	}</span>
+	
+	@FXML
+	private boolean isInputValid() {
+<span class="fc" id="L110">        String errorMessage = &quot;&quot;;</span>
+
+<span class="pc bpc" id="L112" title="2 of 4 branches missed.">        if (partyName.getText() == null || partyName.getText().length() == 0) {</span>
+<span class="nc" id="L113">            errorMessage += &quot;Nimeï¿½ taho!\n&quot;; </span>
+        }
+        
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (partyProductChoice.getValue() == null) {</span>
+<span class="nc" id="L117">            errorMessage += &quot;Valitse tahon tuottama tuote!\n&quot;; </span>
+        }
+
+<span class="pc bpc" id="L120" title="2 of 4 branches missed.">        if (partyMoney.getText() == null || partyMoney.getText().length() == 0) {</span>
+<span class="nc" id="L121">            errorMessage += &quot;Tahon aloitus rahamï¿½ï¿½rï¿½ on virheellinen!\n&quot;; </span>
+<span class="nc" id="L122">        } else {</span>
+            // try to parse the money amount into an float.
+            try {
+<span class="fc" id="L125">                Float.parseFloat(partyMoney.getText());</span>
+<span class="pc" id="L126">            } catch (NumberFormatException e) {</span>
+<span class="nc" id="L127">                errorMessage += &quot;Tahon aloitus rahamï¿½ï¿½rï¿½n tï¿½ytyy olla numero!\n&quot;; </span>
+            }
+        }
+
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (errorMessage.length() == 0) {</span>
+<span class="fc" id="L132">            return true;</span>
+        } else {
+            // Show the error message.
+<span class="nc" id="L135">            Alert alert = new Alert(AlertType.ERROR);</span>
+<span class="nc" id="L136">            alert.initOwner(dialogStage);</span>
+<span class="nc" id="L137">            alert.setTitle(&quot;Invalid Fields&quot;);</span>
+<span class="nc" id="L138">            alert.setHeaderText(&quot;Korjaa vï¿½ï¿½rin tï¿½ytetyt kentï¿½t&quot;);</span>
+<span class="nc" id="L139">            alert.setContentText(errorMessage);</span>
+            
+<span class="nc" id="L141">            alert.showAndWait();</span>
+            
+<span class="nc" id="L143">            return false;</span>
+        }
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span>App (10.10.2019 12:16:16)</div></body></html>

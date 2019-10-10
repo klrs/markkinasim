@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Party.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">App (10.10.2019 12:16:16)</a> &gt; <a href="../../index.html" class="el_group">markkinasim</a> &gt; <a href="../index.html" class="el_bundle">markkinasim/src/main/java</a> &gt; <a href="index.source.html" class="el_package">otp.markkinasim.model</a> &gt; <span class="el_source">Party.java</span></div><h1>Party.java</h1><pre class="source lang-java linenums">package otp.markkinasim.model;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.beans.property.*;
+import javax.persistence.*;
+import javax.swing.text.SimpleAttributeSet;
+
+import org.hibernate.bytecode.enhance.internal.tracker.SimpleFieldTracker;
+
+import javafx.collections.FXCollections;
+
+import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
+
+@Entity
+@Table(name=&quot;Party&quot;)
+@Access(AccessType.FIELD)
+
+
+public class Party {
+	//party elikkÃ¤ kaupankÃ¤yntiÃ¤ harrastava taho
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name=&quot;id&quot;)
+	protected int id;
+	
+	@Transient
+	protected Inventory inventory;
+	@Transient
+	protected Inventory sellables;	//MyytÃ¤vÃ¤t productit -lista. EI KÃ„YTTÃ–Ã„ VIELÃ„. TODO TODO TODO
+	@Transient
+	protected StringProperty partyName;
+	@Transient
+	protected FloatProperty money;
+	@Transient
+	protected ObservableList&lt;Person&gt; employees;	//TODO TODO
+	@Transient
+	protected Product productToProduce;		//TUOTETTAVA TUOTE. TÃ„LLÃ„ HETKELLÃ„ PARTYT TUOTTAVAT VAIN YHTÃ„ TUOTETTA
+	@Transient
+	protected FloatProperty defaultSalary;	//daily salaary
+	
+<span class="fc" id="L44">	public Party(String partyName, float money, Product productToProduce) {</span>
+<span class="fc" id="L45">		inventory = new Inventory();</span>
+<span class="fc" id="L46">		sellables = new Inventory();</span>
+<span class="fc" id="L47">		employees = FXCollections.observableArrayList();</span>
+<span class="fc" id="L48">		this.partyName = new SimpleStringProperty(partyName);</span>
+<span class="fc" id="L49">		this.money = new SimpleFloatProperty(money);</span>
+<span class="fc" id="L50">		this.productToProduce = productToProduce;</span>
+<span class="fc" id="L51">		this.defaultSalary = new SimpleFloatProperty(5f);</span>
+<span class="fc" id="L52">	}</span>
+<span class="fc" id="L53">	public Party() {</span>
+<span class="fc" id="L54">		inventory = new Inventory();</span>
+<span class="fc" id="L55">		sellables = new Inventory();</span>
+<span class="fc" id="L56">		employees = FXCollections.observableArrayList();</span>
+<span class="fc" id="L57">		this.partyName = new SimpleStringProperty();</span>
+<span class="fc" id="L58">		this.money = new SimpleFloatProperty();</span>
+<span class="fc" id="L59">		this.productToProduce = productToProduce;</span>
+<span class="fc" id="L60">		this.defaultSalary = new SimpleFloatProperty(5f);</span>
+<span class="fc" id="L61">	}</span>
+	
+	@Access(AccessType.PROPERTY)
+	@Column(name=&quot;party_name&quot;)
+	public String getPartyName() {
+<span class="fc" id="L66">		return partyName.get();</span>
+	}
+	
+	public void addToInventory(Product product, int amount) throws InvalidParameterException {
+		//LISÃ„Ã„ INVENTORYYN PRODUCTIN JA MÃ„Ã„RÃ„N WRAPPAAMALLA SEN ENSIN ITEM-OLIOON.
+		//MUISTA KÃ„SITELLÃ„ InvalidParameterException!!!!!
+<span class="fc" id="L72">		inventory.add(new Item(product, amount, this));</span>
+<span class="fc" id="L73">	}</span>
+	
+	public void produce() {
+		//TÃ„TÃ„ KUTSUTAAN KERRAN PÃ„IVÃ„SSÃ„. LISÃ„Ã„ YHDEN PRODUCTIN INVENTORYYN.
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">		if(employees.size() &gt; 0) {</span>
+<span class="nc" id="L78">			inventory.add(new Item(productToProduce, employees.size(), this));</span>
+<span class="nc" id="L79">		}</span>
+		else {
+<span class="fc" id="L81">			System.out.println(&quot;Company is shit&quot;);</span>
+		}
+<span class="fc" id="L83">	}</span>
+	
+	public ArrayList&lt;Item&gt; searchInventory() {
+		//HAE *KAIKKI* ITEMIT INVENTORYSTÃ„
+<span class="fc" id="L87">		return inventory.getItemList();</span>
+	}
+	public Item searchInventoryItem(int productId) {
+		//HAE TIETTY ITEM INVENTORYSTÃ„
+<span class="fc" id="L91">		return inventory.search(productId);</span>
+	}
+	public void setItemSellable(int productId) {
+		//laittaa KAIKKI kyseiset itemit sellableksi!
+<span class="fc" id="L95">		Item itemToSell = searchInventoryItem(productId);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">		if(itemToSell != null) {</span>
+<span class="fc" id="L97">			itemToSell.priceEach = new SimpleFloatProperty(10);</span>
+<span class="fc" id="L98">			sellables.add(itemToSell);</span>
+<span class="fc" id="L99">			inventory.deleteItem(itemToSell);</span>
+		}
+		//else ilmoita?
+<span class="fc" id="L102">	}</span>
+	public void setItemSellable() {
+		//laittaa kaikki productit tyyppiÃ¤ productToProduce sellableksi!!
+<span class="fc" id="L105">		setItemSellable(productToProduce.id);</span>
+<span class="fc" id="L106">	}</span>
+	public ArrayList&lt;Item&gt; searchSellables() {
+<span class="fc" id="L108">		return sellables.getItemList();</span>
+	}
+	public void addMoney(float addableMoney) {
+<span class="fc" id="L111">		money.set(money.get() + addableMoney);</span>
+<span class="fc" id="L112">	}</span>
+	public boolean employeesNeeded() {
+<span class="fc" id="L114">		return true;</span>
+	}
+	public void addEmployee(Person employee) {
+<span class="fc" id="L117">		employees.add(employee);</span>
+<span class="fc" id="L118">	}</span>
+	public void paySalaries() {
+<span class="fc bfc" id="L120" title="All 2 branches covered.">		for(Person p : employees) {</span>
+<span class="fc" id="L121">			money.set(money.get() - defaultSalary.get());</span>
+<span class="fc" id="L122">			p.addMoney(defaultSalary.get());</span>
+		}
+<span class="fc" id="L124">	}</span>
+	public void buyProduct(ObservableList&lt;Party&gt; partyList) {
+		//only manufacturer
+<span class="nc" id="L127">	}</span>
+	public int getId() {
+<span class="nc" id="L129">		return id;</span>
+	}
+	
+	public void setId(int id) {
+<span class="fc" id="L133">		this.id = id;</span>
+<span class="fc" id="L134">	}</span>
+	public Inventory getInventory() {
+<span class="nc" id="L136">		return inventory;</span>
+	}
+	public void setInventory(Inventory inventory) {
+<span class="nc" id="L139">		this.inventory = inventory;</span>
+<span class="nc" id="L140">	}</span>
+	public Inventory getSellables() {
+<span class="nc" id="L142">		return sellables;</span>
+	}
+	public void setSellables(Inventory sellables) {
+<span class="nc" id="L145">		this.sellables = sellables;</span>
+<span class="nc" id="L146">	}</span>
+	public FloatProperty getMoney() {
+<span class="fc" id="L148">		return money;</span>
+	}
+	public void setMoney(FloatProperty money) {
+<span class="nc" id="L151">		this.money = money;</span>
+<span class="nc" id="L152">	}</span>
+	public ObservableList&lt;Person&gt; getEmployees() {
+<span class="nc" id="L154">		return employees;</span>
+	}
+	public void setEmployees(ObservableList&lt;Person&gt; employees) {
+<span class="nc" id="L157">		this.employees = employees;</span>
+<span class="nc" id="L158">	}</span>
+	public Product getProductToProduce() {
+<span class="fc" id="L160">		return productToProduce;</span>
+	}
+	public void setProductToProduce(Product productToProduce) {
+<span class="fc" id="L163">		this.productToProduce = productToProduce;</span>
+<span class="fc" id="L164">	}</span>
+	public void setPartyName(String partyName) {
+<span class="fc" id="L166">		this.partyName.set(partyName);</span>
+<span class="fc" id="L167">	}</span>
+	public String getProductToProduceName() {
+
+<span class="fc" id="L170">		return productToProduce.getProductName();</span>
+	}
+	public StringProperty partyNameProperty() {
+<span class="fc" id="L173">		return partyName;</span>
+	}
+	public StringProperty productToProduceProperty() {
+<span class="fc" id="L176">		return productToProduce.productNameProperty();</span>
+	}
+	public FloatProperty moneyProperty() {
+<span class="fc" id="L179">		return money;</span>
+	}
+	
+	public Item searchSellablesItem(int productId) {
+		//HAE TIETTY ITEM Sellablesseista;
+<span class="fc" id="L184">		return sellables.search(productId);</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span>App (10.10.2019 12:16:16)</div></body></html>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Person.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">App (10.10.2019 12:16:16)</a> &gt; <a href="../../index.html" class="el_group">markkinasim</a> &gt; <a href="../index.html" class="el_bundle">markkinasim/src/main/java</a> &gt; <a href="index.source.html" class="el_package">otp.markkinasim.model</a> &gt; <span class="el_source">Person.java</span></div><h1>Person.java</h1><pre class="source lang-java linenums">package otp.markkinasim.model;
+
+import javafx.beans.property.*;
+import javafx.collections.ObservableList;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name=&quot;Person&quot;)
+
+public class Person {
+	
+	//private FloatProperty money;
+	private static int count;
+	@Id
+	@Column(name=&quot;id&quot;)
+	private int id;
+	
+	@Column(name=&quot;round&quot;)
+	static int round; //placeholder name!
+	
+	@Column(name=&quot;status&quot;)
+	private String status;
+	
+	@Column(name=&quot;money&quot;)
+	private double money;
+	private Party employer;
+	
+	@Column(name=&quot;salary&quot;)
+	private double salary;
+	
+	@Column(name=&quot;work&quot;)
+	private String work;
+	
+<span class="fc" id="L38">	public Person() {</span>
+		//this.money = new SimpleFloatProperty(100);
+<span class="fc" id="L40">		this.status = &quot;idle&quot;;</span>
+<span class="fc" id="L41">		this.money = 1000;</span>
+<span class="fc" id="L42">		this.salary = 0;</span>
+<span class="fc" id="L43">		this.work = null;</span>
+<span class="fc" id="L44">		this.employer = null;</span>
+		
+<span class="fc" id="L46">		this.id=count++;</span>
+<span class="fc" id="L47">	}</span>
+	
+	public String consume(ObservableList&lt;Party&gt; partyList) {
+<span class="fc" id="L50">		String print = null;</span>
+<span class="fc" id="L51">		ArrayList&lt;Item&gt; buyables = searchConsumables(partyList);</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">		for(Item i : buyables) {</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">			if(i.amount.get() &gt; 0) {</span>
+<span class="fc" id="L54">				i.partyHolder.addMoney(i.priceEach.get());</span>
+<span class="fc" id="L55">				money =- i.priceEach.get();</span>
+				try {
+<span class="fc" id="L57">					i.subtractAmount(1);</span>
+<span class="fc" id="L58">					print = &quot;Person &quot; + id + &quot; bought &quot; + i.product.getProductName()+&quot;\n&quot;;</span>
+<span class="pc" id="L59">				} catch (InvalidParameterException e) {</span>
+					// TODO Auto-generated catch block
+<span class="nc" id="L61">					print = &quot;Nothing to buy!&quot;;</span>
+				}
+<span class="nc" id="L63">				break;</span>
+			}
+			else {
+<span class="fc" id="L66">				print += &quot;Person &quot; + id + &quot; would like to buy &quot; + i.product.getProductName()+&quot;\n&quot;;</span>
+			}
+		}
+<span class="fc" id="L69">		return print;</span>
+	}
+	public ArrayList&lt;Item&gt; searchConsumables(ObservableList&lt;Party&gt; partyList) {
+		//TODO CHANGE CHANGE CHANGE THIS IS PAINFUL
+<span class="fc" id="L73">		ArrayList&lt;Item&gt; buyables = new ArrayList&lt;Item&gt;();</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">		for(Party p : partyList) {</span>
+<span class="fc" id="L75">			buyables.addAll(p.searchSellables());</span>
+		}
+		
+<span class="fc" id="L78">		return buyables;</span>
+	}
+	
+	public String findWork(ObservableList&lt;Party&gt; partyList) {
+<span class="fc" id="L82">		String print = null;</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">		for(Party p : partyList) {</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">			if(p.employeesNeeded()) {</span>
+<span class="fc" id="L85">				employer = p;</span>
+<span class="fc" id="L86">				p.addEmployee(this);</span>
+<span class="fc" id="L87">				print = &quot;Person &quot; + id + &quot; now working for &quot; + employer.getPartyName()+&quot;\n&quot;;</span>
+<span class="fc" id="L88">				break;</span>
+			}
+		}
+<span class="fc" id="L91">		return print;</span>
+	}
+	public void addMoney(float addableMoney) {
+<span class="fc" id="L94">		this.money =+ addableMoney;</span>
+<span class="fc" id="L95">	}</span>
+	
+	public int getId() {
+<span class="fc" id="L98">		return id;</span>
+	}
+
+	public String getStatus() {
+<span class="nc" id="L102">		return status;</span>
+	}
+
+	public void setStatus(String status) {
+<span class="nc" id="L106">		this.status = status;</span>
+<span class="nc" id="L107">	}</span>
+	public Party getEmployer() {
+<span class="fc" id="L109">		return employer;</span>
+	}
+	public void setEmployer(Party employer) {
+<span class="nc" id="L112">		this.employer = employer;</span>
+<span class="nc" id="L113">	}</span>
+	public double getMoney() {
+<span class="fc" id="L115">		return money;</span>
+	}
+	public void setMoney(double money) {
+<span class="nc" id="L118">		this.money = money;</span>
+<span class="nc" id="L119">	}</span>
+	public double getSalary() {
+<span class="nc" id="L121">		return salary;</span>
+	}
+	public void setSalary(double salary) {
+<span class="nc" id="L124">		this.salary = salary;</span>
+<span class="nc" id="L125">	}</span>
+	public String getWork() {
+<span class="nc" id="L127">		return work;</span>
+	}
+	public void setWork(String work) {
+<span class="nc" id="L130">		this.work = work;</span>
+<span class="nc" id="L131">	}</span>
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span>App (10.10.2019 12:16:16)</div></body></html>

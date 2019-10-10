@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Product.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">App (10.10.2019 12:16:16)</a> &gt; <a href="../../index.html" class="el_group">markkinasim</a> &gt; <a href="../index.html" class="el_bundle">markkinasim/src/main/java</a> &gt; <a href="index.source.html" class="el_package">otp.markkinasim.model</a> &gt; <span class="el_source">Product.java</span></div><h1>Product.java</h1><pre class="source lang-java linenums">package otp.markkinasim.model;
+
+import java.util.ArrayList;
+import javafx.beans.property.*;
+import javax.persistence.*;
+
+@Entity
+@Table(name=&quot;Product&quot;)
+@Access(AccessType.FIELD)
+
+
+public class Product {
+<span class="fc" id="L13">	public static int nextId = 0;	//ID JÃ„RJESTELMÃ„ AINA OLIOTA ILMENNETTÃ„ESSÃ„. KTS. CONSTRUCTOR.</span>
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name=&quot;id&quot;, updatable = false, nullable = false)
+	protected int id;
+	@Transient
+	private StringProperty productName;
+	@Transient
+	private IntegerProperty productNeededId;
+	@Transient
+	private IntegerProperty price;
+	
+	
+
+<span class="fc" id="L27">	public Product() {</span>
+<span class="fc" id="L28">		this.productName = new SimpleStringProperty();</span>
+<span class="fc" id="L29">		this.productNeededId = new SimpleIntegerProperty();</span>
+<span class="fc" id="L30">	}</span>
+<span class="fc" id="L31">	public Product(String productName) {</span>
+		
+<span class="fc" id="L33">		this.productName = new SimpleStringProperty(productName);</span>
+<span class="fc" id="L34">		this.productNeededId = new SimpleIntegerProperty(-1); //SAATTAA AIHEUTTAA ONGELMIA!!</span>
+<span class="fc" id="L35">	}</span>
+<span class="nc" id="L36">	public Product(String productName, ArrayList&lt;Product&gt; productsNeeded) {</span>
+		
+<span class="nc" id="L38">		this.productName = new SimpleStringProperty(productName);</span>
+		//this.productNeeded = productsNeeded;
+<span class="nc" id="L40">	}</span>
+<span class="fc" id="L41">	public Product(String productName, int productNeededId) {</span>
+		
+<span class="fc" id="L43">		this.productName = new SimpleStringProperty(productName);</span>
+		//productNeeded = new ArrayList&lt;Product&gt;();
+<span class="fc" id="L45">		this.productNeededId = new SimpleIntegerProperty(productNeededId);</span>
+<span class="fc" id="L46">	}</span>
+	
+	public void setPoductName(String value ) {
+<span class="nc" id="L49">		productName.set(value);</span>
+<span class="nc" id="L50">	}</span>
+	
+	@Access(AccessType.PROPERTY)
+	@Column(name=&quot;product_needed_id&quot;)
+	public int getProductNeededId() {
+<span class="fc" id="L55">		return productNeededId.get();</span>
+	}
+	@Access(AccessType.PROPERTY)
+	@Column(name=&quot;product_name&quot;)
+	public String getProductName() {
+<span class="fc" id="L60">		return productName.get();</span>
+	}
+	public IntegerProperty getPrice() {
+<span class="nc" id="L63">		return price;</span>
+	}
+	public void setPrice(IntegerProperty price) {
+<span class="nc" id="L66">		this.price = price;</span>
+<span class="nc" id="L67">	}</span>
+	public void setProductName(String productName) {
+<span class="fc" id="L69">		this.productName.set(productName);</span>
+<span class="fc" id="L70">	}</span>
+	public void setProductNeededId(int productNeededId) {
+<span class="nc" id="L72">		this.productNeededId.set(productNeededId);</span>
+<span class="nc" id="L73">	}</span>
+	public int getId() {
+<span class="fc" id="L75">		return id;</span>
+	}
+	public void setId(int id) {
+<span class="fc" id="L78">		this.id = id;</span>
+<span class="fc" id="L79">	}</span>
+	public StringProperty productNameProperty() {
+
+<span class="fc" id="L82">		return productName;</span>
+	}
+	
+	
+
+	
+
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span>App (10.10.2019 12:16:16)</div></body></html>

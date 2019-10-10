@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Manufacturer.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">App (10.10.2019 12:16:16)</a> &gt; <a href="../../index.html" class="el_group">markkinasim</a> &gt; <a href="../index.html" class="el_bundle">markkinasim/src/main/java</a> &gt; <a href="index.source.html" class="el_package">otp.markkinasim.model</a> &gt; <span class="el_source">Manufacturer.java</span></div><h1>Manufacturer.java</h1><pre class="source lang-java linenums">package otp.markkinasim.model;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
+
+public class Manufacturer extends Party {
+	//jalostaja-taho. Tuottaa producteja, mutta vaatii raaka-aineita(product) toimiakseen.
+	
+	public Manufacturer(String partyName, float money, Product productToProduce) {
+<span class="fc" id="L12">		super(partyName, money, productToProduce);</span>
+<span class="fc" id="L13">	}</span>
+	
+	@Override
+	public void produce() {
+<span class="fc bfc" id="L17" title="All 2 branches covered.">		if(employees.size() &gt; 0) {</span>
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">			if(checkProducable(productToProduce)) {</span>
+<span class="fc" id="L19">				Item item = inventory.search(productToProduce.getProductNeededId());</span>
+				try {
+					//Poistaa yhden raaka-aineen ja lisÃ¤Ã¤ yhden tuotettavan tuotteen inventoryyn.
+<span class="fc" id="L22">					item.subtractAmount(employees.size());</span>
+					
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">					if(item.amount.get() == 0) {</span>
+<span class="nc" id="L25">						inventory.deleteItem(item);</span>
+					}
+<span class="fc" id="L27">					inventory.add(new Item(productToProduce, employees.size(), this));</span>
+<span class="fc" id="L28">				}</span>
+<span class="fc" id="L29">				catch(InvalidParameterException e) {</span>
+<span class="fc" id="L30">					System.out.println(e.getMessage());</span>
+				}
+<span class="fc" id="L32">			}</span>
+			else {
+<span class="nc" id="L34">				System.out.println(&quot;Too few resources to produce!&quot;);</span>
+			}
+<span class="nc" id="L36">		}</span>
+		else {
+<span class="fc" id="L38">			System.out.println(&quot;Company is shit&quot;);</span>
+		}
+<span class="fc" id="L40">	}</span>
+	private boolean checkProducable(Product productToProduce) {
+		//Testaa onko Product tuotettavissa vertaamalla sitÃ¤ inventoryssÃ¤ oleviin itemeihin.
+		//HUOM. TOIMII VAIN YHDELLÃ„ PRODUCTILLA. EI LISTOILLA. MUUTA?
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">		if(inventory.search(productToProduce.getProductNeededId()) != null) { return true; } else { return false; }</span>
+	}
+	@Override
+	public void buyProduct(ObservableList&lt;Party&gt; partyList) {
+<span class="nc" id="L48">		ArrayList&lt;Item&gt; buyables = new ArrayList&lt;Item&gt;();</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">		if(inventory.search(productToProduce.getProductNeededId()) != null &amp;&amp;</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">				inventory.search(productToProduce.getProductNeededId()).amount.get() &gt; 0) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">			if(employees.size() &gt; inventory.search(productToProduce.getProductNeededId()).amount.get()) {</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">				for(Party p : partyList) {</span>
+<span class="nc" id="L53">					buyables.addAll(p.searchSellables());</span>
+				}
+<span class="nc bnc" id="L55" title="All 2 branches missed.">				for(Item i : buyables) {</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">					if(i.product.id == productToProduce.getProductNeededId()) {</span>
+<span class="nc" id="L57">						i.subtractAmount(1);</span>
+<span class="nc" id="L58">						inventory.add(new Item(i.product, 1, this));</span>
+<span class="nc" id="L59">						money.set(money.get() - i.priceEach.get());</span>
+<span class="nc" id="L60">						i.partyHolder.addMoney(i.priceEach.get());</span>
+<span class="nc" id="L61">						break;</span>
+					}
+				}
+			}
+		}
+<span class="nc" id="L66">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span>App (10.10.2019 12:16:16)</div></body></html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ProductEditDialogController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">App (10.10.2019 12:16:16)</a> &gt; <a href="../../index.html" class="el_group">markkinasim</a> &gt; <a href="../index.html" class="el_bundle">markkinasim/src/main/java</a> &gt; <a href="index.source.html" class="el_package">otp.markkinasim.view</a> &gt; <span class="el_source">ProductEditDialogController.java</span></div><h1>ProductEditDialogController.java</h1><pre class="source lang-java linenums">package otp.markkinasim.view;
+
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
+import otp.markkinasim.model.Product;
+
+<span class="nc" id="L13">public class ProductEditDialogController {</span>
+	private Stage dialogStage;
+    private Product product;
+<span class="nc" id="L16">    private boolean okClicked = false;</span>
+    private IView view;
+    
+    @FXML
+    private TextField productName;
+    @FXML
+    private ChoiceBox&lt;String&gt; productRawmaterial;
+    
+    //inits
+  	@FXML
+    private void initialize() {
+
+<span class="nc" id="L28">  	}</span>
+
+  	public Stage getDialogStage() {
+<span class="nc" id="L31">		return dialogStage;</span>
+	}
+	public void setDialogStage(Stage dialogStage) {
+<span class="nc" id="L34">		this.dialogStage = dialogStage;</span>
+<span class="nc" id="L35">	}</span>
+	public void setView(View view) {
+<span class="nc" id="L37">		this.view=view;</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">  		if(!view.getAllProductData().isEmpty()) {</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">  			for(Product i: view.getAllProductData()) {</span>
+<span class="nc" id="L40">  				productRawmaterial.getItems().add(i.getProductName());</span>
+  			}
+  		}
+<span class="nc" id="L43">	}</span>
+	public void setProduct(Product product) {
+<span class="nc" id="L45">		this.product = product;</span>
+<span class="nc" id="L46">		productName.setText(product.getProductName());</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">		if(product.getProductNeededId()&gt;=0) {</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">			for(Product i: view.getAllProductData()) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">     	   		if(i.getId()==product.getProductNeededId()) {</span>
+<span class="nc" id="L50">     		   		productRawmaterial.setValue(i.getProductName());</span>
+     	   		}
+        	}
+		}
+<span class="nc" id="L54">	}</span>
+	
+	public boolean isOkClicked() {
+<span class="nc" id="L57">		return okClicked;</span>
+	}
+	public void setOkClicked(boolean okClicked) {
+<span class="nc" id="L60">		this.okClicked = okClicked;</span>
+<span class="nc" id="L61">	}</span>
+	@FXML
+	private void handleCancel() {
+<span class="nc" id="L64">	    dialogStage.close();</span>
+<span class="nc" id="L65">	}</span>
+	@FXML
+	private void handleOk() {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">	    if (isInputValid()) {</span>
+<span class="nc" id="L69">	           product.setProductName(productName.getText());</span>
+	           
+<span class="nc bnc" id="L71" title="All 2 branches missed.">	           for(Product i: view.getAllProductData()) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">	        	   if(i.getProductName()==productRawmaterial.getValue()) {</span>
+<span class="nc" id="L73">	        		   product.setProductNeededId(i.getId());</span>
+	        	   }
+	           }
+<span class="nc" id="L76">	           okClicked = true;</span>
+<span class="nc" id="L77">	           dialogStage.close();</span>
+	       }
+<span class="nc" id="L79">	}</span>
+	@FXML
+	private boolean isInputValid() {
+<span class="nc" id="L82">        String errorMessage = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L84" title="All 4 branches missed.">        if (productName.getText() == null || productName.getText().length() == 0) {</span>
+<span class="nc" id="L85">            errorMessage += &quot;Nimeï¿½ tuote!\n&quot;; </span>
+        }
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (productRawmaterial.getValue() == null) {</span>
+<span class="nc" id="L88">            errorMessage += &quot;Valitse raaka-aine!\n&quot;; </span>
+        }
+
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (errorMessage.length() == 0) {</span>
+<span class="nc" id="L92">            return true;</span>
+        } else {
+            // Show the error message.
+<span class="nc" id="L95">            Alert alert = new Alert(AlertType.ERROR);</span>
+<span class="nc" id="L96">            alert.initOwner(dialogStage);</span>
+<span class="nc" id="L97">            alert.setTitle(&quot;Invalid Fields&quot;);</span>
+<span class="nc" id="L98">            alert.setHeaderText(&quot;Korjaa vï¿½ï¿½rin tï¿½ytetyt kentï¿½t&quot;);</span>
+<span class="nc" id="L99">            alert.setContentText(errorMessage);</span>
+            
+<span class="nc" id="L101">            alert.showAndWait();</span>
+            
+<span class="nc" id="L103">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span>App (10.10.2019 12:16:16)</div></body></html>

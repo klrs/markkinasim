@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>RawmaterialEditDialogController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">App (10.10.2019 12:16:16)</a> &gt; <a href="../../index.html" class="el_group">markkinasim</a> &gt; <a href="../index.html" class="el_bundle">markkinasim/src/main/java</a> &gt; <a href="index.source.html" class="el_package">otp.markkinasim.view</a> &gt; <span class="el_source">RawmaterialEditDialogController.java</span></div><h1>RawmaterialEditDialogController.java</h1><pre class="source lang-java linenums">package otp.markkinasim.view;
+
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
+import otp.markkinasim.model.Product;
+
+
+<span class="fc" id="L12">public class RawmaterialEditDialogController {</span>
+	private Stage dialogStage;
+    private Product rawmaterial;
+<span class="fc" id="L15">    private boolean okClicked = false;</span>
+    
+    @FXML
+    private TextField rawmaterialName;
+    
+  	public Stage getDialogStage() {
+<span class="nc" id="L21">		return dialogStage;</span>
+	}
+	public void setDialogStage(Stage dialogStage) {
+<span class="fc" id="L24">		this.dialogStage = dialogStage;</span>
+<span class="fc" id="L25">	}</span>
+	
+	public void setRawmaterial(Product rawmaterial) {
+<span class="fc" id="L28">		this.rawmaterial = rawmaterial;</span>
+<span class="fc" id="L29">		rawmaterialName.setText(rawmaterial.getProductName());</span>
+<span class="fc" id="L30">	}</span>
+	
+	public boolean isOkClicked() {
+<span class="fc" id="L33">		return okClicked;</span>
+	}
+	public void setOkClicked(boolean okClicked) {
+<span class="nc" id="L36">		this.okClicked = okClicked;</span>
+<span class="nc" id="L37">	}</span>
+	
+	@FXML
+	private void handleCancel() {
+<span class="nc" id="L41">	    dialogStage.close();</span>
+<span class="nc" id="L42">	}</span>
+	@FXML
+	private void handleOk() {
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">	    if (isInputValid()) {</span>
+<span class="fc" id="L46">	       rawmaterial.setProductName(rawmaterialName.getText());</span>
+	          
+<span class="fc" id="L48">	       okClicked = true;</span>
+<span class="fc" id="L49">	       dialogStage.close();</span>
+	    }
+<span class="fc" id="L51">	}</span>
+	
+	@FXML
+	private boolean isInputValid() {
+<span class="fc" id="L55">        String errorMessage = &quot;&quot;;</span>
+
+<span class="pc bpc" id="L57" title="2 of 4 branches missed.">        if (rawmaterialName.getText() == null || rawmaterialName.getText().length() == 0) {</span>
+<span class="nc" id="L58">            errorMessage += &quot;Nimeä raaka-aine!\n&quot;; </span>
+        }
+       
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (errorMessage.length() == 0) {</span>
+<span class="fc" id="L62">            return true;</span>
+        } else {
+            // Show the error message.
+<span class="nc" id="L65">            Alert alert = new Alert(AlertType.ERROR);</span>
+<span class="nc" id="L66">            alert.initOwner(dialogStage);</span>
+<span class="nc" id="L67">            alert.setTitle(&quot;Invalid Fields&quot;);</span>
+<span class="nc" id="L68">            alert.setHeaderText(&quot;Korjaa väärin täytetyt kentät&quot;);</span>
+<span class="nc" id="L69">            alert.setContentText(errorMessage);</span>
+            
+<span class="nc" id="L71">            alert.showAndWait();</span>
+            
+<span class="nc" id="L73">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span>App (10.10.2019 12:16:16)</div></body></html>
