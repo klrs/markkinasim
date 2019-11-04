@@ -10,8 +10,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
-import otp.markkinasim.model.Party;
-import otp.markkinasim.model.Product;
+import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Product;
 
 
 public class SimulationOptionsController {

@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import otp.markkinasim.model.Product;
+import otp.markkinasim.simulation.Product;
 
 public class ProductEditDialogController {
 	private Stage dialogStage;

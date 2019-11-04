@@ -1,6 +1,7 @@
-package otp.markkinasim.model;
+package otp.markkinasim.simulation;
 
 import javafx.collections.ObservableList;
+import otp.markkinasim.controller.Secretary;
 
 public class test {
 	

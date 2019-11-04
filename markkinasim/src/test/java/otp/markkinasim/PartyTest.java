@@ -8,8 +8,9 @@ import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import otp.markkinasim.model.Party;
-import otp.markkinasim.model.Product;
+
+import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Product;
 
 public class PartyTest {
 

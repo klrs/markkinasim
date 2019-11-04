@@ -20,11 +20,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import otp.markkinasim.App;
-import otp.markkinasim.model.Core;
-import otp.markkinasim.model.Manufacturer;
-import otp.markkinasim.model.Party;
-import otp.markkinasim.model.Person;
-import otp.markkinasim.model.Product;
+import otp.markkinasim.simulation.Simulator;
+import otp.markkinasim.simulation.Manufacturer;
+import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Person;
+import otp.markkinasim.simulation.Product;
 
 
 public class View extends Application implements IView{
@@ -36,7 +36,7 @@ public class View extends Application implements IView{
 	private SimulationOptionsController SimulationOptionsController;
 	
 	private App app;
-	private Core core;
+	private Simulator core;
 	private static Stage window;
 	private Scene mainMenu,simulation,simulationOptions;
 	private List<Scene> sceneList = new ArrayList<Scene>();
@@ -47,7 +47,7 @@ public class View extends Application implements IView{
 		SimulationController = new SimulationController(this);
 		SimulationOptionsController = new SimulationOptionsController(this);
 		
-		core = Core.getInstance();
+		core = Simulator.getInstance();
 		app = App.getInstance();
 	    core.init(this);
 	}

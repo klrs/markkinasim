@@ -1,4 +1,4 @@
-package otp.markkinasim.model;
+package otp.markkinasim.simulation;
 
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;

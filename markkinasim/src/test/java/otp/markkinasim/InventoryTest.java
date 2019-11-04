@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
-import otp.markkinasim.model.Inventory;
-import otp.markkinasim.model.Item;
-import otp.markkinasim.model.Party;
-import otp.markkinasim.model.Product;
+import otp.markkinasim.simulation.Inventory;
+import otp.markkinasim.simulation.Item;
+import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Product;
 
 class InventoryTest {
 

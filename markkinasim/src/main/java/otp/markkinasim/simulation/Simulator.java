@@ -1,4 +1,4 @@
-package otp.markkinasim.model;
+package otp.markkinasim.simulation;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -10,17 +10,17 @@ import otp.markkinasim.view.IView;
 import otp.markkinasim.view.View;
 import javafx.collections.FXCollections;
 
-public class Core {
+public class Simulator {
 	//SINGLETON PATTERN//////////////////
 	//mahdollistaa vain yhden Core-olion olemassaolon!
-	private static Core core;
+	private static Simulator core;
 	private IView view;
 	private App app;
-	private Core() {}
-	public static Core getInstance() {
+	private Simulator() {}
+	public static Simulator getInstance() {
 		//kutsu tätä funktiota luodaksesi Core olion!
 		if (core == null) {
-			core = new Core();
+			core = new Simulator();
 		}
 		return core;
 	}

@@ -14,16 +14,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
-import otp.markkinasim.model.Core;
-import otp.markkinasim.model.Item;
-import otp.markkinasim.model.Party;
-import otp.markkinasim.model.Person;
-import otp.markkinasim.model.Product;
+import otp.markkinasim.simulation.Simulator;
+import otp.markkinasim.simulation.Item;
+import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Person;
+import otp.markkinasim.simulation.Product;
 
 public class SimulationController{
 
 	private IView view;
-	private Core core;
+	private Simulator core;
 	
 	@FXML
 	private TextArea simulationLog;
@@ -53,7 +53,7 @@ public class SimulationController{
 	
 	public SimulationController(View view) {
 		this.view = view;
-		core = Core.getInstance();
+		core = Simulator.getInstance();
 	
 	}
 	

@@ -1,4 +1,4 @@
-package otp.markkinasim.model;
+package otp.markkinasim.simulation;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;

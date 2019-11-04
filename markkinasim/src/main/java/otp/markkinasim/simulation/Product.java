@@ -1,4 +1,4 @@
-package otp.markkinasim.model;
+package otp.markkinasim.simulation;
 
 import java.util.ArrayList;
 import javafx.beans.property.*;

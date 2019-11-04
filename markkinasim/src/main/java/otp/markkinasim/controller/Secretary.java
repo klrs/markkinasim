@@ -1,4 +1,4 @@
-package otp.markkinasim.model;
+package otp.markkinasim.controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,6 +13,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Product;
 
 
 

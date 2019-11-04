@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import otp.markkinasim.model.Core;
+import otp.markkinasim.simulation.Simulator;
 
 class CoreTest {
 
-	private Core core = Core.getInstance();
+	private Simulator core = Simulator.getInstance();
 	
 	@Test
 	public void test() {

@@ -1,7 +1,9 @@
-package otp.markkinasim.model;
+package otp.markkinasim.simulation;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import otp.markkinasim.controller.Secretary;
 
 public abstract class Trader {
 	private Secretary secretary;

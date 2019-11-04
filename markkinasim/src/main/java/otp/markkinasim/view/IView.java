@@ -2,9 +2,9 @@ package otp.markkinasim.view;
 
 import javafx.collections.ObservableList;
 import javafx.stage.Window;
-import otp.markkinasim.model.Party;
-import otp.markkinasim.model.Person;
-import otp.markkinasim.model.Product;
+import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Person;
+import otp.markkinasim.simulation.Product;
 
 public interface IView {
 

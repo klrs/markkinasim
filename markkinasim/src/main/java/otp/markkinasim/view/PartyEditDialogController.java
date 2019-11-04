@@ -6,8 +6,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import otp.markkinasim.model.Party;
-import otp.markkinasim.model.Product;
+import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Product;
 
 public class PartyEditDialogController {
 	
