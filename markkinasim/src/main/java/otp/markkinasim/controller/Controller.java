@@ -34,7 +34,7 @@ public class Controller implements IController{
 	}
 	@Override
 	public boolean addToDatabase(Object o) {
-		// TODO Auto-generated method stub
+		/// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
