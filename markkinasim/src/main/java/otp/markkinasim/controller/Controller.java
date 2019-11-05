@@ -24,17 +24,17 @@ public class Controller implements IController{
 	@Override
 	public void startSimulation(ObservableList<Party> parties, ObservableList<Product> products,
 			ObservableList<Person> persons) {
-		// TODO Auto-generated method stub
-		
+		simulator = Simulator.getInstance();
+		simulator.init(parties, products, persons);
 	}
 	@Override
 	public void nextIteration() {
-		// TODO Auto-generated method stub
+		simulator.nextDay();
 		
 	}
 	@Override
 	public boolean addToDatabase(Object o) {
-		// TODO Auto-generated method stub
+		/// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
