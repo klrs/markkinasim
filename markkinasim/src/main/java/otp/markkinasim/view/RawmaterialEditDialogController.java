@@ -6,7 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import otp.markkinasim.model.Product;
+import otp.markkinasim.simulation.Product;
 
 
 public class RawmaterialEditDialogController {
@@ -55,7 +55,7 @@ public class RawmaterialEditDialogController {
         String errorMessage = "";
 
         if (rawmaterialName.getText() == null || rawmaterialName.getText().length() == 0) {
-            errorMessage += "Nimeä raaka-aine!\n"; 
+            errorMessage += "Nimeï¿½ raaka-aine!\n"; 
         }
        
         if (errorMessage.length() == 0) {
@@ -65,7 +65,7 @@ public class RawmaterialEditDialogController {
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Korjaa väärin täytetyt kentät");
+            alert.setHeaderText("Korjaa vï¿½ï¿½rin tï¿½ytetyt kentï¿½t");
             alert.setContentText(errorMessage);
             
             alert.showAndWait();

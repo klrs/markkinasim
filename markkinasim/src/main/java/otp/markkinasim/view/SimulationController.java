@@ -121,7 +121,7 @@ public class SimulationController{
 	
 	@FXML
 	private void nextRound() {	
-		core.start();
+		//core.start();
 		partyTable.refresh();
 		personTable.refresh();
 	}

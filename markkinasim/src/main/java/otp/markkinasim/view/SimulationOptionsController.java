@@ -59,7 +59,7 @@ public class SimulationOptionsController {
 		partyRawmaterial.setCellValueFactory(new Callback<CellDataFeatures<Party, String>, ObservableValue<String>>() {
 		     public ObservableValue<String> call(CellDataFeatures<Party, String> p) {
 		         // p.getValue() returns the Party instance for a particular TableView row
-		    	 if(p.getValue().getProductToProduce().getProductNeededId()>=0) {
+		    	 if(p.getValue().getProductToProduce()!=null && p.getValue().getProductToProduce().getProductNeededId()>=0) {
 		    		 for(Product i:view.getAllProductData()) {
 		    			 if(p.getValue().getProductToProduce().getProductNeededId()==i.getId()) {
 		    				 return i.productNameProperty();

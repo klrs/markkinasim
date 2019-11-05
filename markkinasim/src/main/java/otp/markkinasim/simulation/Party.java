@@ -64,7 +64,7 @@ public class Party {
 		employees = FXCollections.observableArrayList();
 		this.partyName = new SimpleStringProperty();
 		this.money = new SimpleFloatProperty();
-		this.productToProduce = productToProduce;
+		this.productToProduce = null;
 		this.defaultSalary = new SimpleFloatProperty(5f);
 		this.effency = new SimpleFloatProperty(1f);
 		this.quality = new SimpleFloatProperty(1f);
@@ -199,8 +199,11 @@ public class Party {
 	}
 
 	public String getProductToProduceName() {
-
+		if(productToProduce!=null) {
 		return productToProduce.getProductName();
+		}else {
+			return null;
+		}
 	}
 
 	public StringProperty partyNameProperty() {
@@ -208,7 +211,12 @@ public class Party {
 	}
 
 	public StringProperty productToProduceProperty() {
+		if(productToProduce!=null) {
 		return productToProduce.productNameProperty();
+		}else {
+			return null;
+		}
+		
 	}
 
 	public FloatProperty moneyProperty() {

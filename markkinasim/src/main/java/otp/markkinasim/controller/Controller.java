@@ -17,8 +17,8 @@ public class Controller implements IController{
 	//private IRegister register;
 	
 	public Controller(IView view) {
-//		this.view = view;
-//		secretary = new Secretary();
+		this.view = view;
+		secretary = new Secretary();
 //		//register = new
 	}
 	@Override
@@ -39,12 +39,10 @@ public class Controller implements IController{
 	}
 	@Override
 	public ObservableList<Party> getPartyFromDatabase() {
-		// TODO Auto-generated method stub
-		return null;
+		return secretary.getAllPartysFromDB();
 	}
 	@Override
 	public ObservableList<Product> getProductFromDatabase() {
-		// TODO Auto-generated method stub
-		return null;
+		return secretary.getAllProductsFromDB();
 	}
 }

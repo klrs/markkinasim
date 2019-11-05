@@ -1,7 +1,6 @@
 package otp.markkinasim.view;
 
 import javafx.fxml.FXML;
-import otp.markkinasim.model.Core;
 
 public class MainMenuController{
 	

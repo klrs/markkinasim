@@ -52,7 +52,7 @@ public class PartyEditDialogController {
 		if(party.getProductToProduce()!=null) {
 		partyProductChoice.setValue(party.getProductToProduceName());
 		}
-		partyMoney.setText(Float.toString(party.getMoney().get()));
+		partyMoney.setText(Float.toString(party.getMoney()));
 
 	}
 	
@@ -98,7 +98,7 @@ public class PartyEditDialogController {
 	        		   party.setProductToProduce(i);
 	        	   }
 	           }
-	           party.getMoney().set(Float.parseFloat(partyMoney.getText()));
+	           party.setMoney(Float.parseFloat(partyMoney.getText()));
 
 	           okClicked = true;
 	           dialogStage.close();

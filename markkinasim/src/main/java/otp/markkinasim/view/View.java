@@ -20,6 +20,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import otp.markkinasim.App;
+import otp.markkinasim.controller.Controller;
+import otp.markkinasim.controller.IController;
 import otp.markkinasim.simulation.Simulator;
 import otp.markkinasim.simulation.Manufacturer;
 import otp.markkinasim.simulation.Party;
@@ -30,16 +32,20 @@ import otp.markkinasim.simulation.Product;
 public class View extends Application implements IView{
 	
 	private static View view;
+	private IController dataController;
 	
 	private MainMenuController MainMenuController;
 	private SimulationController SimulationController;
 	private SimulationOptionsController SimulationOptionsController;
 	
-	private App app;
 	private Simulator core;
 	private static Stage window;
 	private Scene mainMenu,simulation,simulationOptions;
 	private List<Scene> sceneList = new ArrayList<Scene>();
+	
+	private ObservableList<Person> personList;
+	private ObservableList<Party> partyList;
+	private ObservableList<Product> productList;
 	
 	public void init() {
 		//Luodaan perus scenet
@@ -47,9 +53,10 @@ public class View extends Application implements IView{
 		SimulationController = new SimulationController(this);
 		SimulationOptionsController = new SimulationOptionsController(this);
 		
-		core = Simulator.getInstance();
-		app = App.getInstance();
-	    core.init(this);
+		dataController = new Controller(this);
+		
+		partyList = dataController.getPartyFromDatabase();
+		productList = dataController.getProductFromDatabase();
 	}
 	
 	@Override
@@ -102,11 +109,11 @@ public class View extends Application implements IView{
 	
 	@Override
 	public ObservableList<Party> getPartyData() {
-		return app.getPartyList();
+		return partyList;
 	}
 	@Override
 	public ObservableList<Product> getAllProductData(){
-		return app.getProductList();
+		return productList;
 	}
 	@Override
 	public void writeSimulationLog(String msg) {
@@ -195,7 +202,7 @@ public class View extends Application implements IView{
             // Set the person into the controller.
             RawmaterialEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setRawmaterial(product);
+            //controller.setRawmaterial(product);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -209,7 +216,7 @@ public class View extends Application implements IView{
 
 	@Override
 	public ObservableList<Person> getPersonData() {
-		return app.getPersonList();
+		return null;
 	}
 }
 

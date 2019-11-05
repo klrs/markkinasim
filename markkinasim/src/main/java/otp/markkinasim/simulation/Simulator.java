@@ -46,7 +46,7 @@ public class Simulator {
 			p.produce();
 			p.setItemSellable();
 			p.paySalaries();
-			System.out.println(p.getPartyName() + " Money: " + p.getMoney().get());
+			System.out.println(p.getPartyName() + " Money: " + p.getMoney());
 			for(Item i : p.searchInventory()) {
 				System.out.println(p.getPartyName() + " inventory: " + i.product.getProductName() + " " + i.amount.get());
 			}
