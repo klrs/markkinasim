@@ -22,6 +22,7 @@ import javafx.stage.Window;
 import otp.markkinasim.App;
 import otp.markkinasim.controller.Controller;
 import otp.markkinasim.controller.IController;
+import otp.markkinasim.controller.Secretary;
 import otp.markkinasim.simulation.Simulator;
 import otp.markkinasim.simulation.Manufacturer;
 import otp.markkinasim.simulation.Party;
@@ -31,7 +32,7 @@ import otp.markkinasim.simulation.Product;
 
 public class View extends Application implements IView{
 	
-	private static View view;
+	private static IView view;
 	private IController dataController;
 	
 	private MainMenuController MainMenuController;
@@ -47,6 +48,9 @@ public class View extends Application implements IView{
 	private ObservableList<Party> partyList;
 	private ObservableList<Product> productList;
 	
+	public View() {
+		view = this;
+	}
 	public void init() {
 		//Luodaan perus scenet
 		MainMenuController = new MainMenuController(this);
@@ -55,8 +59,8 @@ public class View extends Application implements IView{
 		
 		dataController = new Controller(this);
 		
-		partyList = dataController.getPartyFromDatabase();
 		productList = dataController.getProductFromDatabase();
+		partyList = dataController.getPartyFromDatabase();
 	}
 	
 	@Override
@@ -72,30 +76,29 @@ public class View extends Application implements IView{
 		    loader = new FXMLLoader(getClass().getResource("SimulationOptionsView.fxml"));
 		    loader.setController(SimulationOptionsController);
 		    Parent simulationOptionsParent = loader.load();
-		   
+
 			sceneList.add((mainMenu = new Scene(mainMenuParent)));
 			sceneList.add((simulation = new Scene(simulationParent)));
 			sceneList.add(simulationOptions = new Scene(simulationOptionsParent));
-			System.out.println(sceneList);
+
 			window = primaryStage;
+	
+			window.setMaximized(true);
 			window.setScene(mainMenu);
 			window.show();
+			window.setMaximized(true);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static View getInstance() {
-		//kutsu t�t� funktiota luodaksesi Core olion!
+	public static IView getInstance() {
+	
 		if (view == null) {
 			view = new View();
 		}
 		return view;
 	}
-	
-	/*public static void main(String[] args) {
-		launch(args);
-	}*/
 	
 	@Override
 	public void setScene(int id) {
@@ -135,7 +138,7 @@ public class View extends Application implements IView{
             dialogStage.initOwner(window);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-
+            
             // Set the person into the controller.
             PartyEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
@@ -202,7 +205,7 @@ public class View extends Application implements IView{
             // Set the person into the controller.
             RawmaterialEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            //controller.setRawmaterial(product);
+            controller.setRawmaterial(product);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -217,6 +220,32 @@ public class View extends Application implements IView{
 	@Override
 	public ObservableList<Person> getPersonData() {
 		return null;
+	}
+	
+	public void createNewObject(Object o) {
+		boolean done = dataController.addToDatabase(o);
+		if(done) {
+			if(o instanceof Party) {
+				partyList = dataController.getPartyFromDatabase();
+			}else if(o instanceof Product){
+				productList = dataController.getProductFromDatabase();
+			}
+		}else {
+			System.out.println("ERROR");
+		}
+	}
+	
+	public void removeObject(Object o) {
+		boolean done = dataController.removeFromDatabase(o);
+		if(done) {
+			if(o instanceof Party) {
+				partyList = dataController.getPartyFromDatabase();
+			}else if(o instanceof Product){
+				productList = dataController.getProductFromDatabase();
+			}
+		}else {
+			System.out.println("ERROR");
+		}
 	}
 }
 

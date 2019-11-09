@@ -26,4 +26,8 @@ public interface IView {
 
 	public abstract void writeSimulationLog(String msg);
 
+	public abstract void createNewObject(Object o);
+
+	public abstract void removeObject(Object o);
+
 }

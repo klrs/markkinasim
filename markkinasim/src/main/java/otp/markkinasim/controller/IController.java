@@ -14,4 +14,5 @@ public interface IController {
 	boolean addToDatabase(Object o);
 	ObservableList<Party> getPartyFromDatabase();
 	ObservableList<Product> getProductFromDatabase();
+	boolean removeFromDatabase(Object o);
 }

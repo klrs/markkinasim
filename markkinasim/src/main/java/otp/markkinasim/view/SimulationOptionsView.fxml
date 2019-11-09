@@ -8,89 +8,157 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane layoutX="19.0" layoutY="8.0" prefHeight="636.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="170.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="143.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="10.0" prefWidth="316.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="390.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="449.0" minHeight="10.0" prefHeight="434.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <ButtonBar layoutX="717.0" layoutY="549.0" prefHeight="40.0" prefWidth="284.0">
+            <ButtonBar prefHeight="40.0" prefWidth="284.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
               <buttons>
                 <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" prefWidth="87.0" text="Tallenna" />
                   <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="Ok" />
                   <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="Peruuta" />
               </buttons>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </ButtonBar>
-            <ButtonBar layoutX="580.0" layoutY="502.0" prefHeight="40.0" prefWidth="421.0">
+            <ButtonBar prefHeight="40.0" prefWidth="421.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <buttons>
                   <Button layoutX="580.0" mnemonicParsing="false" onAction="#handleNewParty" prefWidth="126.0" text="Lisää" />
                   <Button layoutX="580.0" mnemonicParsing="false" onAction="#handleEditParty" text="Muokkaa" />
                   <Button layoutX="580.0" mnemonicParsing="false" onAction="#handleDeleteParty" text="Poista" />
                </buttons>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </ButtonBar>
-            <Label layoutX="580.0" layoutY="15.0" prefHeight="32.0" prefWidth="411.0" text="Simuloinnissa käytettävät tahot.">
+            <Label prefHeight="32.0" prefWidth="411.0" text="Simuloinnissa käytettävät tahot." GridPane.columnIndex="5" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
-               </font></Label>
-            <Label layoutX="42.0" layoutY="17.0" prefHeight="27.0" prefWidth="159.0" text="Simuloinnin pituus:">
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="27.0" prefWidth="159.0" text="Simuloinnin pituus:">
                <font>
                   <Font size="18.0" />
-               </font></Label>
-            <TextField layoutX="201.0" layoutY="18.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulointi kierrosten määrä" />
-            <Label layoutX="42.0" layoutY="61.0" prefHeight="27.0" prefWidth="132.0" text="Populaation:">
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField prefHeight="25.0" prefWidth="152.0" promptText="kierrosten määrä" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label prefHeight="27.0" prefWidth="132.0" text="Populaation:" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
-               </font></Label>
-            <TextField layoutX="146.0" layoutY="62.0" prefHeight="25.0" prefWidth="159.0" promptText="Simulaation person määrä" />
-            <TableView fx:id="partyTable" layoutX="580.0" layoutY="46.0" prefHeight="454.0" prefWidth="421.0">
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField prefHeight="25.0" prefWidth="159.0" promptText="person määrä" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <TableView fx:id="partyTable" prefHeight="434.0" prefWidth="391.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
               <columns>
                 <TableColumn fx:id="partyName" prefWidth="70.0" text="Nimi" />
                   <TableColumn fx:id="partyProduct" prefWidth="70.0" text="Tuote" />
                   <TableColumn fx:id="partyRawmaterial" prefWidth="75.0" text="Raaka-aine" />
                   <TableColumn fx:id="partyMoney" prefWidth="70.0" text="Rahat" />
               </columns>
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
             </TableView>
-            <TableView fx:id="productTable" layoutX="38.0" layoutY="354.0" prefHeight="148.0" prefWidth="308.0">
+            <TableView fx:id="productTable" prefHeight="148.0" prefWidth="308.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
               <columns>
                 <TableColumn fx:id="productName" prefWidth="87.0" text="Nimi" />
                   <TableColumn fx:id="productRawmaterial" prefWidth="87.0" text="Raaka-aine" />
               </columns>
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
             </TableView>
-            <Label layoutX="38.0" layoutY="327.0" text="Simuloinnissa käytettävät tuotteet.">
+            <Label text="Simuloinnissa käytettävät tuotteet." GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
             </Label>
-            <ButtonBar layoutX="38.0" layoutY="502.0" prefHeight="40.0" prefWidth="308.0">
+            <ButtonBar prefHeight="40.0" prefWidth="308.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
               <buttons>
                 <Button mnemonicParsing="false" onAction="#handleNewProduct" text="Lisää" />
                   <Button mnemonicParsing="false" onAction="#handleEditProduct" text="Muokkaa" />
                   <Button mnemonicParsing="false" onAction="#handleDeleteProduct" text="Poista" />
               </buttons>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </ButtonBar>
-            <Label layoutX="38.0" layoutY="100.0" text="Simuloinnissa käytettävät raaka-aineet.">
+            <Label text="Simuloinnissa käytettävät raaka-aineet." GridPane.columnSpan="2" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
             </Label>
-            <TableView fx:id="rawmaterialTable" layoutX="38.0" layoutY="127.0" prefHeight="148.0" prefWidth="308.0">
+            <TableView fx:id="rawmaterialTable" prefHeight="148.0" prefWidth="308.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <columns>
                   <TableColumn fx:id="rawmaterialId" prefWidth="75.0" text="Id" />
                   <TableColumn fx:id="rawmaterialName" prefWidth="87.0" text="Nimi" />
                </columns>
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
             </TableView>
-            <ButtonBar layoutX="38.0" layoutY="273.0" prefHeight="40.0" prefWidth="308.0">
+            <ButtonBar prefHeight="40.0" prefWidth="308.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <buttons>
                   <Button mnemonicParsing="false" onAction="#handleNewRawmaterial" text="Lisää" />
                   <Button mnemonicParsing="false" onAction="#handleEditRawmaterial" text="Muokkaa" />
                   <Button mnemonicParsing="false" onAction="#handleDeleteRawmaterial" text="Poista" />
                </buttons>
+               <opaqueInsets>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </ButtonBar>
          </children>
-         <padding>
-            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
-         </padding>
-      </Pane>
+      </GridPane>
    </children>
 </AnchorPane>

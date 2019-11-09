@@ -19,29 +19,20 @@ public class Product {
 	private StringProperty productName;
 	@Transient
 	private IntegerProperty productNeededId;
-	@Transient
-	private IntegerProperty price;
-	
-	
 
 	public Product() {
 		this.productName = new SimpleStringProperty();
-		this.productNeededId = new SimpleIntegerProperty();
+		this.productNeededId = new SimpleIntegerProperty(-1);
 	}
 	public Product(String productName) {
 		
 		this.productName = new SimpleStringProperty(productName);
 		this.productNeededId = new SimpleIntegerProperty(-1); //SAATTAA AIHEUTTAA ONGELMIA!!
 	}
-	public Product(String productName, ArrayList<Product> productsNeeded) {
-		
-		this.productName = new SimpleStringProperty(productName);
-		//this.productNeeded = productsNeeded;
-	}
+	
 	public Product(String productName, int productNeededId) {
 		
 		this.productName = new SimpleStringProperty(productName);
-		//productNeeded = new ArrayList<Product>();
 		this.productNeededId = new SimpleIntegerProperty(productNeededId);
 	}
 	
@@ -59,12 +50,7 @@ public class Product {
 	public String getProductName() {
 		return productName.get();
 	}
-	public IntegerProperty getPrice() {
-		return price;
-	}
-	public void setPrice(IntegerProperty price) {
-		this.price = price;
-	}
+
 	public void setProductName(String productName) {
 		this.productName.set(productName);
 	}

@@ -96,6 +96,7 @@ public class PartyEditDialogController {
 	           for(Product i:view.getAllProductData()) {
 	        	   if(partyProductChoice.getValue() == i.getProductName()) {
 	        		   party.setProductToProduce(i);
+	        		   party.setProductToProduceId(i.getId());
 	        	   }
 	           }
 	           party.setMoney(Float.parseFloat(partyMoney.getText()));

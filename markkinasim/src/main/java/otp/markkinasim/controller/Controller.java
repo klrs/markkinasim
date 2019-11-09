@@ -34,8 +34,8 @@ public class Controller implements IController{
 	}
 	@Override
 	public boolean addToDatabase(Object o) {
-		/// TODO Auto-generated method stub
-		return false;
+		boolean done = secretary.createNewObject(o);
+		return done;
 	}
 	@Override
 	public ObservableList<Party> getPartyFromDatabase() {
@@ -44,5 +44,10 @@ public class Controller implements IController{
 	@Override
 	public ObservableList<Product> getProductFromDatabase() {
 		return secretary.getAllProductsFromDB();
+	}
+	@Override
+	public boolean removeFromDatabase(Object o) {
+		boolean done = secretary.removeObject(o);
+		return done;
 	}
 }

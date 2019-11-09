@@ -23,10 +23,14 @@ public class Secretary {
 	SessionFactory factory = null;
 	final StandardServiceRegistry registry = null;
 	
+	private ObservableList<Product> productData;
+	private ObservableList<Party> partyData;
+	
 	public Secretary() {
-
+		
 		StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-
+		productData = FXCollections.observableArrayList();
+		partyData = FXCollections.observableArrayList();
 		try{
 			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
@@ -96,9 +100,10 @@ public class Secretary {
 			throw e;
 		}
 		
-		ObservableList<Product> returnArray = FXCollections.observableArrayList(result);
+		productData.clear();
+		productData.addAll(result);
 		
-		return returnArray;
+		return productData;
 		
 		
 	}
@@ -116,12 +121,79 @@ public class Secretary {
 			if (transaktio != null) transaktio.rollback();
 			throw e;
 		}
+		partyData.clear();
+		partyData.addAll(result);
+		updatePartyProductToProduce();
+		return partyData;
+	}
+	
+	private void updatePartyProductToProduce() {
+		for(Party p:partyData) {
+			if(p.getProductToProduce()==null) {
+				for(Product P:productData) {
+					if(p.getProductToProduceId()==P.getId()) {
+						p.setProductToProduce(P);
+					}
+				}
+			}
+		}
 		
-		ObservableList<Party> returnArray = FXCollections.observableArrayList(result);
-		
-		return returnArray;
-		
-		
+	}
+
+	public boolean createNewObject(Object o) {
+		boolean done = false;
+		if(o instanceof Party) {
+			done = createParty((Party) o);
+		}else if(o instanceof Product) {
+			done = createProduct((Product) o);
+		}
+		return done;
+	}
+	
+	public boolean removeProduct(Product product) {
+		boolean done = false;
+		Transaction transaktio = null;
+		try (Session istunto = factory.openSession()) {
+			transaktio = istunto.beginTransaction();
+			Product result = istunto.get(Product.class, product.getId());
+			if (result != null) {
+				istunto.delete(result);
+				transaktio.commit();
+				done = true;
+			}
+		} catch (Exception e) {
+			if (transaktio == null) transaktio.rollback();
+			throw e;
+		}
+		return done;
+	}
+	
+	public boolean removeParty(Party party) {
+		boolean done = false;
+		Transaction transaktio = null;
+		try (Session istunto = factory.openSession()) {
+			transaktio = istunto.beginTransaction();
+			Party result = istunto.get(Party.class, party.getId());
+			if (result != null) {
+				istunto.delete(result);
+				transaktio.commit();
+				done = true;
+			}
+		} catch (Exception e) {
+			if (transaktio == null) transaktio.rollback();
+			throw e;
+		}
+		return done;
+	}
+	
+	public boolean removeObject(Object o) {
+		boolean done = false;
+		if(o instanceof Party) {
+			done = removeParty((Party) o);
+		}else if(o instanceof Product) {
+			done = removeProduct((Product) o);
+		}
+		return done;
 	}
 
 }

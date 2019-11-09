@@ -19,35 +19,8 @@ import otp.markkinasim.view.View;
  */
 public class App 
 {
-	private static ObservableList<Person> personList;
-	private static ObservableList<Party> partyList;
-	private static ObservableList<Product> productList;
     public static void main( String[] args )
     {
-    	   	
-    	personList = FXCollections.observableArrayList();
-    	partyList = FXCollections.observableArrayList();
-    	productList = FXCollections.observableArrayList();
-		
-    	//TULEVAISUUDEN RATKAISU
-    	//Secretary secretary = new Secretary();
-    	//partyList = secretary.getAllPartysFromDB();
-    	//productList = secretary.getAllProductsFromDB();
-    	//personList = secretary.getAllPersonsFromDB();
-    	
-
-    	 Application.launch(View.class, args);
+       	 Application.launch(View.class, args);
     }
-	
-	public ObservableList<Party> getPartyList(){
-		return partyList;
-	}
-	
-	public ObservableList<Product> getProductList(){
-		return productList;
-	}
-	
-	public ObservableList<Person> getPersonList(){
-		return personList;
-	}
 }
