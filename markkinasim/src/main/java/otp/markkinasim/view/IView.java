@@ -1,5 +1,8 @@
 package otp.markkinasim.view;
-
+/**
+*
+* @author Joonas Lapinlampi
+*/
 import javafx.collections.ObservableList;
 import javafx.stage.Window;
 import otp.markkinasim.simulation.Party;
@@ -29,5 +32,11 @@ public interface IView {
 	public abstract void createNewObject(Object o);
 
 	public abstract void removeObject(Object o);
+
+	public abstract ObservableList<Party> getSimulationPartyData();
+
+	public abstract ObservableList<Product> getSimulationProductData();
+
+	public abstract void startSimulation();
 
 }

@@ -1,5 +1,8 @@
 package otp.markkinasim.controller;
-
+/**
+*
+* @author Joonas Lapinlampi, Kalle Rissanen
+*/
 import java.security.InvalidParameterException;
 
 import javafx.collections.ObservableList;

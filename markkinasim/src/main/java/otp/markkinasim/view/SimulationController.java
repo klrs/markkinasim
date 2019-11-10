@@ -1,5 +1,8 @@
 package otp.markkinasim.view;
-
+/**
+*
+* @author Joonas Lapinlampi
+*/
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -95,8 +98,9 @@ public class SimulationController{
 		  });
 		partyMoney.setCellValueFactory(
                 cellData -> cellData.getValue().moneyProperty());
-		partyTable.setItems(view.getPartyData());
-		
+		partyTable.setItems(view.getSimulationPartyData());
+		//partyTable end
+		//personTable Start
 		personCount.setCellValueFactory(new Callback<CellDataFeatures<Person, Number>, ObservableValue<Number>>() {
 		     public ObservableValue<Number> call(CellDataFeatures<Person, Number> p) {
 		    	 IntegerProperty fill = new SimpleIntegerProperty(p.getValue().getId());	

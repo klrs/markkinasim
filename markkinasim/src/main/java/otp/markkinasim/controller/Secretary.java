@@ -1,5 +1,8 @@
 package otp.markkinasim.controller;
-
+/**
+*
+* @author Joonas Lapinlampi, Ville Järviranta
+*/
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

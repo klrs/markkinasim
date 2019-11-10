@@ -1,34 +1,27 @@
 package otp.markkinasim.view;
-
+/**
+*
+* @author Joonas Lapinlampi
+*/
 import java.io.IOException;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import otp.markkinasim.App;
 import otp.markkinasim.controller.Controller;
 import otp.markkinasim.controller.IController;
-import otp.markkinasim.controller.Secretary;
 import otp.markkinasim.simulation.Simulator;
-import otp.markkinasim.simulation.Manufacturer;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Person;
 import otp.markkinasim.simulation.Product;
-
 
 public class View extends Application implements IView{
 	
@@ -38,15 +31,16 @@ public class View extends Application implements IView{
 	private MainMenuController MainMenuController;
 	private SimulationController SimulationController;
 	private SimulationOptionsController SimulationOptionsController;
-	
-	private Simulator core;
+	private SimulationSelectionController SimulationSelectionController;
 	private static Stage window;
-	private Scene mainMenu,simulation,simulationOptions;
+	private Scene mainMenu,simulation,simulationOptions,simulationSelection;
 	private List<Scene> sceneList = new ArrayList<Scene>();
 	
 	private ObservableList<Person> personList;
 	private ObservableList<Party> partyList;
 	private ObservableList<Product> productList;
+	private ObservableList<Party> simulationPartyList;
+	private ObservableList<Product> simulationProductList;
 	
 	public View() {
 		view = this;
@@ -56,11 +50,14 @@ public class View extends Application implements IView{
 		MainMenuController = new MainMenuController(this);
 		SimulationController = new SimulationController(this);
 		SimulationOptionsController = new SimulationOptionsController(this);
+		SimulationSelectionController = new SimulationSelectionController(this);
 		
 		dataController = new Controller(this);
 		
 		productList = dataController.getProductFromDatabase();
 		partyList = dataController.getPartyFromDatabase();
+		simulationPartyList = FXCollections.observableArrayList();
+		simulationProductList = FXCollections.observableArrayList();
 	}
 	
 	@Override
@@ -76,17 +73,20 @@ public class View extends Application implements IView{
 		    loader = new FXMLLoader(getClass().getResource("SimulationOptionsView.fxml"));
 		    loader.setController(SimulationOptionsController);
 		    Parent simulationOptionsParent = loader.load();
-
-			sceneList.add((mainMenu = new Scene(mainMenuParent)));
-			sceneList.add((simulation = new Scene(simulationParent)));
+		    loader = new FXMLLoader(getClass().getResource("SimulationSelection.fxml"));
+		    loader.setController(SimulationSelectionController);
+		    Parent simulationSelectionParent = loader.load();
+		    
+			sceneList.add(mainMenu = new Scene(mainMenuParent));
+			sceneList.add(simulation = new Scene(simulationParent));
 			sceneList.add(simulationOptions = new Scene(simulationOptionsParent));
-
+			sceneList.add(simulationSelection = new Scene(simulationSelectionParent));
 			window = primaryStage;
 	
-			window.setMaximized(true);
+	
 			window.setScene(mainMenu);
 			window.show();
-			window.setMaximized(true);
+		
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -246,6 +246,18 @@ public class View extends Application implements IView{
 		}else {
 			System.out.println("ERROR");
 		}
+	}
+	@Override
+	public ObservableList<Party> getSimulationPartyData() {
+		return simulationPartyList;
+	}
+	@Override
+	public ObservableList<Product> getSimulationProductData() {
+		return simulationProductList;		
+	}
+	
+	public void startSimulation() {
+		dataController.startSimulation(simulationPartyList, simulationProductList, personList);
 	}
 }
 
