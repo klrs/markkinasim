@@ -1,5 +1,8 @@
 package otp.markkinasim.controller;
-
+/**
+*
+* @author Joonas Lapinlampi, Kalle Rissanen
+*/
 import javafx.collections.ObservableList;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Person;

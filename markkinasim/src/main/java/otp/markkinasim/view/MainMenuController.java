@@ -1,5 +1,8 @@
 package otp.markkinasim.view;
-
+/**
+*
+* @author Joonas Lapinlampi
+*/
 import javafx.fxml.FXML;
 
 public class MainMenuController{
@@ -12,7 +15,7 @@ public class MainMenuController{
 	
 	@FXML
 	private void startSimulation() {
-		view.setScene(1);
+		view.setScene(3);
 	}
 	
 	@FXML

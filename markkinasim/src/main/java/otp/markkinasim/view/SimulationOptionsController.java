@@ -1,5 +1,8 @@
 package otp.markkinasim.view;
-
+/**
+*
+* @author Joonas Lapinlampi
+*/
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -15,6 +18,7 @@ import otp.markkinasim.simulation.Product;
 public class SimulationOptionsController {
 
 	private IView view;
+	//taulukoiden ja niiden sarakkeiden esittely
 	@FXML
 	private TableView<Party> partyTable;
 	@FXML
