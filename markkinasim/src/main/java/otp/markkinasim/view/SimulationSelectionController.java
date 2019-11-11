@@ -11,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Person;
 import otp.markkinasim.simulation.Product;
 
 /**
@@ -139,6 +140,18 @@ public class SimulationSelectionController {
 			}
 
 			if (hasNeededProduct == null && hasNeededRawmaterial == null) {
+				view.getPersonData().clear();
+				if(view.getPersonCount()<=0) {
+					view.setPersonCount(10);
+				}
+				
+				if(view.getSimulationTime()<=0) {
+					view.setSimulationTime(10);
+				}
+				
+				for(int i=0;i<view.getPersonCount();i++) {
+					view.getPersonData().add(new Person());
+				}
 				view.startSimulation();
 				view.setScene(1);
 			} else if (hasNeededProduct != null && hasNeededRawmaterial == null) {

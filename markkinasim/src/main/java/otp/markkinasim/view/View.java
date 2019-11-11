@@ -27,7 +27,7 @@ public class View extends Application implements IView{
 	
 	private static IView view;
 	private IController dataController;
-	
+	private int personCount, simulationTime;
 	private MainMenuController MainMenuController;
 	private SimulationController SimulationController;
 	private SimulationOptionsController SimulationOptionsController;
@@ -58,6 +58,7 @@ public class View extends Application implements IView{
 		partyList = dataController.getPartyFromDatabase();
 		simulationPartyList = FXCollections.observableArrayList();
 		simulationProductList = FXCollections.observableArrayList();
+		personList = FXCollections.observableArrayList();
 	}
 	
 	@Override
@@ -219,7 +220,7 @@ public class View extends Application implements IView{
 
 	@Override
 	public ObservableList<Person> getPersonData() {
-		return null;
+		return personList;
 	}
 	
 	public void createNewObject(Object o) {
@@ -259,5 +260,18 @@ public class View extends Application implements IView{
 	public void startSimulation() {
 		dataController.startSimulation(simulationPartyList, simulationProductList, personList);
 	}
+	public int getPersonCount() {
+		return personCount;
+	}
+	public void setPersonCount(int personCount) {
+		this.personCount = personCount;
+	}
+	public int getSimulationTime() {
+		return simulationTime;
+	}
+	public void setSimulationTime(int simulatinTime) {
+		this.simulationTime = simulatinTime;
+	}
+	
 }
 

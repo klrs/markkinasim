@@ -1,4 +1,5 @@
 package otp.markkinasim.view;
+
 /**
 *
 * @author Joonas Lapinlampi
@@ -11,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.util.Callback;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Product;
@@ -18,7 +20,13 @@ import otp.markkinasim.simulation.Product;
 public class SimulationOptionsController {
 
 	private IView view;
-	//taulukoiden ja niiden sarakkeiden esittely
+
+	@FXML
+	private TextField simulationDuration;
+	@FXML
+	private TextField personCount;
+
+	// taulukoiden ja niiden sarakkeiden esittely
 	@FXML
 	private TableView<Party> partyTable;
 	@FXML
@@ -105,7 +113,11 @@ public class SimulationOptionsController {
 
 	@FXML
 	private void backToMenu() {
-		view.setScene(0);
+		if(isInputValid()) {
+			view.setPersonCount(Integer.parseInt(personCount.getText()));
+			view.setSimulationTime(Integer.parseInt(simulationDuration.getText()));
+			view.setScene(0);
+		}		
 	}
 
 	private void tableRefresh() {
@@ -232,7 +244,7 @@ public class SimulationOptionsController {
 				return true;
 			}
 		}
-		
+
 		for (Party i : view.getPartyData()) {
 			if (i.getProductToProduceId() == rawmaterial.getId()) {
 				return true;
@@ -317,6 +329,48 @@ public class SimulationOptionsController {
 			alert.setContentText("Valitse tuote taulukosta.");
 
 			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	private boolean isInputValid() {
+		String errorMessage = "";
+
+		if (personCount.getText() == null || personCount.getText().length() == 0) {
+			errorMessage += "Populaation arvo on virheellinen!\n";
+		} else {
+			// try to parse the money amount into an float.
+			try {
+				Float.parseFloat(personCount.getText());
+			} catch (NumberFormatException e) {
+				errorMessage += "Populaation täytyy olla numero!\n";
+			}
+		}
+
+		if (simulationDuration.getText() == null || simulationDuration.getText().length() == 0) {
+			errorMessage += "Simulaation pituus on virheellinen!\n";
+		} else {
+			// try to parse the money amount into an float.
+			try {
+				Float.parseFloat(simulationDuration.getText());
+			} catch (NumberFormatException e) {
+				errorMessage += "Simulaation pituus täytyy olla numero!\n";
+			}
+		}
+
+		if (errorMessage.length() == 0) {
+			return true;
+		} else {
+			// Show the error message.
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.initOwner(view.getPrimaryStage());
+			alert.setTitle("Invalid Fields");
+			alert.setHeaderText("Korjaa väärin täytetyt kentät");
+			alert.setContentText(errorMessage);
+
+			alert.showAndWait();
+
+			return false;
 		}
 	}
 }

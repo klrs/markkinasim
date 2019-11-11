@@ -39,4 +39,13 @@ public interface IView {
 
 	public abstract void startSimulation();
 
+	public abstract void setPersonCount(int parseInt);
+
+	public abstract void setSimulationTime(int parseInt);
+	
+	public abstract int getSimulationTime();
+	
+	public abstract int getPersonCount();
+	
+
 }

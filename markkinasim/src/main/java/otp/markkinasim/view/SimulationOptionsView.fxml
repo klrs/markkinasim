@@ -34,9 +34,7 @@
          <children>
             <ButtonBar prefHeight="40.0" prefWidth="284.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
               <buttons>
-                <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" prefWidth="87.0" text="Tallenna" />
-                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="Ok" />
-                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="Peruuta" />
+                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="Takaisin" />
               </buttons>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -74,7 +72,7 @@
                   <Insets bottom="5.0" left="10.0" right="5.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" promptText="kierrosten määrä" GridPane.halignment="LEFT">
+            <TextField fx:id="simulationDuration" maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" promptText="kierrosten määrä" GridPane.halignment="LEFT">
                <GridPane.margin>
                   <Insets bottom="5.0" left="170.0" right="5.0" top="10.0" />
                </GridPane.margin>
@@ -87,7 +85,7 @@
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <TextField maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" promptText="person määrä" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <TextField fx:id="personCount" maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" promptText="person määrä" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="115.0" right="5.0" top="5.0" />
                </GridPane.margin>
