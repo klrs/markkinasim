@@ -69,7 +69,7 @@ public class SimulationController{
 				cellData -> cellData.getValue().productToProduceProperty());
 		partyProductAmount.setCellValueFactory(new Callback<CellDataFeatures<Party, Number>, ObservableValue<Number>>() {
 		     public ObservableValue<Number> call(CellDataFeatures<Party, Number> p) {
-		    	 Item item = p.getValue().searchSellablesItem(p.getValue().getProductToProduce().getId());
+		    	 Item item = p.getValue().getProducedItemInventory();
 		    	 IntegerProperty fill = new SimpleIntegerProperty(0);	
 		    	 if(item!=null) {
 		    	 		return item.amountProperty();
@@ -90,9 +90,12 @@ public class SimulationController{
 		  });
 		partyRawmaterialAmount.setCellValueFactory(new Callback<CellDataFeatures<Party, Number>, ObservableValue<Number>>() {
 		     public ObservableValue<Number> call(CellDataFeatures<Party, Number> p) {
-		    	 Item item = p.getValue().searchInventoryItem(p.getValue().getProductToProduce().getProductNeededId());
+		    	 Item item = p.getValue().getNeededItemInventory();
 		    	 	if(item!=null) {
 		    	 		return item.amountProperty();
+		    	 	}else if(p.getValue().getProductToProduce().getProductNeededId()>=0) {
+		    	 		IntegerProperty fill = new SimpleIntegerProperty(0);
+		    	 		return fill;
 		    	 	}return null;
 		     }
 		  });
