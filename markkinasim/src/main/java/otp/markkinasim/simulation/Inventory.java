@@ -5,6 +5,9 @@ import java.util.ArrayList;
 public class Inventory {
 	//itemList ei voi sisältää duplikaatteja produkteja!
 	//tämä on koko inventoryn idea! Muuten olisi voinut vaan pitää ArrayListinä
+	
+	///////OBSOLETE ATM!!!///////
+	
 	private ArrayList<Item> itemList;
 	
 	public Inventory() {

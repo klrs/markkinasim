@@ -20,15 +20,17 @@ import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
 
 public class Party {
 	// party elikkä kaupankäyntiä harrastava taho
+	//ÄLÄ ILMENNÄ TÄTÄ
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	protected int id;
-
 	@Transient
-	protected Inventory inventory;
+	protected Item neededItemInventory;
 	@Transient
-	protected Inventory sellables; // Myytävät productit -lista. EI KÄYTTÖÄ VIELÄ. TODO TODO TODO
+	protected Item producedItemInventory;
+	@Transient
+	protected float productRemainder;
 	@Transient
 	protected StringProperty partyName;
 	@Transient
@@ -47,79 +49,56 @@ public class Party {
 	protected FloatProperty quality;
 
 	public Party(String partyName, float money, Product productToProduce) {
-		inventory = new Inventory();
-		sellables = new Inventory();
+		//TURHA?
 		employees = FXCollections.observableArrayList();
+		this.neededItemInventory = null;
+		this.producedItemInventory = null;
 		this.partyName = new SimpleStringProperty(partyName);
 		this.money = new SimpleFloatProperty(money);
 		this.productToProduce = productToProduce;
 		this.defaultSalary = new SimpleFloatProperty(5f);
 		this.effency = new SimpleFloatProperty(1f);
 		this.quality = new SimpleFloatProperty(1f);
+		this.productRemainder = 0f;
 	}
 
 	public Party() {
-		inventory = new Inventory();
-		sellables = new Inventory();
 		employees = FXCollections.observableArrayList();
+		this.neededItemInventory = null;
+		this.producedItemInventory = null;
 		this.partyName = new SimpleStringProperty();
 		this.money = new SimpleFloatProperty();
 		this.productToProduce = null;
 		this.defaultSalary = new SimpleFloatProperty(5f);
 		this.effency = new SimpleFloatProperty(1f);
 		this.quality = new SimpleFloatProperty(1f);
+		this.productRemainder = 0f;
 	}
 
-	@Access(AccessType.PROPERTY)
-	@Column(name = "party_name")
-	public String getPartyName() {
-		return partyName.get();
+	public void init(Product neededProduct) {
+		//TÄTÄ KUULUU KUTSUA MISSÄ PARTYT ILMENNETÄÄN!
+		
+		if(neededProduct != null) {
+			neededItemInventory = new Item(neededProduct, 0, this);
+		}
+		producedItemInventory = new Item(productToProduce, 0, this);
 	}
-
-	public void addToInventory(Product product, int amount) throws InvalidParameterException {
-		// LISÄÄ INVENTORYYN PRODUCTIN JA MÄÄRÄN WRAPPAAMALLA SEN ENSIN ITEM-OLIOON.
-		// MUISTA KÄSITELLÄ InvalidParameterException!!!!!
-		inventory.add(new Item(product, amount, this));
+	public void produce() {/*YLIKIRJOITA*/}
+	protected double checkProducedAmount() {
+		double producedAmount = employees.size() * effency.get();
+		if(productRemainder >= 1) {
+			producedAmount++;
+			productRemainder =- 1;
+		}
+		
+		return producedAmount;
 	}
-
-	public void produce() {
-		// TÄTÄ KUTSUTAAN KERRAN PÄIVÄSSÄ. LISÄÄ YHDEN PRODUCTIN INVENTORYYN.
-		if (employees.size() > 0) {
-			inventory.add(new Item(productToProduce, employees.size(), this));
-		} else {
-			System.out.println("Company is shit");
+	protected void calculateRemainder(double producedAmount) {
+		if(producedAmount % 1 > 0) {
+			productRemainder =+ (float)producedAmount % 1;
 		}
 	}
-
-	public ArrayList<Item> searchInventory() {
-		// HAE *KAIKKI* ITEMIT INVENTORYSTÄ
-		return inventory.getItemList();
-	}
-
-	public Item searchInventoryItem(int productId) {
-		// HAE TIETTY ITEM INVENTORYSTÄ
-		return inventory.search(productId);
-	}
-
-	public void setItemSellable(int productId) {
-		// laittaa KAIKKI kyseiset itemit sellableksi!
-		Item itemToSell = searchInventoryItem(productId);
-		if (itemToSell != null) {
-			itemToSell.priceEach = new SimpleFloatProperty(10);
-			sellables.add(itemToSell);
-			inventory.deleteItem(itemToSell);
-		}
-		// else ilmoita?
-	}
-
-	public void setItemSellable() {
-		// laittaa kaikki productit tyyppiä productToProduce sellableksi!!
-		setItemSellable(productToProduce.id);
-	}
-
-	public ArrayList<Item> searchSellables() {
-		return sellables.getItemList();
-	}
+	public void evaluate() {/*YLIKIRJOITA*/}
 
 	public void addMoney(float addableMoney) {
 		money.set(money.get() + addableMoney);
@@ -139,7 +118,12 @@ public class Party {
 			p.addMoney(defaultSalary.get());
 		}
 	}
-
+	
+	//											
+	// GETTERS & SETTERS
+	// JA MUUT VIEW/DB-METODIT ALLA !!
+	//
+	
 	public void buyProduct(ObservableList<Party> partyList) {
 		// only manufacturer
 	}
@@ -151,21 +135,11 @@ public class Party {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public Inventory getInventory() {
-		return inventory;
-	}
-
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
-	}
-
-	public Inventory getSellables() {
-		return sellables;
-	}
-
-	public void setSellables(Inventory sellables) {
-		this.sellables = sellables;
+	
+	@Access(AccessType.PROPERTY)
+	@Column(name = "party_name")
+	public String getPartyName() {
+		return partyName.get();
 	}
 
 	@Access(AccessType.PROPERTY)
@@ -257,9 +231,27 @@ public class Party {
 		this.quality.set(quality);;
 	}
 
-	public Item searchSellablesItem(int productId) {
-		// HAE TIETTY ITEM Sellablesseista;
-		return sellables.search(productId);
+	public Item getNeededItemInventory() {
+		return neededItemInventory;
 	}
 
+	public void setNeededItemInventory(Item neededItemInventory) {
+		this.neededItemInventory = neededItemInventory;
+	}
+
+	public Item getProducedItemInventory() {
+		return producedItemInventory;
+	}
+
+	public void setProducedItemInventory(Item producedItemInventory) {
+		this.producedItemInventory = producedItemInventory;
+	}
+
+	public float getNextProductReady() {
+		return nextProductReady;
+	}
+
+	public void setNextProductReady(float nextProductReady) {
+		this.nextProductReady = nextProductReady;
+	}
 }
