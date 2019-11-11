@@ -47,6 +47,8 @@ public class Party {
 	protected FloatProperty effency;
 	@Transient
 	protected FloatProperty quality;
+	@Transient
+	protected Market market;
 
 	public Party(String partyName, float money, Product productToProduce) {
 		//TURHA?
@@ -60,6 +62,7 @@ public class Party {
 		this.effency = new SimpleFloatProperty(1f);
 		this.quality = new SimpleFloatProperty(1f);
 		this.productRemainder = 0f;
+		market = new Market();
 	}
 
 	public Party() {
@@ -73,6 +76,7 @@ public class Party {
 		this.effency = new SimpleFloatProperty(1f);
 		this.quality = new SimpleFloatProperty(1f);
 		this.productRemainder = 0f;
+		market = new Market();
 	}
 
 	public void init(Product neededProduct) {
@@ -99,6 +103,10 @@ public class Party {
 		}
 	}
 	public void evaluate() {/*YLIKIRJOITA*/}
+	protected void putForSale() {
+		//laittaa kaikki vaan myyntiin
+		market.vend(producedItemInventory);
+	}
 
 	public void addMoney(float addableMoney) {
 		money.set(money.get() + addableMoney);
@@ -246,12 +254,11 @@ public class Party {
 	public void setProducedItemInventory(Item producedItemInventory) {
 		this.producedItemInventory = producedItemInventory;
 	}
-
-	public float getNextProductReady() {
-		return nextProductReady;
+	public float getProductRemainder() {
+		return productRemainder;
 	}
 
-	public void setNextProductReady(float nextProductReady) {
-		this.nextProductReady = nextProductReady;
+	public void setProductRemainder(float productRemainder) {
+		this.productRemainder = productRemainder;
 	}
 }

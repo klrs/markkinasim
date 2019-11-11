@@ -1,14 +1,17 @@
 package otp.markkinasim.simulation;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.collections.FXCollections;
 
 public class Market {
 	//Market sisältää kaikki myytävät itemit
 	private List<Item> listedItems;
 	
 	public Market() {
-		listedItems = new ArrayList<Item>();
+		listedItems = FXCollections.observableArrayList();
 	}
 	public void vend(Item item) {
 		listedItems.add(item);
@@ -24,11 +27,43 @@ public class Market {
 		
 		return itemsOfP;
 	}
-	public void buy(Party p, List<Item> itemsToBuy, int amount) {
-		for(Item i : itemsToBuy) {
-			if(listedItems.contains(i)) {
-				
+	public List<Item> findCheapest(List<Item> items, int amount){
+		//TODO
+		List<Item> cheapestList = new ArrayList<Item>();
+		Item cheapestItem = items.get(0);
+		for(Item i : items) {
+			if(i.priceEach.get() < cheapestItem.priceEach.get()) {
+				cheapestItem = i;
 			}
+		}
+		cheapestList.add(cheapestItem);
+		
+		return cheapestList;
+	}
+	public void buy(Party p, List<Item> itemsToBuy, int amount) {
+		int leftAmount = amount;
+		for(Item i : itemsToBuy) {
+			int currentAmount;
+			if(i.amount.get() < leftAmount) {
+				currentAmount = i.amount.get();
+			} else {
+				currentAmount = leftAmount;
+			}
+			
+			float totalPrice = i.priceEach.get() * currentAmount;
+			if(listedItems.contains(i)) {
+				if(p.money.get() >= currentAmount * i.priceEach.get()) {
+					try {
+						i.subtractAmount(currentAmount);
+					} catch (InvalidParameterException e) {
+						//TODO!
+					}
+					p.getNeededItemInventory().addAmount(currentAmount);
+					p.addMoney(-totalPrice);
+					i.partyHolder.addMoney(totalPrice);
+				}
+			}
+			leftAmount =- currentAmount;
 		}
 	}
 }

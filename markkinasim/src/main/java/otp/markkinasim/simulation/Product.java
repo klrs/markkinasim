@@ -19,6 +19,8 @@ public class Product {
 	private StringProperty productName;
 	@Transient
 	private IntegerProperty productNeededId;
+	@Transient
+	private Product productNeeded;
 
 	public Product() {
 		this.productName = new SimpleStringProperty();
@@ -67,12 +69,10 @@ public class Product {
 
 		return productName;
 	}
-	
-	
-
-	
-
-	
-	
-	
+	public Product getProductNeeded() {
+		return productNeeded;
+	}
+	public void setProductNeeded(Product productNeeded) {
+		this.productNeeded = productNeeded;
+	}
 }

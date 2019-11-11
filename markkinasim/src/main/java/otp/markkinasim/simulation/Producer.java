@@ -13,4 +13,10 @@ public class Producer extends Party {
 		producedItemInventory.addAmount((int)producedAmount);
 		calculateRemainder(producedAmount);
 	}
+	
+	 @Override
+	 public void evaluate() {
+		 //TODO tekoäly
+		 putForSale();
+	 }
 }

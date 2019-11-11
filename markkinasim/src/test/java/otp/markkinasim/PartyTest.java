@@ -20,19 +20,19 @@ public class PartyTest {
 	//Product productToProduce = new Product("testproduct", productNeeded.id);
 	Party party = new Party("Testparty", 100, new Product("Testproduct"));
 	
-	@Ignore
-	@Test
-	public void testInventoryAdd() {
-		assertThrows(InvalidParameterException.class, () -> {
-			party.addToInventory(productNeeded, 0);
-		});
-	}
-	
-	@Ignore
-	@Test
-	public void testInventoryAdd2() {
-		assertThrows(InvalidParameterException.class, () -> {
-			party.addToInventory(productNeeded, -100);
-		});
-	}
+//	@Ignore
+//	@Test
+//	public void testInventoryAdd() {
+//		assertThrows(InvalidParameterException.class, () -> {
+//			party.addToInventory(productNeeded, 0);
+//		});
+//	}
+//	
+//	@Ignore
+//	@Test
+//	public void testInventoryAdd2() {
+//		assertThrows(InvalidParameterException.class, () -> {
+//			party.addToInventory(productNeeded, -100);
+//		});
+//	}
 }

@@ -35,6 +35,11 @@ public class Simulator {
 		personList = persons;
 		partyList = parties;
 		productList = products;
+		
+		//TODO TODO TODO fix this
+		for(Product p : productList) {
+			p.setProductNeeded(products.get(p.getId()));
+		}
 	}
 
 	public void nextDay() {
@@ -44,15 +49,10 @@ public class Simulator {
 		for(Party p : partyList) {
 			//p.buyProduct(partyList);
 			p.produce();
-			p.setItemSellable();
+			
+			//TODO RIKKI ATM!
 			p.paySalaries();
 			System.out.println(p.getPartyName() + " Money: " + p.getMoney());
-			for(Item i : p.searchInventory()) {
-				System.out.println(p.getPartyName() + " inventory: " + i.product.getProductName() + " " + i.amount.get());
-			}
-			for(Item i2 : p.searchSellables()) {
-				System.out.println(p.getPartyName() + " sellables: " +i2.product.getProductName() + " " +  i2.amount.get());
-			}
 		}
 	}
 }

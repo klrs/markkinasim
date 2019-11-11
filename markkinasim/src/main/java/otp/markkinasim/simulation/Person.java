@@ -72,7 +72,8 @@ public class Person {
 		//TODO CHANGE CHANGE CHANGE THIS IS PAINFUL
 		ArrayList<Item> buyables = new ArrayList<Item>();
 		for(Party p : partyList) {
-			buyables.addAll(p.searchSellables());
+			//TODO!
+			//buyables.addAll(p.searchSellables());
 		}
 		
 		return buyables;

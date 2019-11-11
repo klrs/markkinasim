@@ -2,6 +2,7 @@ package otp.markkinasim.simulation;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 
@@ -28,8 +29,14 @@ public class Manufacturer extends Party {
 			System.out.println(e.getMessage());
 		}
 	}
-	@Override
-	public void buyProduct(ObservableList<Party> partyList) {
+	private void buyNeededProduct() {
+		//TODO TEKOÄLY
+		List<Item> items = market.checkItems(productToProduce.getProductNeeded());
+		//for(Item i : items) {
+			
+		//}
+		List<Item> cheapest;
 		
+		//market.buy(this, items, (int)checkProducedAmount());
 	}
 }
