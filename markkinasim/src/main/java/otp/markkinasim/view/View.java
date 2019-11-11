@@ -33,8 +33,8 @@ public class View extends Application implements IView{
 	private SimulationOptionsController SimulationOptionsController;
 	private SimulationSelectionController SimulationSelectionController;
 	private static Stage window;
-	private Scene mainMenu,simulation,simulationOptions,simulationSelection;
-	private List<Scene> sceneList = new ArrayList<Scene>();
+	private Scene scene;
+	private List<Parent> sceneList = new ArrayList<Parent>();
 	
 	private ObservableList<Person> personList;
 	private ObservableList<Party> partyList;
@@ -78,14 +78,15 @@ public class View extends Application implements IView{
 		    loader.setController(SimulationSelectionController);
 		    Parent simulationSelectionParent = loader.load();
 		    
-			sceneList.add(mainMenu = new Scene(mainMenuParent));
-			sceneList.add(simulation = new Scene(simulationParent));
-			sceneList.add(simulationOptions = new Scene(simulationOptionsParent));
-			sceneList.add(simulationSelection = new Scene(simulationSelectionParent));
+			sceneList.add(mainMenuParent);
+			sceneList.add(simulationParent);
+			sceneList.add(simulationOptionsParent);
+			sceneList.add(simulationSelectionParent);
 			window = primaryStage;
-	
-	
-			window.setScene(mainMenu);
+			
+			scene = new Scene(mainMenuParent);
+			window.setMaximized(true);
+			window.setScene(scene);
 			window.show();
 		
 		} catch(Exception e) {
@@ -103,7 +104,7 @@ public class View extends Application implements IView{
 	
 	@Override
 	public void setScene(int id) {
-		window.setScene(sceneList.get(id));
+		scene.setRoot(sceneList.get(id));
 	}
 
 	@Override
