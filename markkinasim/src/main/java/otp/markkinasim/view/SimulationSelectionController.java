@@ -152,7 +152,7 @@ public class SimulationSelectionController {
 				for(int i=0;i<view.getPersonCount();i++) {
 					view.getPersonData().add(new Person());
 				}
-				view.startSimulation();
+				//view.startSimulation();
 				view.setScene(1);
 			} else if (hasNeededProduct != null && hasNeededRawmaterial == null) {
 				// Nothing selected.

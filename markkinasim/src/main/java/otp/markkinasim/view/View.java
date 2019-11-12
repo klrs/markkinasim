@@ -6,6 +6,9 @@ package otp.markkinasim.view;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,7 +44,7 @@ public class View extends Application implements IView{
 	private ObservableList<Product> productList;
 	private ObservableList<Party> simulationPartyList;
 	private ObservableList<Product> simulationProductList;
-	
+	private Locale locale = Locale.ENGLISH;
 	public View() {
 		view = this;
 	}
@@ -64,19 +67,27 @@ public class View extends Application implements IView{
 	@Override
 	public void start(Stage primaryStage){
 		try {
-			
+			Locale locale = Locale.ENGLISH;
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenuView.fxml"));
+			loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));			
 		    loader.setController(MainMenuController);
 		    Parent mainMenuParent = loader.load();
+		    
 		    loader = new FXMLLoader(getClass().getResource("SimulationView.fxml"));
+		    loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));	
 		    loader.setController(SimulationController);
 		    Parent simulationParent = loader.load();
+		    
 		    loader = new FXMLLoader(getClass().getResource("SimulationOptionsView.fxml"));
+		    loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));	
 		    loader.setController(SimulationOptionsController);
 		    Parent simulationOptionsParent = loader.load();
+		    
 		    loader = new FXMLLoader(getClass().getResource("SimulationSelection.fxml"));
+		    loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));	
 		    loader.setController(SimulationSelectionController);
 		    Parent simulationSelectionParent = loader.load();
+		    
 		    
 			sceneList.add(mainMenuParent);
 			sceneList.add(simulationParent);
@@ -131,6 +142,7 @@ public class View extends Application implements IView{
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(View.class.getResource("PartyEditDialog.fxml"));
+            loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -163,6 +175,7 @@ public class View extends Application implements IView{
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(View.class.getResource("ProductEditDialog.fxml"));
+            loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -194,6 +207,7 @@ public class View extends Application implements IView{
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(View.class.getResource("RawmaterialEditDialog.fxml"));
+            loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.

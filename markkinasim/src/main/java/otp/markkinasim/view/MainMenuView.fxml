@@ -10,7 +10,7 @@
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="600.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#startSimulation" prefHeight="40.0" prefWidth="190.0" text="Start Simulation">
+            <Button mnemonicParsing="false" onAction="#startSimulation" prefHeight="40.0" prefWidth="190.0" text="%startSimulationBtn">
                <font>
                   <Font size="18.0" />
                </font>
@@ -18,7 +18,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#simulationOptions" prefHeight="40.0" prefWidth="190.0" text="Simulation Settings">
+            <Button mnemonicParsing="false" onAction="#simulationOptions" prefHeight="40.0" prefWidth="190.0" text="%simulationSettingsBtn">
                <font>
                   <Font size="18.0" />
                </font>
@@ -26,7 +26,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#simulationOptions" prefHeight="40.0" prefWidth="190.0" text="Options">
+            <Button mnemonicParsing="false" onAction="#simulationOptions" prefHeight="40.0" prefWidth="190.0" text="%optionsBtn">
                <font>
                   <Font size="18.0" />
                </font>
@@ -34,7 +34,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#exitButton" prefHeight="40.0" prefWidth="190.0" text="Exit">
+            <Button mnemonicParsing="false" onAction="#exitButton" prefHeight="40.0" prefWidth="190.0" text="%exitBtn">
                <font>
                   <Font size="18.0" />
                </font>

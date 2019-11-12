@@ -140,4 +140,9 @@ public class SimulationController{
 	public void printText(String msg) {
 		simulationLog.appendText(msg);
 	}
+	
+	@FXML
+	private void exitButton() {
+		System.exit(0);
+	}
 }
