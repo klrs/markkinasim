@@ -4,7 +4,7 @@ import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Person;
 import otp.markkinasim.simulation.Product;
 
-public class TradeObject implements HistoryObject{
+public class TradeLog implements LogObject{
 	private int day;
 	private Party buyerParty;
 	private Party sellerParty;
@@ -16,7 +16,7 @@ public class TradeObject implements HistoryObject{
 	private Accountant accountant;
 
 	// Constructor for trade between two parties
-	public TradeObject(Accountant accountant, int day, Party buyerParty, Party sellerParty, 
+	public TradeLog(Accountant accountant, int day, Party buyerParty, Party sellerParty, 
 						Product product, int amount, float price) {
 		this.day = day;
 		this.buyerParty = buyerParty;
@@ -30,7 +30,7 @@ public class TradeObject implements HistoryObject{
 	}
 	
 	// constructor for trade between party and person
-	public TradeObject(Accountant accountant, int day, Person buyerPerson, Party sellerParty, 
+	public TradeLog(Accountant accountant, int day, Person buyerPerson, Party sellerParty, 
 			Product product, int amount, float price) {
 		this.day = day;
 		this.buyerPerson = buyerPerson;

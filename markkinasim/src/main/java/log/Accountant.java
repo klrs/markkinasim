@@ -6,13 +6,13 @@ public class Accountant {
 	
 	//public Accountant() {}
 	
-	ArrayList<HistoryObject> log = new ArrayList<HistoryObject>();
+	ArrayList<LogObject> log = new ArrayList<LogObject>();
 	
-	public void registerTrade(TradeObject trade) {
+	public void registerTrade(TradeLog trade) {
 		log.add(trade);
 	};
 	
-	public ArrayList<HistoryObject> getAllTrades() {
+	public ArrayList<LogObject> getAllTrades() {
 		return log;
 	}
 	

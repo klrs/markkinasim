@@ -1,5 +1,5 @@
 package log;
 
-public interface HistoryObject {
+public interface LogObject {
 	public int getDay();
 }
