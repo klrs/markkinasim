@@ -3,8 +3,16 @@ import java.util.ArrayList;
 
 public class Accountant {
 	
+	private static final Accountant INSTANCE = new Accountant();
+	
+	private Accountant() {}
+	
 	ArrayList<LogObject> completeLog = new ArrayList<LogObject>();
 	ArrayList<LogObject> tradeLog = new ArrayList<LogObject>();
+	
+	public static Accountant getInstance() {
+		return INSTANCE;
+	}
 	
 	public void registerTrade(TradeLog trade) {
 		completeLog.add(trade);
