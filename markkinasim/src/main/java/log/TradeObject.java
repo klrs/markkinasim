@@ -20,13 +20,27 @@ public class TradeObject implements HistoryObject{
 						Product product, int amount, float price) {
 		this.day = day;
 		this.buyerParty = buyerParty;
+		this.buyerPerson = null;
 		this.sellerParty = sellerParty;
 		this.product = product;
 		this.amount = amount;
 		this.price = price;
 		this.accountant = accountant;
-		register();
-		
+		register();	
+	}
+	
+	// constructor for trade between party and person
+	public TradeObject(Accountant accountant, int day, Person buyerPerson, Party sellerParty, 
+			Product product, int amount, float price) {
+		this.day = day;
+		this.buyerPerson = buyerPerson;
+		this.buyerParty = null;
+		this.sellerParty = sellerParty;
+		this.product = product;
+		this.amount = amount;
+		this.price = price;
+		this.accountant = accountant;
+		register();	
 	}
 	
 	public void register() {
