@@ -19,8 +19,8 @@ public class TradeLog implements LogObject{
 	public TradeLog(Accountant accountant, int day, Party buyerParty, Party sellerParty, 
 						Product product, int amount, float price) {
 		this.day = day;
-		this.buyerParty = buyerParty;
 		this.buyerPerson = null;
+		this.buyerParty = buyerParty;
 		this.sellerParty = sellerParty;
 		this.product = product;
 		this.amount = amount;
@@ -50,6 +50,30 @@ public class TradeLog implements LogObject{
 	public int getDay() {
 		return day;
 	}
-	
+
+	public Party getBuyerParty() {
+		return buyerParty;
+	}
+
+
+	public Party getSellerParty() {
+		return sellerParty;
+	}
+
+	public Person getBuyerPerson() {
+		return buyerPerson;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public float getPrice() {
+		return price;
+	}
 
 }
