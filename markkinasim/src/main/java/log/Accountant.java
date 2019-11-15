@@ -11,12 +11,26 @@ public class Accountant {
 		tradeLog.add(trade);
 	};
 	
+	public void registerPersonLog(PersonLog personLog) {
+		completeLog.add(personLog);
+	}
+	
 	public ArrayList<LogObject> getCompleteLog() {
 		return completeLog;
 	}
 	
 	public ArrayList<LogObject> getAllTrades() {
 		return tradeLog;
+	}
+	
+	public ArrayList<LogObject> getPersonLog() {
+		ArrayList<LogObject> personsLog = new ArrayList<LogObject>();
+		for (LogObject object : completeLog) {
+			if (object instanceof PersonLog) {
+				personsLog.add(object);
+			}
+		}
+		return personsLog;
 	}
 	
 	public ArrayList<LogObject> getTradesForDay(int day) {
