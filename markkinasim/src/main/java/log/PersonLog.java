@@ -38,5 +38,29 @@ public class PersonLog implements LogObject {
 	public void register() {
 		accountant.registerPersonLog(this);
 	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public Party getEmployer() {
+		return employer;
+	}
+
+	public double getMoney() {
+		return money;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public String getWork() {
+		return work;
+	}
 
 }
