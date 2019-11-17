@@ -27,18 +27,16 @@ public class Market {
 		
 		return itemsOfP;
 	}
-	public List<Item> findCheapest(List<Item> items, int amount){
+	public Item findNextCheapestItem(List<Item> items){
 		//TODO
-		List<Item> cheapestList = new ArrayList<Item>();
 		Item cheapestItem = items.get(0);
 		for(Item i : items) {
 			if(i.priceEach.get() < cheapestItem.priceEach.get()) {
 				cheapestItem = i;
 			}
 		}
-		cheapestList.add(cheapestItem);
 		
-		return cheapestList;
+		return cheapestItem;
 	}
 	public void buy(Party p, List<Item> itemsToBuy, int amount) {
 		int leftAmount = amount;

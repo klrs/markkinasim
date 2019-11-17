@@ -35,11 +35,6 @@ public class Simulator {
 		personList = persons;
 		partyList = parties;
 		productList = products;
-		
-		//TODO TODO TODO fix this
-		for(Product p : productList) {
-			p.setProductNeeded(products.get(p.getId()));
-		}
 	}
 
 	public void nextDay() {

@@ -50,14 +50,15 @@ public class Party {
 	@Transient
 	protected Market market;
 
-	public Party(String partyName, float money, Product productToProduce) {
-		//TURHA?
+	public Party(int id, String partyName, float money, int productToProduceId) {
+		//TESTING PURPOSES!!
 		employees = FXCollections.observableArrayList();
+		this.id = id;
 		this.neededItemInventory = null;
 		this.producedItemInventory = null;
 		this.partyName = new SimpleStringProperty(partyName);
 		this.money = new SimpleFloatProperty(money);
-		this.productToProduce = productToProduce;
+		this.productToProduceId = productToProduceId;
 		this.defaultSalary = new SimpleFloatProperty(5f);
 		this.effency = new SimpleFloatProperty(1f);
 		this.quality = new SimpleFloatProperty(1f);

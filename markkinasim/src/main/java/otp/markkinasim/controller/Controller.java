@@ -5,6 +5,7 @@ package otp.markkinasim.controller;
 */
 import java.security.InvalidParameterException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import otp.markkinasim.simulation.Manufacturer;
 import otp.markkinasim.simulation.Party;
@@ -28,6 +29,7 @@ public class Controller implements IController{
 	public void startSimulation(ObservableList<Party> parties, ObservableList<Product> products,
 			ObservableList<Person> persons) {
 		simulator = Simulator.getInstance();
+		setProductNeededs(products);
 		simulator.init(parties, products, persons);
 	}
 	@Override
@@ -52,5 +54,17 @@ public class Controller implements IController{
 	public boolean removeFromDatabase(Object o) {
 		boolean done = secretary.removeObject(o);
 		return done;
+	}
+	private void setProductNeededs(ObservableList<Product> productList) {
+		//ILMENTÄÄ PRODUCTIEN productNeeded-FIELDIN productNeededId:N MUKAAN
+		for(Product p : productList) {
+			System.out.println(productList.indexOf(p));
+			for(int i = 0; productList.size() > i; i++) {
+				if(p.getProductNeededId() == productList.get(i).getId()) {
+					p.setProductNeeded(productList.get(i));
+					break;
+				}
+			}
+		}
 	}
 }
