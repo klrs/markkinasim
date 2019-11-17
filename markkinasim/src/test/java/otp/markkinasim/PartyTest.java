@@ -18,7 +18,7 @@ public class PartyTest {
 	
 	Product productNeeded = new Product("productneeded");
 	//Product productToProduce = new Product("testproduct", productNeeded.id);
-	Party party = new Party("Testparty", 100, new Product("Testproduct"));
+	//Party party = new Party("Testparty", 100, new Product("Testproduct"));
 	
 //	@Ignore
 //	@Test

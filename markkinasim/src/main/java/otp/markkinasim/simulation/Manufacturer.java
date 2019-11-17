@@ -9,9 +9,9 @@ import javafx.collections.ObservableList;
 public class Manufacturer extends Party {
 	//jalostaja-taho. Tuottaa producteja, mutta vaatii raaka-aineita(product) toimiakseen.
 	
-	public Manufacturer(String partyName, float money, Product productToProduce) {
-		super(partyName, money, productToProduce);
-	}
+//	public Manufacturer(String partyName, float money, Product productToProduce) {
+//		super(partyName, money, productToProduce);
+//	}
 	public Manufacturer() {
 		super();
 	}
