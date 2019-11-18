@@ -49,6 +49,8 @@ public class Party {
 	protected FloatProperty quality;
 	@Transient
 	protected Market market;
+	@Column(name = "PartyType")
+	protected int PartyType;
 
 	public Party(String partyName, float money, Product productToProduce) {
 		//TURHA?
@@ -261,4 +263,13 @@ public class Party {
 	public void setProductRemainder(float productRemainder) {
 		this.productRemainder = productRemainder;
 	}
+
+	public int getPartyType() {
+		return PartyType;
+	}
+
+	public void setPartyType(int partyType) {
+		PartyType = partyType;
+	}
+	
 }
