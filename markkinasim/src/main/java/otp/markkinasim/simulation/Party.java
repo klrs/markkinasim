@@ -48,7 +48,7 @@ public class Party {
 	@Transient
 	protected FloatProperty quality;
 	@Transient
-	protected Market market;
+	protected Market market; //TODO poista..?
 
 	public Party(int id, String partyName, float money, int productToProduceId) {
 		//TESTING PURPOSES!!

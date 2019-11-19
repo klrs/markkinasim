@@ -22,7 +22,7 @@ class MarketTest {
 		market.vend(new Item(
 				testiproduct1, 12f, 3, testiproducer1));
 		market.vend(new Item(
-				testiproduct1, 10f, 10, testiproducer2));
+				testiproduct1, 13f, 3, testiproducer2));
 	}
 	
 	@Test
@@ -37,7 +37,31 @@ class MarketTest {
 		fillMarket();
 		
 		List<Item> items = market.checkItems(testiproduct1);
-		assertEquals(testiproducer2, market.findNextCheapestItem(items).partyHolder);
+		assertEquals(testiproducer1, market.findNextCheapestItem(items).partyHolder);
+	}
+	
+	@Test
+	void testBuy() {
+		fillMarket();
+		
+		List<Item> items = market.checkItems(testiproduct1);
+		Item i = market.findNextCheapestItem(items);
+		//TODO
+		//market.buy(testiproducer2, i, 3);
+	}
+	
+	@Test
+	void testCleanEmpty() {
+		fillMarket();
+		
+		List list = market.checkItems(testiproduct1);
+		Item i = market.findNextCheapestItem(list);
+		System.out.println(i.partyHolder.getPartyName());
+		i.amount.set(0);
+		System.out.println("Poistettuja " + market.cleanEmpty());
+		list = market.checkItems(testiproduct1);
+		
+		assertEquals("Testiproducer2", market.findNextCheapestItem(list).partyHolder.getPartyName());
 	}
 
 }

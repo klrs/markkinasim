@@ -27,6 +27,7 @@ public class Simulator {
 	private ObservableList<Person> personList;
 	private ObservableList<Party> partyList;
 	private ObservableList<Product> productList;
+	private Market market;
 
 	private int day = 0; 	//ITERATION COUNT
 
@@ -35,6 +36,7 @@ public class Simulator {
 		personList = persons;
 		partyList = parties;
 		productList = products;
+		market = new Market();
 	}
 
 	public void nextDay() {
@@ -48,6 +50,11 @@ public class Simulator {
 			//TODO RIKKI ATM!
 			p.paySalaries();
 			System.out.println(p.getPartyName() + " Money: " + p.getMoney());
+			
+			
+			market.cleanEmpty();
 		}
+		
+		
 	}
 }
