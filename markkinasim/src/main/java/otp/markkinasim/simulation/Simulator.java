@@ -46,10 +46,11 @@ public class Simulator {
 		for(Party p : partyList) {
 			//p.buyProduct(partyList);
 			p.produce();
+			p.evaluate();
 			
-			//TODO RIKKI ATM!
-			p.paySalaries();
-			System.out.println(p.getPartyName() + " Money: " + p.getMoney());
+			if(day % 7 == 0) {
+				p.paySalaries();
+			}
 			
 			
 			market.cleanEmpty();

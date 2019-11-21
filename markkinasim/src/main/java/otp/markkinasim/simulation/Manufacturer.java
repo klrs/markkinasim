@@ -29,14 +29,29 @@ public class Manufacturer extends Party {
 			System.out.println(e.getMessage());
 		}
 	}
-	private void buyNeededProduct() {
+	public void evaluate() {
+		buyNeededProduct((int)checkProducedAmount());
+		putForSale();
+	}
+	private void buyNeededProduct(int amount) {
 		//TODO TEKOÄLY
+		int left = amount;
 		List<Item> items = market.checkItems(productToProduce.getProductNeeded());
-		//for(Item i : items) {
+		while(left > 0) {
+			Item cheapest = market.findNextCheapestItem(items);
+			int buyAmount = 0;
 			
-		//}
-		List<Item> cheapest;
-		
+			if(cheapest.amount.get() < left) {
+				buyAmount = cheapest.amount.get();
+			} else {
+				buyAmount = left;
+			}
+			
+			if(money.get() >= cheapest.priceEach.get() * buyAmount) {
+				market.buy(this, cheapest, buyAmount);
+			}
+			market.cleanEmpty();
+		}
 		//market.buy(this, items, (int)checkProducedAmount());
 	}
 }
