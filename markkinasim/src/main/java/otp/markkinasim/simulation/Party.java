@@ -49,6 +49,7 @@ public class Party {
 	protected FloatProperty quality;
 	@Transient
 	protected Market market;
+
 	@Column(name = "PartyType")
 	protected int PartyType;
 
@@ -65,7 +66,7 @@ public class Party {
 		this.effency = new SimpleFloatProperty(1f);
 		this.quality = new SimpleFloatProperty(1f);
 		this.productRemainder = 0f;
-		market = new Market();
+		market = null;
 	}
 
 	public Party() {
@@ -79,7 +80,7 @@ public class Party {
 		this.effency = new SimpleFloatProperty(1f);
 		this.quality = new SimpleFloatProperty(1f);
 		this.productRemainder = 0f;
-		market = new Market();
+		market = null;
 	}
 
 	public void init(Product neededProduct) {
@@ -273,4 +274,11 @@ public class Party {
 		PartyType = partyType;
 	}
 	
+	public Market getMarket() {
+		return market;
+	}
+
+	public void setMarket(Market market) {
+		this.market = market;
+	}
 }

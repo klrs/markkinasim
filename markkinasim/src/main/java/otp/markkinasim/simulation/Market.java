@@ -56,6 +56,22 @@ public class Market {
 			p.neededItemInventory.addAmount(possibleAmount);
 		}
 	}
+	public void buy(Person p, Item itemToBuy, int amount) {
+		
+		//kokeile sisältääkö itemToBuy tarpeeksi tavaroita
+		int possibleAmount = amount;
+		if(itemToBuy.amount.get() < amount) {
+			possibleAmount = itemToBuy.amount.get();
+		}
+		
+		//kokeilee onko p:llä tarpeeksi rahaa
+		if(p.getMoney() >= possibleAmount * itemToBuy.priceEach.get()) {
+			float cost = possibleAmount * itemToBuy.priceEach.get();
+			
+			p.setMoney(p.getMoney() - cost);
+			itemToBuy.partyHolder.money.add(cost);
+		}
+	}
 	public int cleanEmpty() {
 		/**
 		 * Poistaa listedItems-listasta ne oliot, joiden amount on 0.

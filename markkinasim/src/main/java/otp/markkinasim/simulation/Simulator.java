@@ -37,6 +37,14 @@ public class Simulator {
 		partyList = parties;
 		productList = products;
 		market = new Market();
+		
+		for(Party p : parties) {
+			p.setMarket(market);
+		}
+		
+		for(Person p : persons) {
+			p.setMarket(market);
+		}
 	}
 
 	public void nextDay() {

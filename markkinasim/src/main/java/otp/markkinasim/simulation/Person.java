@@ -35,6 +35,9 @@ public class Person {
 	@Column(name="work")
 	private String work;
 	
+	@Transient
+	private Market market;
+
 	public Person() {
 		//this.money = new SimpleFloatProperty(100);
 		this.status = "idle";
@@ -46,37 +49,9 @@ public class Person {
 		this.id=count++;
 	}
 	
-	public String consume(ObservableList<Party> partyList) {
-		String print = null;
-		ArrayList<Item> buyables = searchConsumables(partyList);
-		for(Item i : buyables) {
-			if(i.amount.get() > 0) {
-				i.partyHolder.addMoney(i.priceEach.get());
-				money =- i.priceEach.get();
-				try {
-					i.subtractAmount(1);
-					print = "Person " + id + " bought " + i.product.getProductName()+"\n";
-				} catch (InvalidParameterException e) {
-					// TODO Auto-generated catch block
-					print = "Nothing to buy!";
-				}
-				break;
-			}
-			else {
-				print += "Person " + id + " would like to buy " + i.product.getProductName()+"\n";
-			}
-		}
-		return print;
-	}
-	public ArrayList<Item> searchConsumables(ObservableList<Party> partyList) {
-		//TODO CHANGE CHANGE CHANGE THIS IS PAINFUL
-		ArrayList<Item> buyables = new ArrayList<Item>();
-		for(Party p : partyList) {
-			//TODO!
-			//buyables.addAll(p.searchSellables());
-		}
-		
-		return buyables;
+	public void consume() {
+		//TODO mistä person tietää mitä ostaa?
+//		market.checkItems()
 	}
 	
 	public String findWork(ObservableList<Party> partyList) {
@@ -129,6 +104,13 @@ public class Person {
 	}
 	public void setWork(String work) {
 		this.work = work;
+	}
+	public Market getMarket() {
+		return market;
+	}
+
+	public void setMarket(Market market) {
+		this.market = market;
 	}
 	
 	
