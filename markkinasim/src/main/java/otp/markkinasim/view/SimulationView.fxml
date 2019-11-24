@@ -35,19 +35,19 @@
                 <Menu mnemonicParsing="false" text="%fileTxt">
                   <items>
                         <MenuItem mnemonicParsing="false" text="%optionsTxt" />
-                    <MenuItem mnemonicParsing="false" text="%closeTxt" onAction="#exitButton"/>
+                    <MenuItem mnemonicParsing="false" onAction="#exitButton" text="%closeTxt" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
             <TableView fx:id="partyTable" prefHeight="318.0" prefWidth="637.0" GridPane.columnSpan="3" GridPane.rowSpan="3">
               <columns>
-                <TableColumn fx:id="partyName" prefWidth="90.0" text="%partyNameColumn" />
-                  <TableColumn fx:id="partyProduct" prefWidth="90.0" text="%partyProductColumn" />
-                  <TableColumn fx:id="partyProductAmount" prefWidth="75.0" text="%partyProductAmountColumn" />
-                  <TableColumn fx:id="partyRawmaterial" prefWidth="90.0" text="%partyRawmaterialColumn" />
-                  <TableColumn fx:id="partyRawmaterialAmount" prefWidth="94.0" text="%partyRawmaterialAmountColumn" />
-                  <TableColumn fx:id="partyMoney" prefWidth="71.0" text="%partyMoneyColumn" />
+                <TableColumn fx:id="partyName" prefWidth="120.0" text="%partyNameColumn" />
+                  <TableColumn fx:id="partyProduct" prefWidth="120.0" text="%partyProductColumn" />
+                  <TableColumn fx:id="partyProductAmount" prefWidth="120.0" text="%partyProductAmountColumn" />
+                  <TableColumn fx:id="partyRawmaterial" prefWidth="120.0" text="%partyRawmaterialColumn" />
+                  <TableColumn fx:id="partyRawmaterialAmount" prefWidth="120.0" text="%partyRawmaterialAmountColumn" />
+                  <TableColumn fx:id="partyMoney" prefWidth="120.0" text="%partyMoneyColumn" />
               </columns>
                <GridPane.margin>
                   <Insets left="10.0" top="31.0" />
@@ -67,9 +67,9 @@
             </ToolBar>
             <TableView fx:id="personTable" prefHeight="191.0" prefWidth="288.0" GridPane.rowIndex="3">
               <columns>
-                <TableColumn fx:id="personCount" prefWidth="95.0" text="%personIdColumn" />
-                <TableColumn fx:id="personWork" prefWidth="95.0" text="%PersonWorkColumn" />
-                  <TableColumn fx:id="personMoney" prefWidth="95.0" text="%PersonMoneyColumn" />
+                <TableColumn fx:id="personCount" prefWidth="100.0" text="%personIdColumn" />
+                <TableColumn fx:id="personWork" prefWidth="100.0" text="%PersonWorkColumn" />
+                  <TableColumn fx:id="personMoney" prefWidth="100.0" text="%PersonMoneyColumn" />
               </columns>
                <GridPane.margin>
                   <Insets bottom="45.0" left="10.0" />

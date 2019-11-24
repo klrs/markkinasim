@@ -44,7 +44,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label prefHeight="27.0" prefWidth="233.0" text="%partyNeededRawmaterialLabel" GridPane.rowIndex="3">
+            <Label prefHeight="27.0" prefWidth="359.0" text="%partyNeededRawmaterialLabel" GridPane.rowIndex="3" GridPane.valignment="TOP">
                <font>
                   <Font size="18.0" />
                </font>
@@ -78,7 +78,7 @@
                   <Insets left="230.0" />
                </GridPane.margin>
             </TextField>
-            <Label prefHeight="27.0" prefWidth="180.0" text="%partyProductLabel" GridPane.rowIndex="2">
+            <Label prefHeight="27.0" prefWidth="210.0" text="%partyProductLabel" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
@@ -86,14 +86,14 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <ChoiceBox fx:id="partyProductChoice" onAction="#handleProductChoice" prefWidth="150.0" GridPane.rowIndex="2">
+            <ChoiceBox fx:id="partyProductChoice" onAction="#handleProductChoice" prefWidth="150.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets left="190.0" />
+                  <Insets left="220.0" />
                </GridPane.margin>
             </ChoiceBox>
-            <TextField fx:id="partyRawmaterial" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" promptText="%partyRawmaterialInfoTxt" GridPane.rowIndex="3">
+            <TextField fx:id="partyRawmaterial" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="184.0" promptText="%partyRawmaterialInfoTxt" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <GridPane.margin>
-                  <Insets left="243.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
          </children>

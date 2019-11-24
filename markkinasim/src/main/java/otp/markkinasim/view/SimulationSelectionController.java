@@ -158,27 +158,27 @@ public class SimulationSelectionController {
 				// Nothing selected.
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
-				alert.setTitle("Simulaatio valinnat puutteellisia");
-				alert.setHeaderText("Simulaatiosta puuttuu tuote.");
-				alert.setContentText("Lisää taho joka tarvitsee raaka-ainetta " + hasNeededProduct.getProductName());
+				alert.setTitle(view.getLanguage().getProperty("simulationSelectionIncomple"));
+				alert.setHeaderText(view.getLanguage().getProperty("simulationMissingProduct"));
+				alert.setContentText(view.getLanguage().getProperty("simulationMissingProductInfo")+" " + hasNeededProduct.getProductName());
 
 				alert.showAndWait();
 			} else if (hasNeededProduct == null && hasNeededRawmaterial != null) {
 				// Nothing selected.
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
-				alert.setTitle("Simulaatio valinnat puutteellisia");
-				alert.setHeaderText("Simulaatiosta puuttuu raaka-aine.");
-				alert.setContentText("Lisää taho joka tuottaa raaka-ainetta " + hasNeededRawmaterial.getProductName());
+				alert.setTitle(view.getLanguage().getProperty("simulationSelectionIncomple"));
+				alert.setHeaderText(view.getLanguage().getProperty("simulationMissingRawmaterial"));
+				alert.setContentText(view.getLanguage().getProperty("simulationMissingRawmaterialInfo")+" " + hasNeededRawmaterial.getProductName());
 
 				alert.showAndWait();
 			} else {
 				// Nothing selected.
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
-				alert.setTitle("Simulaatio valinnat puutteellisia");
-				alert.setHeaderText("Simulaatiosta puuttuu raaka-aine ja tuote.");
-				alert.setContentText("Lisää taho joka tuottaa raaka-ainetta " + hasNeededRawmaterial.getProductName()+"\nLisää taho joka tarvitsee raaka-ainetta " + hasNeededProduct.getProductName());
+				alert.setTitle(view.getLanguage().getProperty("simulationSelectionIncomple"));
+				alert.setHeaderText(view.getLanguage().getProperty("simulationMissingRawmaterialAndProduct"));
+				alert.setContentText(view.getLanguage().getProperty("simulationAddMissinManufacturer")+" " + hasNeededRawmaterial.getProductName()+"\n"+view.getLanguage().getProperty("simulationAddMissinParty")+" " + hasNeededProduct.getProductName());
 				
 				alert.showAndWait();
 			}
@@ -186,9 +186,9 @@ public class SimulationSelectionController {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Simulaatio tyhjä");
-			alert.setHeaderText("Tahoa ei ole valittu.");
-			alert.setContentText("Valitse simulaatioon käyttettäviä tahoja.");
+			alert.setTitle(view.getLanguage().getProperty("simulationEmpty"));
+			alert.setHeaderText(view.getLanguage().getProperty("simulationNoSelections"));
+			alert.setContentText(view.getLanguage().getProperty("simulationNoSelectionsInfo"));
 
 			alert.showAndWait();
 		}
@@ -207,18 +207,18 @@ public class SimulationSelectionController {
 				// Nothing selected.
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
-				alert.setTitle("Ei valintaa");
-				alert.setHeaderText("Tahoa ei ole valittu.");
-				alert.setContentText("Valitse taho tallennetut tahot taulukosta.");
+				alert.setTitle(view.getLanguage().getProperty("noSelection"));
+				alert.setHeaderText(view.getLanguage().getProperty("noSelectedParty"));
+				alert.setContentText(view.getLanguage().getProperty("noSavedPartySelectedInfo"));
 
 				alert.showAndWait();
 			} else if (view.getSimulationPartyData().contains(tempParty)) {
 				// Onjo lisätty simulaatioon
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
-				alert.setTitle("Lisätty simulaatioon");
-				alert.setHeaderText("Tahoa on lisätty jo simulaatioon.");
-				alert.setContentText("Valitse jokinmuu taho tallennetut tahot taulukosta.");
+				alert.setTitle(view.getLanguage().getProperty("inSimulation"));
+				alert.setHeaderText(view.getLanguage().getProperty("allReadyInSimulation"));
+				alert.setContentText(view.getLanguage().getProperty("allReadyInSimulationInfo"));
 
 				alert.showAndWait();
 			}
@@ -247,9 +247,9 @@ public class SimulationSelectionController {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Ei valintaa");
-			alert.setHeaderText("Tahoa ei ole valittu.");
-			alert.setContentText("Valitse taho taulukosta.");
+			alert.setTitle(view.getLanguage().getProperty("noSelection"));
+			alert.setHeaderText(view.getLanguage().getProperty("noSelectedParty"));
+			alert.setContentText(view.getLanguage().getProperty("noSelectedPartyInfo"));
 
 			alert.showAndWait();
 		}

@@ -26,7 +26,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label prefHeight="39.0" prefWidth="320.0" text="%editProductLabel" GridPane.columnSpan="2">
+            <Label prefHeight="39.0" prefWidth="400.0" text="%editProductLabel" GridPane.columnSpan="2">
                <font>
                   <Font size="27.0" />
                </font>

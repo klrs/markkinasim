@@ -1,5 +1,9 @@
 package otp.markkinasim.view;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Locale;
+
 /**
 *
 * @author Joonas Lapinlampi
@@ -8,6 +12,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -25,7 +30,9 @@ public class SimulationOptionsController {
 	private TextField simulationDuration;
 	@FXML
 	private TextField personCount;
-
+	@FXML
+    private ChoiceBox<String> languageChoiceBox;
+	
 	// taulukoiden ja niiden sarakkeiden esittely
 	@FXML
 	private TableView<Party> partyTable;
@@ -109,10 +116,29 @@ public class SimulationOptionsController {
 				});
 
 		productTable.setItems(view.getAllProductData().filtered(Product -> Product.getProductNeededId() >= 0));
+		
+		//Kielivalinta alustus
+		languageChoiceBox.getItems().addAll(view.getLanguage().getProperty("language_en"),view.getLanguage().getProperty("language_fi_FI"));
+		if(view.getConfig().getProperty("locale").equals("fi")) {
+			languageChoiceBox.setValue(view.getLanguage().getProperty("language_fi_FI"));
+		}else {
+			languageChoiceBox.setValue(view.getLanguage().getProperty("language_en"));
+		}
+		
+		languageChoiceBox.getSelectionModel()
+	    .selectedItemProperty()
+	    .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+			try {
+				languageChange();
+				view.setScene(2);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} );
 	}
 
 	@FXML
-	private void backToMenu() {
+	private void backToMenu(){
 		if(isInputValid()) {
 			view.setPersonCount(Integer.parseInt(personCount.getText()));
 			view.setSimulationTime(Integer.parseInt(simulationDuration.getText()));
@@ -139,9 +165,9 @@ public class SimulationOptionsController {
 			// No rawmaterials.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Ei raaka-aineita tai tuotteita");
-			alert.setHeaderText("Ei raaka-aineita tai tuotteita.");
-			alert.setContentText("Luo v�hint��n yksi raaka-aine ja tuote ennen kuin luot tahon.");
+			alert.setTitle(view.getLanguage().getProperty("noProductOrRawmaterial"));
+			alert.setHeaderText(view.getLanguage().getProperty("noProductOrRawmaterial"));
+			alert.setContentText(view.getLanguage().getProperty("noProductOrRawmaterialInfo"));
 
 			alert.showAndWait();
 		}
@@ -157,9 +183,9 @@ public class SimulationOptionsController {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Ei valintaa");
-			alert.setHeaderText("Tahoa ei ole valitty.");
-			alert.setContentText("Valitse taho taulukosta.");
+			alert.setTitle(view.getLanguage().getProperty("noSelection"));
+			alert.setHeaderText(view.getLanguage().getProperty("noSelectedParty"));
+			alert.setContentText(view.getLanguage().getProperty("noSelectedPartyInfo"));
 
 			alert.showAndWait();
 		}
@@ -174,9 +200,9 @@ public class SimulationOptionsController {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Ei valintaa");
-			alert.setHeaderText("Tahoa ei ole valittu.");
-			alert.setContentText("Valitse taho taulukosta.");
+			alert.setTitle(view.getLanguage().getProperty("noSelection"));
+			alert.setHeaderText(view.getLanguage().getProperty("noSelectedParty"));
+			alert.setContentText(view.getLanguage().getProperty("noSelectedPartyInfo"));
 
 			alert.showAndWait();
 		}
@@ -202,9 +228,9 @@ public class SimulationOptionsController {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Ei valintaa");
-			alert.setHeaderText("Raaka-ainetta ei ole valittu.");
-			alert.setContentText("Valitse raaka-aine taulukosta.");
+			alert.setTitle(view.getLanguage().getProperty("noSelection"));
+			alert.setHeaderText(view.getLanguage().getProperty("noSelectedRawmaterial"));
+			alert.setContentText(view.getLanguage().getProperty("noSelectedRawmaterialInfo"));
 
 			alert.showAndWait();
 		}
@@ -220,9 +246,9 @@ public class SimulationOptionsController {
 				// Rawmaterial in use
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
-				alert.setTitle("Valittu raaka-aine käytössä");
-				alert.setHeaderText("Käytössä olevaa raaka-ainetta ei voida poistaa.");
-				alert.setContentText("Poista tuotteet/tahot, jotka käyttävät raaka-ainetta.");
+				alert.setTitle(view.getLanguage().getProperty("selectedRawmaterialInUse"));
+				alert.setHeaderText(view.getLanguage().getProperty("deleteRawmaterialError"));
+				alert.setContentText(view.getLanguage().getProperty("deleteRawmaterialErrorInfo"));
 
 				alert.showAndWait();
 			}
@@ -230,9 +256,9 @@ public class SimulationOptionsController {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Ei valintaa");
-			alert.setHeaderText("Raaka-ainetta ei ole valittu.");
-			alert.setContentText("Valitse raaka-aine taulukosta.");
+			alert.setTitle(view.getLanguage().getProperty("noSelection"));
+			alert.setHeaderText(view.getLanguage().getProperty("noSelectedRawmaterial"));
+			alert.setContentText(view.getLanguage().getProperty("noSelectedRawmaterialInfo"));
 
 			alert.showAndWait();
 		}
@@ -277,9 +303,9 @@ public class SimulationOptionsController {
 			// No rawmaterials.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Ei raaka-aineita");
-			alert.setHeaderText("Ei raaka-aineita.");
-			alert.setContentText("Luo v�hint��n yksi raaka-aine ennen kuin luot tuotteen.");
+			alert.setTitle(view.getLanguage().getProperty("noSelection"));
+			alert.setHeaderText(view.getLanguage().getProperty("noRawmaterial"));
+			alert.setContentText(view.getLanguage().getProperty("noRawmaterialInfo"));
 
 			alert.showAndWait();
 		}
@@ -295,9 +321,9 @@ public class SimulationOptionsController {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Ei valintaa");
-			alert.setHeaderText("Tuotetta ei ole valittu.");
-			alert.setContentText("Valitse tuote taulukosta.");
+			alert.setTitle(view.getLanguage().getProperty("noSelection"));
+			alert.setHeaderText(view.getLanguage().getProperty("noSelectedProduct"));
+			alert.setContentText(view.getLanguage().getProperty("noSelectedProductInfo"));
 
 			alert.showAndWait();
 		}
@@ -313,9 +339,9 @@ public class SimulationOptionsController {
 				// Nothing selected.
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
-				alert.setTitle("Valittu tuote on käytössä");
-				alert.setHeaderText("Käytössä olevaa tuotetta ei voida poistaa.");
-				alert.setContentText("Poista tai muokkaa tahoa/tahoja, jotka käyttävät tuotetta.");
+				alert.setTitle(view.getLanguage().getProperty("selectedProductInUse"));
+				alert.setHeaderText(view.getLanguage().getProperty("deleteProductError"));
+				alert.setContentText(view.getLanguage().getProperty("deleteProductErrorInfo"));
 
 				alert.showAndWait();
 			}
@@ -324,9 +350,9 @@ public class SimulationOptionsController {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Ei valintaa");
-			alert.setHeaderText("Tuotetta ei ole valittu.");
-			alert.setContentText("Valitse tuote taulukosta.");
+			alert.setTitle(view.getLanguage().getProperty("noSelection"));
+			alert.setHeaderText(view.getLanguage().getProperty("noSelectedProduct"));
+			alert.setContentText(view.getLanguage().getProperty("noSelectedProductInfo"));
 
 			alert.showAndWait();
 		}
@@ -337,24 +363,24 @@ public class SimulationOptionsController {
 		String errorMessage = "";
 
 		if (personCount.getText() == null || personCount.getText().length() == 0) {
-			errorMessage += "Populaation arvo on virheellinen!\n";
+			errorMessage += view.getLanguage().getProperty("populationNumberError")+"\n";
 		} else {
 			// try to parse the money amount into an float.
 			try {
 				Float.parseFloat(personCount.getText());
 			} catch (NumberFormatException e) {
-				errorMessage += "Populaation täytyy olla numero!\n";
+				errorMessage += view.getLanguage().getProperty("populationNumberErrorInfo")+"\n";
 			}
 		}
 
 		if (simulationDuration.getText() == null || simulationDuration.getText().length() == 0) {
-			errorMessage += "Simulaation pituus on virheellinen!\n";
+			errorMessage += view.getLanguage().getProperty("simulationDurationError")+"\n";
 		} else {
 			// try to parse the money amount into an float.
 			try {
 				Float.parseFloat(simulationDuration.getText());
 			} catch (NumberFormatException e) {
-				errorMessage += "Simulaation pituus täytyy olla numero!\n";
+				errorMessage += view.getLanguage().getProperty("simulationDurationErrorInfo")+"\n";
 			}
 		}
 
@@ -364,13 +390,28 @@ public class SimulationOptionsController {
 			// Show the error message.
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(view.getPrimaryStage());
-			alert.setTitle("Invalid Fields");
-			alert.setHeaderText("Korjaa väärin täytetyt kentät");
+			alert.setTitle(view.getLanguage().getProperty("invalidFields"));
+			alert.setHeaderText(view.getLanguage().getProperty("invalidFields"));
 			alert.setContentText(errorMessage);
 
 			alert.showAndWait();
 
 			return false;
+		}
+	}
+	
+	@FXML
+	private void languageChange() throws IOException {
+		if(languageChoiceBox.getValue().equals(view.getLanguage().getProperty("language_fi_FI"))&&view.getConfig().getProperty("locale").equals("en")) {
+			view.getConfig().setProperty("locale", "fi");
+			view.setLocale(new Locale("fi"));
+			view.getConfig().store(new FileOutputStream("markkinasim/src/main/resources/config.properties"), null);
+			view.setLanguage();
+		}else if(languageChoiceBox.getValue().equals(view.getLanguage().getProperty("language_en"))&&view.getConfig().getProperty("locale").equals("fi")){
+			view.getConfig().setProperty("locale", "en");
+			view.setLocale(new Locale("en"));
+			view.getConfig().store(new FileOutputStream("markkinasim/src/main/resources/config.properties"), null);
+			view.setLanguage();
 		}
 	}
 }

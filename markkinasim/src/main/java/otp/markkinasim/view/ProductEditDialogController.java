@@ -85,10 +85,10 @@ public class ProductEditDialogController {
         String errorMessage = "";
 
         if (productName.getText() == null || productName.getText().length() == 0) {
-            errorMessage += "Nime� tuote!\n"; 
+            errorMessage += view.getLanguage().getProperty("nameProduct")+"\n"; 
         }
         if (productRawmaterial.getValue() == null) {
-            errorMessage += "Valitse raaka-aine!\n"; 
+            errorMessage += view.getLanguage().getProperty("selectRawmaterial")+"\n"; 
         }
 
         if (errorMessage.length() == 0) {
@@ -98,7 +98,7 @@ public class ProductEditDialogController {
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Korjaa v��rin t�ytetyt kent�t");
+            alert.setHeaderText(view.getLanguage().getProperty("invalidFields"));
             alert.setContentText(errorMessage);
             
             alert.showAndWait();

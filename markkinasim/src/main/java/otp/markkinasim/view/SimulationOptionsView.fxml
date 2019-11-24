@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -14,148 +15,167 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane layoutX="19.0" layoutY="8.0" prefHeight="636.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="316.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="316.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="316.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="100.0" minHeight="10.0" valignment="BOTTOM" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="50.0" minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="434.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="50.0" minHeight="10.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <ButtonBar GridPane.columnIndex="4" GridPane.rowIndex="4">
-               <buttons>
-                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#handleNewParty" text="%addBtn" />
-                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#handleEditParty" text="%editBtn" />
-                  <Button layoutX="580.0" mnemonicParsing="false" onAction="#handleDeleteParty" text="%removeBtn" />
-               </buttons>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <GridPane.margin>
-                  <Insets right="5.0" />
-               </GridPane.margin>
-            </ButtonBar>
-            <Label text="%savedPartyLabel" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <Label maxWidth="160.0" prefHeight="27.0" prefWidth="160.0" text="%simulationDurationLabel" GridPane.halignment="LEFT">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="10.0" right="5.0" top="10.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="simulationDuration" maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" promptText="%simulationDurationInfoTxt" GridPane.halignment="LEFT">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="170.0" right="5.0" top="10.0" />
-               </GridPane.margin>
-            </TextField>
-            <Label maxWidth="105.0" prefHeight="27.0" prefWidth="105.0" text="%simulationPopulationLabel" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="personCount" maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" promptText="%simulationPopulationInfoTxt" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="115.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
-            <TableView fx:id="partyTable" prefHeight="148.0" prefWidth="308.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
-              <columns>
-                <TableColumn fx:id="partyName" prefWidth="70.0" text="%partyNameColumn" />
-                  <TableColumn fx:id="partyProduct" prefWidth="70.0" text="%partyProductColumn" />
-                  <TableColumn fx:id="partyRawmaterial" prefWidth="75.0" text="%partyRawmaterialColumn" />
-                  <TableColumn fx:id="partyMoney" prefWidth="70.0" text="%partyMoneyColumn" />
-              </columns>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="10.0" />
-               </GridPane.margin>
-            </TableView>
-            <TableView fx:id="productTable" prefHeight="148.0" prefWidth="308.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-              <columns>
-                <TableColumn fx:id="productName" prefWidth="87.0" text="%productNameColumn" />
-                  <TableColumn fx:id="productRawmaterial" prefWidth="87.0" text="%productRawmaterialColumn" />
-              </columns>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" />
-               </GridPane.margin>
-            </TableView>
-            <Label text="%createdProductsLabel" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <ButtonBar GridPane.columnIndex="2" GridPane.rowIndex="4">
-              <buttons>
-                <Button mnemonicParsing="false" onAction="#handleNewProduct" text="%addBtn" />
-                  <Button mnemonicParsing="false" onAction="#handleEditProduct" text="%editBtn" />
-                  <Button mnemonicParsing="false" onAction="#handleDeleteProduct" text="%removeBtn" />
-              </buttons>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </ButtonBar>
-            <Label text="%createdRawmaterialsLabel" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <TableView fx:id="rawmaterialTable" prefHeight="148.0" prefWidth="308.0" GridPane.rowIndex="3">
-               <columns>
-                  <TableColumn fx:id="rawmaterialId" prefWidth="75.0" text="%productIdColumn" />
-                  <TableColumn fx:id="rawmaterialName" prefWidth="87.0" text="%productNameColumn" />
-               </columns>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="10.0" right="5.0" />
-               </GridPane.margin>
-            </TableView>
-            <ButtonBar GridPane.rowIndex="4">
-               <buttons>
-                  <Button mnemonicParsing="false" onAction="#handleNewRawmaterial" text="%addBtn" />
-                  <Button mnemonicParsing="false" onAction="#handleEditRawmaterial" text="%editBtn" />
-                  <Button mnemonicParsing="false" onAction="#handleDeleteRawmaterial" text="%removeBtn" />
-               </buttons>
-               <opaqueInsets>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </opaqueInsets>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </ButtonBar>
-            <Button mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="%backBtn" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-               <GridPane.margin>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-         </children>
-      </GridPane>
-   </children>
+	<children>
+		<GridPane layoutX="19.0" layoutY="8.0" prefHeight="636.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<columnConstraints>
+				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="316.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="316.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="316.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints maxHeight="100.0" minHeight="10.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="50.0" minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="434.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="50.0" minHeight="10.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<ButtonBar GridPane.columnIndex="4" GridPane.rowIndex="4">
+					<buttons>
+						<Button layoutX="580.0" mnemonicParsing="false" onAction="#handleNewParty" text="%addBtn" />
+						<Button layoutX="580.0" mnemonicParsing="false" onAction="#handleEditParty" text="%editBtn" />
+						<Button layoutX="580.0" mnemonicParsing="false" onAction="#handleDeleteParty" text="%removeBtn" />
+					</buttons>
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</padding>
+					<GridPane.margin>
+						<Insets right="5.0" />
+					</GridPane.margin>
+				</ButtonBar>
+				<Label text="%savedPartyLabel" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+					<font>
+						<Font size="18.0" />
+					</font>
+					<GridPane.margin>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</GridPane.margin>
+				</Label>
+				<Label maxWidth="180.0" prefHeight="27.0" prefWidth="180.0" text="%simulationDurationLabel" GridPane.halignment="LEFT">
+					<font>
+						<Font size="18.0" />
+					</font>
+					<GridPane.margin>
+						<Insets bottom="5.0" left="10.0" right="5.0" top="10.0" />
+					</GridPane.margin>
+				</Label>
+				<TextField fx:id="simulationDuration" maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" promptText="%simulationDurationInfoTxt" text="30" GridPane.halignment="LEFT">
+					<GridPane.margin>
+						<Insets bottom="5.0" left="190.0" right="5.0" top="10.0" />
+					</GridPane.margin>
+				</TextField>
+				<Label maxWidth="105.0" prefHeight="27.0" prefWidth="105.0" text="%simulationPopulationLabel" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+					<font>
+						<Font size="18.0" />
+					</font>
+					<GridPane.margin>
+						<Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+					</GridPane.margin>
+				</Label>
+				<TextField fx:id="personCount" maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" promptText="%simulationPopulationInfoTxt" text="30" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+					<GridPane.margin>
+						<Insets bottom="5.0" left="115.0" right="5.0" top="5.0" />
+					</GridPane.margin>
+				</TextField>
+				<TableView fx:id="partyTable" prefHeight="148.0" prefWidth="308.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+					<placeholder>
+						<Label text="%tableEmptyTxt" />
+					</placeholder>
+					<columns>
+						<TableColumn fx:id="partyName" prefWidth="100.0" text="%partyNameColumn" />
+						<TableColumn fx:id="partyProduct" prefWidth="100.0" text="%partyProductColumn" />
+						<TableColumn fx:id="partyRawmaterial" prefWidth="100.0" text="%partyRawmaterialColumn" />
+						<TableColumn fx:id="partyMoney" prefWidth="100.0" text="%partyMoneyColumn" />
+					</columns>
+					<GridPane.margin>
+						<Insets bottom="5.0" left="5.0" right="10.0" />
+					</GridPane.margin>
+				</TableView>
+				<TableView fx:id="productTable" prefHeight="148.0" prefWidth="308.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+					<placeholder>
+						<Label text="%tableEmptyTxt" />
+					</placeholder>
+					<columns>
+						<TableColumn fx:id="productName" prefWidth="100.0" text="%productNameColumn" />
+						<TableColumn fx:id="productRawmaterial" prefWidth="100.0" text="%productRawmaterialColumn" />
+					</columns>
+					<GridPane.margin>
+						<Insets bottom="5.0" left="5.0" right="5.0" />
+					</GridPane.margin>
+				</TableView>
+				<Label text="%createdProductsLabel" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+					<font>
+						<Font size="18.0" />
+					</font>
+					<GridPane.margin>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</GridPane.margin>
+				</Label>
+				<ButtonBar GridPane.columnIndex="2" GridPane.rowIndex="4">
+					<buttons>
+						<Button mnemonicParsing="false" onAction="#handleNewProduct" text="%addBtn" />
+						<Button mnemonicParsing="false" onAction="#handleEditProduct" text="%editBtn" />
+						<Button mnemonicParsing="false" onAction="#handleDeleteProduct" text="%removeBtn" />
+					</buttons>
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</padding>
+				</ButtonBar>
+				<Label text="%createdRawmaterialsLabel" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+					<font>
+						<Font size="18.0" />
+					</font>
+					<GridPane.margin>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</GridPane.margin>
+				</Label>
+				<TableView fx:id="rawmaterialTable" prefHeight="148.0" prefWidth="308.0" GridPane.rowIndex="3">
+					<placeholder>
+						<Label text="%tableEmptyTxt" />
+					</placeholder>
+					<columns>
+						<TableColumn fx:id="rawmaterialId" prefWidth="100.0" text="%productIdColumn" />
+						<TableColumn fx:id="rawmaterialName" prefWidth="100.0" text="%productNameColumn" />
+					</columns>
+					<GridPane.margin>
+						<Insets bottom="5.0" left="10.0" right="5.0" />
+					</GridPane.margin>
+				</TableView>
+				<ButtonBar GridPane.rowIndex="4">
+					<buttons>
+						<Button mnemonicParsing="false" onAction="#handleNewRawmaterial" text="%addBtn" />
+						<Button mnemonicParsing="false" onAction="#handleEditRawmaterial" text="%editBtn" />
+						<Button mnemonicParsing="false" onAction="#handleDeleteRawmaterial" text="%removeBtn" />
+					</buttons>
+					<opaqueInsets>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</opaqueInsets>
+					<GridPane.margin>
+						<Insets />
+					</GridPane.margin>
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</padding>
+				</ButtonBar>
+				<Button mnemonicParsing="false" onAction="#backToMenu" prefHeight="30.0" text="%backBtn" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+					<GridPane.margin>
+						<Insets bottom="10.0" right="10.0" top="10.0" />
+					</GridPane.margin>
+				</Button>
+				<Label maxWidth="120.0" prefHeight="27.0" prefWidth="120.0" text="%simulationLanguage" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+					<font>
+						<Font size="18.0" />
+					</font>
+				</Label>
+				<ChoiceBox fx:id="languageChoiceBox" maxWidth="150.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+					<GridPane.margin>
+						<Insets left="120.0" />
+					</GridPane.margin>
+				</ChoiceBox>
+			</children>
+		</GridPane>
+	</children>
 </AnchorPane>
