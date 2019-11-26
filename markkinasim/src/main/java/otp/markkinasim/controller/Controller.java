@@ -34,8 +34,7 @@ public class Controller implements IController{
 	}
 	@Override
 	public void nextIteration() {
-		simulator.nextDay();
-		
+		simulator.nextDay();	
 	}
 	@Override
 	public boolean addToDatabase(Object o) {

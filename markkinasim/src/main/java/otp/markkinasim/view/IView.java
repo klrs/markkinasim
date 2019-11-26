@@ -60,4 +60,6 @@ public interface IView {
 	public Properties getConfig();
 	
 	public Properties getLanguage();
+	
+	public void nextDay();
 }

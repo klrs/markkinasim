@@ -347,5 +347,9 @@ public class View extends Application implements IView{
 	public Properties getLanguage() {
 		return language;
 	}
+	
+	public void nextDay() {
+		dataController.nextIteration();
+	}
 }
 
