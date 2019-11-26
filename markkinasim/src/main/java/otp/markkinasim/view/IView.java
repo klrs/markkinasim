@@ -1,4 +1,8 @@
 package otp.markkinasim.view;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Properties;
+
 /**
 *
 * @author Joonas Lapinlampi
@@ -47,5 +51,13 @@ public interface IView {
 	
 	public abstract int getPersonCount();
 	
-
+	public void setLanguage() throws IOException;
+	
+	public Locale getLocale();
+	
+	public void setLocale(Locale locale);
+	
+	public Properties getConfig();
+	
+	public Properties getLanguage();
 }

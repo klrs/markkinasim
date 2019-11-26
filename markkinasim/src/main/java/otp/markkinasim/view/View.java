@@ -1,11 +1,19 @@
 package otp.markkinasim.view;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 /**
 *
 * @author Joonas Lapinlampi
 */
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,6 +50,9 @@ public class View extends Application implements IView{
 	private ObservableList<Party> simulationPartyList;
 	private ObservableList<Product> simulationProductList;
 	
+	private Locale locale;
+	private Properties config;
+	private Properties language;
 	public View() {
 		view = this;
 	}
@@ -53,7 +64,7 @@ public class View extends Application implements IView{
 		SimulationSelectionController = new SimulationSelectionController(this);
 		
 		dataController = new Controller(this);
-		
+
 		productList = dataController.getProductFromDatabase();
 		partyList = dataController.getPartyFromDatabase();
 		simulationPartyList = FXCollections.observableArrayList();
@@ -64,27 +75,34 @@ public class View extends Application implements IView{
 	@Override
 	public void start(Stage primaryStage){
 		try {
+			locale = Locale.getDefault();
 			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenuView.fxml"));
-		    loader.setController(MainMenuController);
-		    Parent mainMenuParent = loader.load();
-		    loader = new FXMLLoader(getClass().getResource("SimulationView.fxml"));
-		    loader.setController(SimulationController);
-		    Parent simulationParent = loader.load();
-		    loader = new FXMLLoader(getClass().getResource("SimulationOptionsView.fxml"));
-		    loader.setController(SimulationOptionsController);
-		    Parent simulationOptionsParent = loader.load();
-		    loader = new FXMLLoader(getClass().getResource("SimulationSelection.fxml"));
-		    loader.setController(SimulationSelectionController);
-		    Parent simulationSelectionParent = loader.load();
-		    
-			sceneList.add(mainMenuParent);
-			sceneList.add(simulationParent);
-			sceneList.add(simulationOptionsParent);
-			sceneList.add(simulationSelectionParent);
+			config = new Properties();
+			language = new Properties();
+			
+			 try (InputStream input = new FileInputStream("markkinasim/src/main/resources/config.properties")) {				 	
+				 config.load(input);
+		        } catch (IOException ex) {
+		        	try (OutputStream output = new FileOutputStream("markkinasim/src/main/resources/config.properties")) {
+		        		
+		        		config.setProperty("locale", locale.getLanguage());
+			            config.store(output, null);
+
+			        } catch (IOException io) {
+			            io.printStackTrace();
+			        }
+		        }
+			 
+			if(locale.getLanguage().equals(new Locale(config.getProperty("locale")).getLanguage())) {
+				setLanguage();
+			}else {
+				locale = new Locale("en");
+				setLanguage();
+			}
+			
 			window = primaryStage;
 			
-			scene = new Scene(mainMenuParent);
+			scene = new Scene(sceneList.get(0));
 			window.setMaximized(true);
 			window.setScene(scene);
 			window.show();
@@ -131,6 +149,7 @@ public class View extends Application implements IView{
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(View.class.getResource("PartyEditDialog.fxml"));
+            loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -163,6 +182,7 @@ public class View extends Application implements IView{
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(View.class.getResource("ProductEditDialog.fxml"));
+            loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -194,6 +214,7 @@ public class View extends Application implements IView{
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(View.class.getResource("RawmaterialEditDialog.fxml"));
+            loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -274,5 +295,57 @@ public class View extends Application implements IView{
 		this.simulationTime = simulatinTime;
 	}
 	
+	public void setLanguage() throws IOException {
+		
+		try {
+			language.load(new FileInputStream("markkinasim/src/main/resources/languageResources/language_"+locale.getLanguage()+".properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenuView.fxml"));
+		loader.setResources(ResourceBundle.getBundle("languageResources/language", locale));			
+	    loader.setController(MainMenuController);
+	    Parent mainMenuParent = loader.load();
+
+	    loader = new FXMLLoader(getClass().getResource("SimulationView.fxml"));
+	    loader.setResources(ResourceBundle.getBundle("languageResources/language", locale));	
+	    loader.setController(SimulationController);
+	    Parent simulationParent = loader.load();
+	    
+	    loader = new FXMLLoader(getClass().getResource("SimulationOptionsView.fxml"));
+	    loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));	
+	    loader.setController(SimulationOptionsController);
+	    Parent simulationOptionsParent = loader.load();
+	    
+	    loader = new FXMLLoader(getClass().getResource("SimulationSelection.fxml"));
+	    loader.setResources(ResourceBundle.getBundle("languageResources/language",locale));	
+	    loader.setController(SimulationSelectionController);
+	    Parent simulationSelectionParent = loader.load();
+	    
+	    sceneList.clear();
+	    
+		sceneList.add(mainMenuParent);
+		sceneList.add(simulationParent);
+		sceneList.add(simulationOptionsParent);
+		sceneList.add(simulationSelectionParent);
+		
+	}
+	
+	public Locale getLocale() {
+		return locale;
+	}
+	
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+	
+	public Properties getConfig() {
+		return config;
+	}
+	
+	public Properties getLanguage() {
+		return language;
+	}
 }
 

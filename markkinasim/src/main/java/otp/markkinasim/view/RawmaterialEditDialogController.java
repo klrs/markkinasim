@@ -16,9 +16,15 @@ public class RawmaterialEditDialogController {
 	private Stage dialogStage;
     private Product rawmaterial;
     private boolean okClicked = false;
+    private IView view;
     
     @FXML
     private TextField rawmaterialName;
+    
+    @FXML
+    private void initialize() {
+    	this.view = View.getInstance();
+  	}
     
   	public Stage getDialogStage() {
 		return dialogStage;
@@ -58,7 +64,7 @@ public class RawmaterialEditDialogController {
         String errorMessage = "";
 
         if (rawmaterialName.getText() == null || rawmaterialName.getText().length() == 0) {
-            errorMessage += "Nime� raaka-aine!\n"; 
+            errorMessage += view.getLanguage().getProperty("nameRawmaterial")+"\n"; 
         }
        
         if (errorMessage.length() == 0) {
@@ -68,7 +74,7 @@ public class RawmaterialEditDialogController {
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Korjaa v��rin t�ytetyt kent�t");
+            alert.setHeaderText(view.getLanguage().getProperty("invalidFields"));
             alert.setContentText(errorMessage);
             
             alert.showAndWait();

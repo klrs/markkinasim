@@ -68,7 +68,7 @@ public class PartyEditDialogController {
 						}
 					}
 				}else {
-					partyRawmaterial.setText("Raaka-ainetta ei tarvita.");
+					partyRawmaterial.setText(view.getLanguage().getProperty("rawmaterialNotNeeded"));
 					break;
 				}
 			}
@@ -111,21 +111,21 @@ public class PartyEditDialogController {
         String errorMessage = "";
 
         if (partyName.getText() == null || partyName.getText().length() == 0) {
-            errorMessage += "Nime� taho!\n"; 
+            errorMessage += view.getLanguage().getProperty("nameParty")+"\n"; 
         }
         
         if (partyProductChoice.getValue() == null) {
-            errorMessage += "Valitse tahon tuottama tuote!\n"; 
+            errorMessage += view.getLanguage().getProperty("selectProduct")+"\n"; 
         }
 
         if (partyMoney.getText() == null || partyMoney.getText().length() == 0) {
-            errorMessage += "Tahon aloitus raham��r� on virheellinen!\n"; 
+            errorMessage += view.getLanguage().getProperty("partyMoneyError")+"\n"; 
         } else {
             // try to parse the money amount into an float.
             try {
                 Float.parseFloat(partyMoney.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "Tahon aloitus raham��r�n t�ytyy olla numero!\n"; 
+                errorMessage += view.getLanguage().getProperty("partyMoneyNotNumber")+"\n"; 
             }
         }
 
@@ -136,7 +136,7 @@ public class PartyEditDialogController {
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Korjaa v��rin t�ytetyt kent�t");
+            alert.setHeaderText(view.getLanguage().getProperty("invalidFields"));
             alert.setContentText(errorMessage);
             
             alert.showAndWait();
