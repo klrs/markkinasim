@@ -84,7 +84,7 @@ public class View extends Application implements IView{
 				 config.load(input);
 		        } catch (IOException ex) {
 		        	try (OutputStream output = new FileOutputStream("markkinasim/src/main/resources/config.properties")) {
-		        		
+
 		        		config.setProperty("locale", locale.getLanguage());
 			            config.store(output, null);
 
