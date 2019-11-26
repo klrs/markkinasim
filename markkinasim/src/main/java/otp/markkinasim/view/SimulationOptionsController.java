@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
+import otp.markkinasim.simulation.Manufacturer;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Product;
 
@@ -136,7 +137,8 @@ public class SimulationOptionsController {
 			}
 		} );
 	}
-
+	
+	//takaisin main menuun painikkeen toiminto
 	@FXML
 	private void backToMenu(){
 		if(isInputValid()) {
@@ -145,19 +147,28 @@ public class SimulationOptionsController {
 			view.setScene(0);
 		}		
 	}
-
+	
+	//taullukoiden päivitys
 	private void tableRefresh() {
 		partyTable.refresh();
 		productTable.refresh();
 		rawmaterialTable.refresh();
 	}
-
+	
+	//uuden tahon luonti
 	@FXML
 	private void handleNewParty() {
 		if (!view.getAllProductData().isEmpty() && !view.getAllProductData().isEmpty()) {
 			Party tempParty = new Party();
-			boolean okClicked = view.showPartyEditDialog(tempParty);
+			boolean okClicked = view.showPartyEditDialog(tempParty); 
+			//tarkistetaan että taholle on annettu kaikki tarvittvat tiedot oikein
 			if (okClicked) {
+				//jos tahon tuottaman tuotteen tarvittu raaka-aine id on pienempi kuin nolla taho ei tarvitse raaka-ainetta ja on producer, muuten manufacturer
+				if(tempParty.getProductToProduce().getProductNeededId()<0) {
+					tempParty.setPartyType(2);
+				}else {
+					tempParty.setPartyType(1);
+				}
 				view.createNewObject(tempParty);
 				tableRefresh();
 			}
