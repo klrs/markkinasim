@@ -5,8 +5,20 @@ import javax.persistence.Transient;
 import otp.markkinasim.view.View;
 
 public class Producer extends Party {
+	
 	public Producer() {
 		super();
+	}
+	
+	public Producer(Party party) {
+		super();
+		super.setId(party.getId());
+		super.setPartyName(party.getPartyName());
+		super.setMoney(party.getMoney());
+		super.setProductToProduce(party.getProductToProduce());
+		super.setEffency(party.getEffency());
+		super.setQuality(party.getQuality());
+		
 	}
 	
 	@Override

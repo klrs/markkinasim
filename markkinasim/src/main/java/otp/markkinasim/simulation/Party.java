@@ -51,7 +51,7 @@ public class Party {
 	protected Market market;
 
 	@Column(name = "PartyType")
-	protected int PartyType;
+	protected int partyType;
 
 	public Party(int id, String partyName, float money, int productToProduceId) {
 		//TESTING PURPOSES!!
@@ -267,11 +267,11 @@ public class Party {
 	}
 
 	public int getPartyType() {
-		return PartyType;
+		return partyType;
 	}
 
 	public void setPartyType(int partyType) {
-		PartyType = partyType;
+		partyType = partyType;
 	}
 	
 	public Market getMarket() {

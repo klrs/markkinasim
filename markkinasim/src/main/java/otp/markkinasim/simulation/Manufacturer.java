@@ -16,6 +16,17 @@ public class Manufacturer extends Party {
 		super();
 	}
 	
+	public Manufacturer(Party party) {
+		super();
+		super.setId(party.getId());
+		super.setPartyName(party.getPartyName());
+		super.setMoney(party.getMoney());
+		super.setProductToProduce(party.getProductToProduce());
+		super.setEffency(party.getEffency());
+		super.setQuality(party.getQuality());
+		
+	}
+	
 	@Override
 	public void produce() {
 		double producedAmount = checkProducedAmount();

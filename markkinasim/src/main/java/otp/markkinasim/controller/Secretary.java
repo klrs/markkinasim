@@ -16,7 +16,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import otp.markkinasim.simulation.Manufacturer;
 import otp.markkinasim.simulation.Party;
+import otp.markkinasim.simulation.Producer;
 import otp.markkinasim.simulation.Product;
 
 
@@ -127,6 +129,21 @@ public class Secretary {
 		partyData.clear();
 		partyData.addAll(result);
 		updatePartyProductToProduce();
+		
+		List<Party> templist = new ArrayList<Party>();
+		for (Party p : partyData) {
+			if (p.getPartyType() == 1) {
+				Manufacturer manu = new Manufacturer(p);
+				templist.add(manu);
+			} else { //Tämän pitäisi olla else if (p.getPartyType() == 2), mutta jätetty nyt pelkäksi elseksi.
+				Producer prod = new Producer(p);
+				templist.add(prod);
+			}
+		}
+		
+		partyData.clear();
+		partyData.addAll(templist);
+		
 		return partyData;
 	}
 	
