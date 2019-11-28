@@ -24,6 +24,7 @@ public class Producer extends Party {
 	@Override
 	public void produce() {
 		double producedAmount = checkProducedAmount();
+		System.out.println(producedItemInventory);
 		producedItemInventory.addAmount((int)producedAmount);
 		View.getInstance().writeSimulationLog(this.partyName + " produced " + producedAmount +
 				" " + this.productToProduce.getProductName());

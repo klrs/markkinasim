@@ -16,6 +16,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import otp.markkinasim.simulation.Item;
 import otp.markkinasim.simulation.Manufacturer;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Producer;

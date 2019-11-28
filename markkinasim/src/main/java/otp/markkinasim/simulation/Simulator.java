@@ -40,6 +40,8 @@ public class Simulator {
 		
 		for(Party p : parties) {
 			p.setMarket(market);
+			p.setProducedItemInventory(new Item(p.getProductToProduce(), 0, p));
+			p.setNeededItemInventory(new Item(p.getProductToProduce().getProductNeeded(), 0, p));
 		}
 		
 		for(Person p : persons) {

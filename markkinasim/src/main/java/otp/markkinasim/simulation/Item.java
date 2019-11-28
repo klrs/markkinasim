@@ -12,8 +12,8 @@ public class Item {
 	public IntegerProperty amount;
 	
 	public Item(Product product, int amount, Party partyHolder) throws InvalidParameterException {
-		if(amount > 0) {
-			//jos määrä on <1 heittää exceptionia, koska item on tarkoitettu olemassaolevaksi vain kun itemissä on jtn.
+		if(amount >= 0) {
+			//jos määrä on <0 heittää exceptionia, koska item on tarkoitettu olemassaolevaksi vain kun itemissä on jtn.
 			this.product = product;
 			this.priceEach = new SimpleFloatProperty(0);
 			this.amount = new SimpleIntegerProperty(amount);
@@ -24,8 +24,8 @@ public class Item {
 		}
 	}
 	public Item(Product product, float priceEach, int amount, Party partyHolder) throws InvalidParameterException {
-		if(amount > 0) {
-			//jos määrä on <1 heittää exceptionia
+		if(amount >= 0) {
+			//jos määrä on <0 heittää exceptionia
 			this.product = product;
 			this.priceEach = new SimpleFloatProperty(priceEach);
 			this.amount = new SimpleIntegerProperty(amount);
