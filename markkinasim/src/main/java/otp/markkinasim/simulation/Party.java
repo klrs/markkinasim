@@ -101,9 +101,17 @@ public class Party {
 		
 		return producedAmount;
 	}
-	protected void calculateRemainder(double producedAmount) {
+	protected int calculateRemainder(double producedAmount) {
 		if(producedAmount % 1 > 0) {
 			productRemainder =+ (float)producedAmount % 1;
+		}
+		
+		if(productRemainder <= 1) {
+			productRemainder = productRemainder - 1;
+			return 1;
+		}
+		else {
+			return 0;
 		}
 	}
 	public void evaluate() {/*YLIKIRJOITA*/}

@@ -24,16 +24,17 @@ public class Producer extends Party {
 	@Override
 	public void produce() {
 		double producedAmount = checkProducedAmount();
-		System.out.println(producedItemInventory);
+		producedAmount = producedAmount + calculateRemainder(producedAmount);
+		
 		producedItemInventory.addAmount((int)producedAmount);
-		View.getInstance().writeSimulationLog(this.partyName + " produced " + producedAmount +
-				" " + this.productToProduce.getProductName());
-		calculateRemainder(producedAmount);
+		View.getInstance().writeSimulationLog(this.partyName.get() + " produced " + (int)producedAmount +
+				" " + this.productToProduce.getProductName() + "\n");
 	}
 	
 	 @Override
 	 public void evaluate() {
-		 //TODO tekoäly
+		 //TODO tekoäly?
+		 //View.getInstance().writeSimulationLog(this.partyName.get() + " "
 		 putForSale();
 	 }
 }
