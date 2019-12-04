@@ -13,6 +13,7 @@ import otp.markkinasim.simulation.Person;
 import otp.markkinasim.simulation.Product;
 import otp.markkinasim.simulation.Simulator;
 import otp.markkinasim.view.IView;
+import otp.markkinasim.view.View;
 
 public class Controller implements IController{
 	private IView view;
@@ -65,5 +66,10 @@ public class Controller implements IController{
 				}
 			}
 		}
+	}
+	
+	public static void log(String key, double amount, String partyName, String productName) {
+		View.getInstance().writeSimulationLog(key + " " + amount + 
+				" " + partyName + " " + productName + "\n");
 	}
 }

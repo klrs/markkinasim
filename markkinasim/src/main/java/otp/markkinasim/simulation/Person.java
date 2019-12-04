@@ -2,9 +2,12 @@ package otp.markkinasim.simulation;
 
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
+import otp.markkinasim.controller.Controller;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javax.persistence.*;
 
@@ -49,25 +52,32 @@ public class Person {
 		this.id=count++;
 	}
 	
-	public void consume() {
-		//TODO mistä person tietää mitä ostaa?
-//		market.checkItems()
+	public void consume(Product productToBuy) {
+		List<Item> items = market.checkItems(productToBuy);
+		Item itemToBuy = market.findNextCheapestItem(items);
+		
+		int amount = 1;	//TODO?
+		if(market.buy(this, itemToBuy, amount)) {
+			Controller.log("CONSUME", amount, (this.id + ""), productToBuy.getProductName());
+		}
 	}
 	
-	public String findWork(ObservableList<Party> partyList) {
-		String print = null;
+	public void findWork(ObservableList<Party> partyList) {
+		
+		Random rnd = new Random();
 		for(Party p : partyList) {
-			if(p.employeesNeeded()) {
-				employer = p;
-				p.addEmployee(this);
-				print = "Person " + id + " now working for " + employer.getPartyName()+"\n";
-				break;
+			if(rnd.nextBoolean()) {
+				if(p.employeesNeeded()) {
+					employer = p;
+					p.addEmployee(this);
+					Controller.log("FOUND_WORK", 0, p.getPartyName(), (this.id + ""));
+					break;
+				}
 			}
 		}
-		return print;
 	}
 	public void addMoney(float addableMoney) {
-		this.money =+ addableMoney;
+		this.money = this.money + addableMoney;
 	}
 	
 	public int getId() {

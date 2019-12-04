@@ -2,6 +2,7 @@ package otp.markkinasim.simulation;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import javafx.collections.ObservableList;
@@ -42,6 +43,7 @@ public class Simulator {
 			p.setMarket(market);
 			p.setProducedItemInventory(new Item(p.getProductToProduce(), 0, p));
 			p.setNeededItemInventory(new Item(p.getProductToProduce().getProductNeeded(), 0, p));
+			p.producedItemInventory.priceEach.set(10);
 		}
 		
 		for(Person p : persons) {
@@ -53,19 +55,43 @@ public class Simulator {
 		day++;
 
 		//WIP
+		
+		//personeille, jotta tietää mitä ostaa
+		ArrayList<Product> productCandidates = new ArrayList<>();
+		
 		for(Party p : partyList) {
 			//p.buyProduct(partyList);
 			p.produce();
-			p.evaluate();
+			p.evaluate(day);
+			
+			System.out.println(p.getPartyName() + " " + (p instanceof Manufacturer));
 			
 			if(day % 7 == 0) {
 				p.paySalaries();
 			}
 			
-			
 			market.cleanEmpty();
 		}
 		
+		for(Product p : productList) {
+			if(p.getProductNeededId() != -1) {
+				productCandidates.add(p);
+			}
+		}
 		
+		for(Person p : personList) {
+			if(p.getEmployer() == null) {
+				p.findWork(partyList);
+			}
+			
+			Random rnd = new Random();
+			
+			if(!productCandidates.isEmpty()) {
+				Product productToBuy = productCandidates.get(rnd.nextInt(
+						productCandidates.size()));
+				
+				p.consume(productToBuy);
+			}
+		}
 	}
 }

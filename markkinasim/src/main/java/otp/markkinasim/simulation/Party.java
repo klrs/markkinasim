@@ -3,6 +3,7 @@ package otp.markkinasim.simulation;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
+import otp.markkinasim.controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.beans.property.*;
 import javax.persistence.*;
@@ -114,10 +115,30 @@ public class Party {
 			return 0;
 		}
 	}
-	public void evaluate() {/*YLIKIRJOITA*/}
+	public void evaluate(int day) {/*YLIKIRJOITA*/}
 	protected void putForSale() {
 		//laittaa kaikki vaan myyntiin
+		int amount = producedItemInventory.amount.get();
 		market.vend(producedItemInventory);
+		//producedItemInventory.amount.set(0);
+		Controller.log("SET_SELL", amount, partyName.get(), producedItemInventory.product.getProductName());
+	}
+	protected void kickEmployees(int day) {
+		if(day % 7 == 1) {
+			while(employees.size() * defaultSalary.get() > money.get() &&
+					!employees.isEmpty()) {
+				Person p = employees.get(employees.size()-1);
+				employees.remove(employees.size()-1);
+				p.setEmployer(null);
+				Controller.log("KICK_WORK", 0, partyName.get(), null);
+			}
+		}
+	}
+	
+	protected void changePrice() {
+		 if(employees.size() * defaultSalary.get() > money.get()) {
+			 producedItemInventory.priceEach.set(producedItemInventory.priceEach.get() - 1);
+		 }
 	}
 
 	public void addMoney(float addableMoney) {
@@ -125,7 +146,12 @@ public class Party {
 	}
 
 	public boolean employeesNeeded() {
-		return true;
+		if(employees.size() * defaultSalary.get() < money.get()) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public void addEmployee(Person employee) {

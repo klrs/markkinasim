@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import otp.markkinasim.controller.Controller;
 
 public class Manufacturer extends Party {
 	//jalostaja-taho. Tuottaa producteja, mutta vaatii raaka-aineita(product) toimiakseen.
@@ -30,19 +31,43 @@ public class Manufacturer extends Party {
 	@Override
 	public void produce() {
 		double producedAmount = checkProducedAmount();
-		try {
-			neededItemInventory.subtractAmount((int)producedAmount);
+		producedAmount = producedAmount + calculateRemainder(producedAmount);
+		//System.out.println(neededItemInventory.amount.get());
+		
+		if(producedAmount > neededItemInventory.amount.get()) {
+			int possibleAmount = neededItemInventory.amount.get();
+			
+			producedItemInventory.addAmount(possibleAmount);
+			neededItemInventory.subtractAmount(possibleAmount);
+			
+			if(possibleAmount == 0) {
+				Controller.log("NO_PRODUCE", possibleAmount, partyName.get(), productToProduce.getProductName());
+			}
+			else {
+				Controller.log("PRODUCE", possibleAmount, partyName.get(), productToProduce.getProductName());
+			}
+		}
+		else {
 			producedItemInventory.addAmount((int)producedAmount);
-			calculateRemainder(producedAmount);
+			neededItemInventory.subtractAmount((int)producedAmount);
+			
+			Controller.log("PRODUCE", producedAmount, partyName.get(), productToProduce.getProductName());
 		}
-		catch(InvalidParameterException e) {
-			//ERROR HANDLAA VIDU
-			System.out.println(e.getMessage());
-		}
+//		try {
+//			neededItemInventory.subtractAmount((int)producedAmount);
+//			producedItemInventory.addAmount((int)producedAmount);
+//			calculateRemainder(producedAmount);
+//		}
+//		catch(InvalidParameterException e) {
+//			//ERROR HANDLAA VIDU
+//			System.out.println(e.getMessage());
+//		}
 	}
-	public void evaluate() {
+	public void evaluate(int day) {
 		buyNeededProduct((int)checkProducedAmount());
-		putForSale();
+		 putForSale();
+		 changePrice();
+		 kickEmployees(day);
 	}
 	private void buyNeededProduct(int amount) {
 		//TODO TEKOÄLY

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.beans.property.FloatProperty;
 import javafx.collections.FXCollections;
+import otp.markkinasim.controller.Controller;
 
 public class Market {
 	//Market sisältää kaikki myytävät itemit
@@ -30,16 +31,21 @@ public class Market {
 	}
 	public Item findNextCheapestItem(List<Item> items){
 		//TODO
-		Item cheapestItem = items.get(0);
-		for(Item i : items) {
-			if(i.priceEach.get() < cheapestItem.priceEach.get()) {
-				cheapestItem = i;
+		if(!items.isEmpty()) {
+			Item cheapestItem = items.get(0);
+			for(Item i : items) {
+				if(i.priceEach.get() < cheapestItem.priceEach.get()) {
+					cheapestItem = i;
+				}
 			}
+			return cheapestItem;
+		}
+		else {
+			return null;
 		}
 		
-		return cheapestItem;
 	}
-	public void buy(Party p, Item itemToBuy, int amount) {
+	public boolean buy(Party p, Item itemToBuy, int amount) {
 		
 		//kokeile sisältääkö itemToBuy tarpeeksi tavaroita
 		int possibleAmount = amount;
@@ -54,24 +60,44 @@ public class Market {
 			p.money.add(-cost);
 			itemToBuy.partyHolder.money.add(cost);
 			p.neededItemInventory.addAmount(possibleAmount);
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
-	public void buy(Person p, Item itemToBuy, int amount) {
+	public boolean buy(Person p, Item itemToBuy, int amount) {
 		
-		//kokeile sisältääkö itemToBuy tarpeeksi tavaroita
-		int possibleAmount = amount;
-		if(itemToBuy.amount.get() < amount) {
-			possibleAmount = itemToBuy.amount.get();
-		}
-		
-		//kokeilee onko p:llä tarpeeksi rahaa
-		if(p.getMoney() >= possibleAmount * itemToBuy.priceEach.get()) {
-			float cost = possibleAmount * itemToBuy.priceEach.get();
+		if(itemToBuy != null) {
+			//kokeile sisältääkö itemToBuy tarpeeksi tavaroita
+			int possibleAmount = amount;
+			if(itemToBuy.amount.get() < amount) {
+				possibleAmount = itemToBuy.amount.get();
+			}
 			
-			p.setMoney(p.getMoney() - cost);
-			itemToBuy.partyHolder.money.add(cost);
+			//kokeilee onko p:llä tarpeeksi rahaa
+			if(p.getMoney() >= possibleAmount * itemToBuy.priceEach.get() &&
+					possibleAmount > 0) {
+				float cost = possibleAmount * itemToBuy.priceEach.get();
+				System.out.println(cost);
+				
+				p.setMoney(p.getMoney() - cost);
+				itemToBuy.partyHolder.money.add(cost);
+				Controller.log("SOLD", possibleAmount,
+						itemToBuy.partyHolder.getPartyName(),
+						itemToBuy.product.getProductName());
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
 		}
 	}
+	
+	
 	public int cleanEmpty() {
 		/**
 		 * Poistaa listedItems-listasta ne oliot, joiden amount on 0.

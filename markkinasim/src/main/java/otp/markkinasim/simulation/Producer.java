@@ -2,6 +2,7 @@ package otp.markkinasim.simulation;
 
 import javax.persistence.Transient;
 
+import otp.markkinasim.controller.Controller;
 import otp.markkinasim.view.View;
 
 public class Producer extends Party {
@@ -27,14 +28,13 @@ public class Producer extends Party {
 		producedAmount = producedAmount + calculateRemainder(producedAmount);
 		
 		producedItemInventory.addAmount((int)producedAmount);
-		View.getInstance().writeSimulationLog(this.partyName.get() + " produced " + (int)producedAmount +
-				" " + this.productToProduce.getProductName() + "\n");
+		Controller.log("PRODUCE", producedAmount, partyName.get(), productToProduce.getProductName());
 	}
 	
 	 @Override
-	 public void evaluate() {
-		 //TODO tekoäly?
-		 //View.getInstance().writeSimulationLog(this.partyName.get() + " "
+	 public void evaluate(int day) {
 		 putForSale();
+		 changePrice();
+		 kickEmployees(day);
 	 }
 }
