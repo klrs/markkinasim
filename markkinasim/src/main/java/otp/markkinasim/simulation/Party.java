@@ -50,7 +50,6 @@ public class Party {
 	protected FloatProperty quality;
 	@Transient
 	protected Market market;
-
 	@Column(name = "PartyType")
 	protected int partyType;
 
@@ -305,7 +304,7 @@ public class Party {
 	}
 
 	public void setPartyType(int partyType) {
-		partyType = partyType;
+		this.partyType = partyType;
 	}
 	
 	public Market getMarket() {

@@ -49,13 +49,12 @@ public class Secretary {
 		}
 	}
 	
-	public int getNextIdProduct() {
-		
-	//TODODODODO
-		return 0;
-		
-	}
-	
+	/**
+	 * Vie tietokantaan yhden Product-olion tiedot.
+	 * 
+	 * @param  product  tietokantaan vietävä Product-olio 
+	 * @return palauttaa True, jos tiedon vieminen tietokantaan onnistui. False, jos epäonnistui.
+	 */
 	public boolean createProduct(Product product) {
 		boolean done = false;
 		Transaction transaktio = null;
@@ -73,7 +72,11 @@ public class Secretary {
 		}
 		return done;
 	}
-	
+	/**
+	 * Vie tietokantaan yhden Product-olion tiedot.
+	 * @param  party  tietokantaan vietävä Product-olio
+ 	 * @return palauttaa True, jos tiedon vieminen tietokantaan onnistui. False, jos epäonnistui.
+	 */
 	public boolean createParty(Party party) {
 		boolean done = false;
 		Transaction transaktio = null;
@@ -91,7 +94,10 @@ public class Secretary {
 		}
 		return done;
 	}
-	
+	/**
+	 * Tuo kaikki Product-oliot ObservableList-muodossa käyttöliittymää varten.
+	 * @return palauttaa ObservableList-olion.
+	 */
 	@SuppressWarnings("unchecked")
 	public ObservableList<Product> getAllProductsFromDB() {
 		Transaction transaktio = null;
@@ -113,7 +119,11 @@ public class Secretary {
 		
 		
 	}
-	
+	/**
+	 * Tuo kaikki Party-oliot ObservableList-muodossa käyttöliittymää varten.
+	 * Muuttaa Party-oliot tietokannasta joko Manufacturer- tai Producer-olioksi.
+	 * @return palauttaa ObservableList-olion, mikä sisältää.
+	 */
 	@SuppressWarnings("unchecked")
 	public ObservableList<Party> getAllPartysFromDB() {
 		Transaction transaktio = null;
@@ -147,7 +157,9 @@ public class Secretary {
 		
 		return partyData;
 	}
-	
+	/**
+	 * Antaa Party-oliolle viitteen Product-oliolle, kun ne tuodaan tietokannasta aplikaatioon.
+	 */
 	private void updatePartyProductToProduce() {
 		for(Party p:partyData) {
 			if(p.getProductToProduce()==null) {
