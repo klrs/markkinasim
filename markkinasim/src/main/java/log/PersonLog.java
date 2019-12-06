@@ -4,6 +4,9 @@ package log;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Person;
 
+/**
+ * This class makes a person into a person log object for the Accountant
+ */
 public class PersonLog implements LogObject {
 	
 	private Accountant accountant;
@@ -34,6 +37,9 @@ public class PersonLog implements LogObject {
 		return this.day;
 	}
 
+	/**
+	 * registers this event to accountants log list
+	 */
 	@Override
 	public void register() {
 		accountant.registerPersonLog(this);
