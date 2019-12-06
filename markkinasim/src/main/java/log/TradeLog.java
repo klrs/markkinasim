@@ -4,6 +4,9 @@ import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Person;
 import otp.markkinasim.simulation.Product;
 
+/**
+ * This class makes a trade event for the Accountant to keep hold of
+ */
 public class TradeLog implements LogObject{
 	private int day;
 	private Party buyerParty;
@@ -15,7 +18,9 @@ public class TradeLog implements LogObject{
 	
 	private Accountant accountant;
 
-	// Constructor for trade between two parties
+	/**
+	 * Constructor for trade between two parties
+	 */
 	public TradeLog(Accountant accountant, int day, Party buyerParty, Party sellerParty, 
 						Product product, int amount, float price) {
 		this.day = day;
@@ -29,7 +34,9 @@ public class TradeLog implements LogObject{
 		register();	
 	}
 	
-	// constructor for trade between party and person
+	/**
+	 * constructor for trade between party and person
+	 */
 	public TradeLog(Accountant accountant, int day, Person buyerPerson, Party sellerParty, 
 			Product product, int amount, float price) {
 		this.day = day;
@@ -43,6 +50,9 @@ public class TradeLog implements LogObject{
 		register();	
 	}
 	
+	/**
+	 * registers this event to accountants log list
+	 */
 	public void register() {
 		accountant.registerTrade(this);
 	}
