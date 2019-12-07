@@ -138,9 +138,44 @@ public class View extends Application implements IView{
 	public ObservableList<Product> getAllProductData(){
 		return productList;
 	}
+	
 	@Override
-	public void writeSimulationLog(String msg) {
-		SimulationController.printText(msg);
+	public void writeSimulationLog(String key, double amount, String partyName, String productName) {
+		
+		String textToPrint = "";
+		
+		if(key.equals("PRODUCE")) {
+			
+			textToPrint = partyName + " " + language.getProperty("produce")+" "+amount+" "+productName+".\n";
+			SimulationController.printText(textToPrint);
+			
+		}else if(key.equals("NO_PRODUCE")) {
+			
+			textToPrint = partyName + " " + language.getProperty("noProduce")+".\n";
+ 			SimulationController.printText(textToPrint);
+			
+		}else if(key.equals("FOUND_WORK")) {
+			
+			textToPrint = productName +":"+ language.getProperty("personFoundWork")+" "+partyName+".\n";
+			SimulationController.printText(textToPrint);
+			
+		}else if(key.equals("SET_SELL")) {
+			
+			textToPrint = partyName + " " + language.getProperty("putSell")+" "+amount+" "+productName+" "+ language.getProperty("sell")+".\n";
+			SimulationController.printText(textToPrint);
+			
+		}else if(key.equals("CONSUME")) {
+			
+			textToPrint = partyName + " " + language.getProperty("consumed")+" "+amount+" "+productName+".\n";
+			SimulationController.printText(textToPrint);
+			
+		}else if(key.equals("SOLD")) {
+			
+			textToPrint = partyName + " " + language.getProperty("sold")+" "+amount+" "+productName+".\n";
+			SimulationController.printText(textToPrint);
+		}
+		
+		
 	}
 	
 	@Override

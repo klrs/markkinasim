@@ -3,11 +3,8 @@ package otp.markkinasim.controller;
 *
 * @author Joonas Lapinlampi, Kalle Rissanen
 */
-import java.security.InvalidParameterException;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import otp.markkinasim.simulation.Manufacturer;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Person;
 import otp.markkinasim.simulation.Product;
@@ -55,6 +52,7 @@ public class Controller implements IController{
 		boolean done = secretary.removeObject(o);
 		return done;
 	}
+	
 	private void setProductNeededs(ObservableList<Product> productList) {
 		//ILMENTÄÄ PRODUCTIEN productNeeded-FIELDIN productNeededId:N MUKAAN
 		for(Product p : productList) {
@@ -69,7 +67,6 @@ public class Controller implements IController{
 	}
 	
 	public static void log(String key, double amount, String partyName, String productName) {
-		View.getInstance().writeSimulationLog(key + " " + amount + 
-				" " + partyName + " " + productName + "\n");
+		View.getInstance().writeSimulationLog(key, amount, partyName, productName);
 	}
 }

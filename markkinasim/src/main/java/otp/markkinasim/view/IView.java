@@ -31,8 +31,6 @@ public interface IView {
 
 	public abstract ObservableList<Product> getAllProductData();
 
-	public abstract void writeSimulationLog(String msg);
-
 	public abstract void createNewObject(Object o);
 
 	public abstract void removeObject(Object o);
@@ -62,4 +60,6 @@ public interface IView {
 	public Properties getLanguage();
 	
 	public void nextDay();
+
+	public void writeSimulationLog(String key, double amount, String partyName, String productName);
 }
