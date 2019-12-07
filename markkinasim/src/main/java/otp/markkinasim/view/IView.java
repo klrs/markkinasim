@@ -12,7 +12,12 @@ import javafx.stage.Window;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Person;
 import otp.markkinasim.simulation.Product;
-
+/**
+ * Käyttöliittymän pääluokan interface.
+ * 
+ * @author Joonas Lapinlampi
+ *
+ */
 public interface IView {
 
 	public abstract ObservableList<Person> getPersonData();

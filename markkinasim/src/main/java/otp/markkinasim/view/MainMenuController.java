@@ -1,10 +1,11 @@
 package otp.markkinasim.view;
+
+import javafx.fxml.FXML;
 /**
-*
+* Tämä luokka kontrolloi main menu ikkunaa.
+* 
 * @author Joonas Lapinlampi
 */
-import javafx.fxml.FXML;
-
 public class MainMenuController{
 	
 	private IView view;
@@ -13,16 +14,19 @@ public class MainMenuController{
 		this.view = view;
 	}
 	
+	//vaihdetaan ikkuna simulationSelection ikkunaksi
 	@FXML
 	private void startSimulation() {
 		view.setScene(3);
 	}
 	
+	//vaihdetaan ikkuna simulationOptions ikkunaksi
 	@FXML
 	private void simulationOptions() {
 		view.setScene(2);
 	}
 	
+	//sulkee ohjelman
 	@FXML
 	private void exitButton() {
 		System.exit(0);

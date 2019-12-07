@@ -15,6 +15,7 @@ import otp.markkinasim.simulation.Person;
 import otp.markkinasim.simulation.Product;
 
 /**
+ *Tämä luokka kontroilloi simulaatiossa käytettävien tahojen valinta ikkunaa.
  *
  * @author Joonas Lapinlampi
  */
@@ -48,15 +49,17 @@ public class SimulationSelectionController {
 		this.view = view;
 	}
 
-	// inits
+	/**
+	 * Asetetaan taulukkojen sarakkeiden sisältämät tiedot, sekä taulukkoihin kuuluvat listat.
+	 */
 	@FXML
 	private void initialize() {
-		// Tietokannasta haetun taho listan asettaminen savedPartyTable taulukkon
+		// Tietokannasta haetun taho listan asettaminen savedPartyTable taulukkoon
 		partyName.setCellValueFactory(cellData -> cellData.getValue().partyNameProperty());
 		partyProduct.setCellValueFactory(cellData -> cellData.getValue().productToProduceProperty());
 		partyRawmaterial.setCellValueFactory(new Callback<CellDataFeatures<Party, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Party, String> p) {
-				// p.getValue() returns the Party instance for a particular TableView row
+				// p.getValue() palauttaa kyseisen rivin party olion
 				if (p.getValue().getProductToProduce() != null
 						&& p.getValue().getProductToProduce().getProductNeededId() >= 0) {
 					for (Product i : view.getAllProductData()) {
@@ -78,7 +81,7 @@ public class SimulationSelectionController {
 		simulationPartyRawmaterial
 				.setCellValueFactory(new Callback<CellDataFeatures<Party, String>, ObservableValue<String>>() {
 					public ObservableValue<String> call(CellDataFeatures<Party, String> p) {
-						// p.getValue() returns the Party instance for a particular TableView row
+						// p.getValue() palauttaa kyseisen rivin party olion
 						if (p.getValue().getProductToProduce() != null
 								&& p.getValue().getProductToProduce().getProductNeededId() >= 0) {
 							for (Product i : view.getAllProductData()) {
@@ -102,8 +105,8 @@ public class SimulationSelectionController {
 
 	@FXML
 	private void startSimulation() {
-		// Tarkistetaan että simulationPartyList ja simulationProductList sisältää
-		// tarvittavat tiedot. Toteutusta olisi mahdollista yksinkertaistaa mm. lisäämällä productille productneeded olion.
+		// Tarkistetaan että simulationPartyList ja simulationProductList sisältävät tarvittavat tiedot.
+		
 		Product hasNeededProduct = null;
 		Product hasNeededRawmaterial = null;
 		ObservableList<Product> tempRawmaterials = FXCollections.observableArrayList();
@@ -155,7 +158,7 @@ public class SimulationSelectionController {
 				view.startSimulation();
 				view.setScene(1);
 			} else if (hasNeededProduct != null && hasNeededRawmaterial == null) {
-				// Nothing selected.
+
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
 				alert.setTitle(view.getLanguage().getProperty("simulationSelectionIncomple"));
@@ -164,7 +167,7 @@ public class SimulationSelectionController {
 
 				alert.showAndWait();
 			} else if (hasNeededProduct == null && hasNeededRawmaterial != null) {
-				// Nothing selected.
+			
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
 				alert.setTitle(view.getLanguage().getProperty("simulationSelectionIncomple"));
@@ -173,7 +176,7 @@ public class SimulationSelectionController {
 
 				alert.showAndWait();
 			} else {
-				// Nothing selected.
+				
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
 				alert.setTitle(view.getLanguage().getProperty("simulationSelectionIncomple"));
@@ -183,7 +186,7 @@ public class SimulationSelectionController {
 				alert.showAndWait();
 			}
 		} else {
-			// Nothing selected.
+			
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(view.getPrimaryStage());
 			alert.setTitle(view.getLanguage().getProperty("simulationEmpty"));
@@ -193,8 +196,8 @@ public class SimulationSelectionController {
 			alert.showAndWait();
 		}
 	}
-
-	@FXML
+	
+	@FXML //lisää valitun tahon simutalionPartyList listaan
 	private void handleAddToSimulationPartyList() {
 		Party tempParty = savedPartyTable.getSelectionModel().getSelectedItem();
 		if (tempParty != null && !view.getSimulationPartyData().contains(tempParty)) {
@@ -204,7 +207,7 @@ public class SimulationSelectionController {
 			}
 		} else {
 			if (tempParty == null) {
-				// Nothing selected.
+				
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(view.getPrimaryStage());
 				alert.setTitle(view.getLanguage().getProperty("noSelection"));
@@ -226,7 +229,7 @@ public class SimulationSelectionController {
 		}
 	}
 
-	@FXML
+	@FXML //Poistetaan taho simulationPartyList listasta
 	private void handleDeletePartyFromSimulationPartyList() {
 		Party tempParty = simulationPartyTable.getSelectionModel().getSelectedItem();
 		boolean productUsed = false;

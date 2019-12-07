@@ -3,11 +3,6 @@ package otp.markkinasim.view;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Locale;
-
-/**
-*
-* @author Joonas Lapinlampi
-*/
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -22,7 +17,11 @@ import javafx.util.Callback;
 import otp.markkinasim.simulation.Manufacturer;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Product;
-
+/**
+* Tämä luokka kontrolloi simulaatio asetukset ikkunaa.
+* 
+* @author Joonas Lapinlampi
+*/
 public class SimulationOptionsController {
 
 	private IView view;
@@ -65,7 +64,9 @@ public class SimulationOptionsController {
 		this.view = view;
 	}
 
-	// inits
+	/**
+	 * Asetetaan taulukkojen sarakkeiden sisältämät tiedot, sekä taulukkoihin kuuluvat listat.
+	 */
 	@FXML
 	private void initialize() {
 
@@ -74,7 +75,7 @@ public class SimulationOptionsController {
 		partyProduct.setCellValueFactory(cellData -> cellData.getValue().productToProduceProperty());
 		partyRawmaterial.setCellValueFactory(new Callback<CellDataFeatures<Party, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Party, String> p) {
-				// p.getValue() returns the Party instance for a particular TableView row
+				// p.getValue() palauttaa kyseisen rivin party olion
 				if (p.getValue().getProductToProduce() != null
 						&& p.getValue().getProductToProduce().getProductNeededId() >= 0) {
 					for (Product i : view.getAllProductData()) {
@@ -93,7 +94,7 @@ public class SimulationOptionsController {
 		// Rawmaterial taulukon alustus
 		rawmaterialId.setCellValueFactory(new Callback<CellDataFeatures<Product, Number>, ObservableValue<Number>>() {
 			public ObservableValue<Number> call(CellDataFeatures<Product, Number> p) {
-				// p.getValue() returns the Product instance for a particular TableView row
+				// p.getValue() palauttaa kyseisen rivin party olion
 				ObservableValue<Number> obsInt = new ReadOnlyObjectWrapper<>(p.getValue().getId());
 				return obsInt;
 			}
@@ -106,7 +107,7 @@ public class SimulationOptionsController {
 		productRawmaterial
 				.setCellValueFactory(new Callback<CellDataFeatures<Product, String>, ObservableValue<String>>() {
 					public ObservableValue<String> call(CellDataFeatures<Product, String> p) {
-						// p.getValue() returns the Product instance for a particular TableView row
+						// p.getValue() palauttaa kyseisen rivin product olion
 						for (Product i : view.getAllProductData()) {
 							if (p.getValue().getProductNeededId() == i.getId()) {
 								return i.productNameProperty();
@@ -183,7 +184,8 @@ public class SimulationOptionsController {
 			alert.showAndWait();
 		}
 	}
-
+	
+	//tahon muokkaus
 	@FXML
 	private void handleEditParty() {
 		Party selectedParty = partyTable.getSelectionModel().getSelectedItem();
@@ -201,7 +203,8 @@ public class SimulationOptionsController {
 			alert.showAndWait();
 		}
 	}
-
+	
+	//tahon poisto
 	@FXML
 	private void handleDeleteParty() {
 		int selectedIndex = partyTable.getSelectionModel().getSelectedIndex();
@@ -218,7 +221,8 @@ public class SimulationOptionsController {
 			alert.showAndWait();
 		}
 	}
-
+	
+	//uuden raaka-aineen luonti
 	@FXML
 	private void handleNewRawmaterial() {
 		Product tempRawmaterial = new Product();
@@ -228,7 +232,8 @@ public class SimulationOptionsController {
 			tableRefresh();
 		}
 	}
-
+	
+	//raaka-aineen moukkaus
 	@FXML
 	private void handleEditRawmaterial() {
 		Product selectedRawmaterial = rawmaterialTable.getSelectionModel().getSelectedItem();
@@ -246,7 +251,8 @@ public class SimulationOptionsController {
 			alert.showAndWait();
 		}
 	}
-
+	
+	//raaka-aineen poisto
 	@FXML
 	private void handleDeleteRawmaterial() {
 		int selectedIndex = rawmaterialTable.getSelectionModel().getSelectedIndex();
@@ -274,7 +280,8 @@ public class SimulationOptionsController {
 			alert.showAndWait();
 		}
 	}
-
+	
+	//tarkistus metodi onko raaka-aine käytössä
 	private boolean rawmaterialUsed(Product rawmaterial) {
 		for (Product i : view.getAllProductData()) {
 			if (i.getProductNeededId() == rawmaterial.getId()) {
@@ -298,7 +305,8 @@ public class SimulationOptionsController {
 		}
 		return false;
 	}
-
+	
+	//uuden tuotteen luonti
 	@FXML
 	private void handleNewProduct() {
 		if (!view.getAllProductData().isEmpty()) {
@@ -321,7 +329,8 @@ public class SimulationOptionsController {
 			alert.showAndWait();
 		}
 	}
-
+	
+	//tuotteen muokkaus
 	@FXML
 	private void handleEditProduct() {
 		Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
@@ -339,7 +348,8 @@ public class SimulationOptionsController {
 			alert.showAndWait();
 		}
 	}
-
+	
+	//tuotteen poisto
 	@FXML
 	private void handleDeleteProduct() {
 		int selectedIndex = productTable.getSelectionModel().getSelectedIndex();
@@ -368,7 +378,8 @@ public class SimulationOptionsController {
 			alert.showAndWait();
 		}
 	}
-
+	
+	//metoditarkistaa onko kaikki ikkunan tiedot täytetty oikein
 	@FXML
 	private boolean isInputValid() {
 		String errorMessage = "";
@@ -376,7 +387,6 @@ public class SimulationOptionsController {
 		if (personCount.getText() == null || personCount.getText().length() == 0) {
 			errorMessage += view.getLanguage().getProperty("populationNumberError")+"\n";
 		} else {
-			// try to parse the money amount into an float.
 			try {
 				Float.parseFloat(personCount.getText());
 			} catch (NumberFormatException e) {
@@ -411,6 +421,7 @@ public class SimulationOptionsController {
 		}
 	}
 	
+	//ohjelman kielen vaihto
 	@FXML
 	private void languageChange() throws IOException {
 		if(languageChoiceBox.getValue().equals(view.getLanguage().getProperty("language_fi_FI"))&&view.getConfig().getProperty("locale").equals("en")) {

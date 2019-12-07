@@ -8,7 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Product;
-
+/**
+* Tämä luokka on tahon muokkaus ja luonti ponnahdus ikkunan kontrolleri.
+* 
+* @author Joonas Lapinlampi
+*/
 public class PartyEditDialogController {
 	
 	private Stage dialogStage;
@@ -24,12 +28,11 @@ public class PartyEditDialogController {
     @FXML 
     private TextField partyRawmaterial;
 
-//inits
-  	@FXML
-    private void initialize() {
-
-  	}
-  	
+    /**
+	 * Tuodaan view luokan ilmentymän viite ja haetaan productData lista, jonka sisältö asetetaan ikkunan ChoiceBox:n.
+	 * 
+	 * @param view		view luokan ilmentymä
+	 */
   	public void setView(View view) {
   		this.view = view;
   		if(!view.getAllProductData().isEmpty()) {
@@ -38,13 +41,21 @@ public class PartyEditDialogController {
   			}
   		}
   	}
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
+  	
+    /**
+     * Asettaa stage johon ponnahdus ikkuna on kiinnitetty.
+     * 
+     * @param dialogStage		käytettävä stage
+     */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 	
+	/**
+	 * Asetetaa luotava tai muokattava taho.
+	 * 
+	 * @param party		party olio joka sisältää muokattavan tahon tiedot tai on tyhjä uutta tahoa luotaessa
+	 */
 	public void setParty(Party party) {
 		this.party = party;
 
@@ -56,8 +67,8 @@ public class PartyEditDialogController {
 
 	}
 	
-	@FXML
-	public void handleProductChoice() {
+	@FXML  //tuotettavan tuotteen valinta ja tarvittavan raaka-aineen asettaminen tuotteen mukaan
+	private void handleProductChoice() {
 		for(Product i:view.getAllProductData()) {
 			if(i.getProductName() == partyProductChoice.getValue()) {
 				if(i.getProductNeededId()>=0) {
@@ -82,14 +93,12 @@ public class PartyEditDialogController {
 		this.okClicked = okClicked;
 	}
 	
-	//asettaa raaka-aineet ja tuotettavat tuotteet k�ytt�j�n valitseman taho tyypin mukaan.
-		
 	@FXML
 	private void handleCancel() {
 	    dialogStage.close();
 	}
 	
-	@FXML
+	@FXML	//tarkistetaan että kaikki kentät on täytetty oikein ennen muutosten tallentamista
 	   private void handleOk() {
 	       if (isInputValid()) {
 	           party.setPartyName(partyName.getText());
@@ -106,7 +115,7 @@ public class PartyEditDialogController {
 	       }
 	}
 	
-	@FXML
+	@FXML	//kenttien tarkistus metodi
 	private boolean isInputValid() {
         String errorMessage = "";
 
@@ -121,7 +130,6 @@ public class PartyEditDialogController {
         if (partyMoney.getText() == null || partyMoney.getText().length() == 0) {
             errorMessage += view.getLanguage().getProperty("partyMoneyError")+"\n"; 
         } else {
-            // try to parse the money amount into an float.
             try {
                 Float.parseFloat(partyMoney.getText());
             } catch (NumberFormatException e) {
@@ -132,7 +140,7 @@ public class PartyEditDialogController {
         if (errorMessage.length() == 0) {
             return true;
         } else {
-            // Show the error message.
+           
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");

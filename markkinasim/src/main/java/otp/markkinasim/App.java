@@ -14,8 +14,9 @@ import otp.markkinasim.simulation.Product;
 import otp.markkinasim.view.View;
 
 /**
- * Hello world!
- *
+ *	Ohjelman käynnistys luokka.
+ *	
+ *	@author Joonas Lapinlampi
  */
 public class App 
 {

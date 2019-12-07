@@ -1,8 +1,5 @@
 package otp.markkinasim.view;
-/**
-*
-* @author Joonas Lapinlampi
-*/
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -22,7 +19,11 @@ import otp.markkinasim.simulation.Item;
 import otp.markkinasim.simulation.Party;
 import otp.markkinasim.simulation.Person;
 import otp.markkinasim.simulation.Product;
-
+/**
+* Tämä luokka kontrolloi simulaation ajo ikkunaa.
+* 
+* @author Joonas Lapinlampi
+*/
 public class SimulationController{
 
 	private IView view;
@@ -60,6 +61,9 @@ public class SimulationController{
 	
 	}
 	
+	/**
+	 * Asetetaan taulukkojen sarakkeiden sisältämät tiedot, sekä taulukkoihin kuuluvat listat.
+	 */
 	@FXML
 	private void initialize() {
 		 // Party taulukko alustus
@@ -78,7 +82,7 @@ public class SimulationController{
 		  });
 		partyRawmaterial.setCellValueFactory(new Callback<CellDataFeatures<Party, String>, ObservableValue<String>>() {
 		     public ObservableValue<String> call(CellDataFeatures<Party, String> p) {
-		         // p.getValue() returns the Party instance for a particular TableView row
+		    	 // p.getValue() palauttaa kyseisen rivin party olion
 		    	 if(p.getValue().getProductToProduce().getProductNeededId()>=0) {
 		    		 for(Product i:view.getAllProductData()) {
 		    			 if(p.getValue().getProductToProduce().getProductNeededId()==i.getId()) {
@@ -137,6 +141,11 @@ public class SimulationController{
 		view.setScene(0);
 	}
 	
+	/**
+	 * Tulostaa parametrinä saadun tekstin simulationLog TextArea:n
+	 * 
+	 * @param msg	tulostettava String
+	 */
 	public void printText(String msg) {
 		simulationLog.appendText(msg);
 	}
