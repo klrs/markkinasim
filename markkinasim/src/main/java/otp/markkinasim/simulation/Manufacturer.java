@@ -8,7 +8,16 @@ import javafx.collections.ObservableList;
 import otp.markkinasim.controller.Controller;
 
 public class Manufacturer extends Party {
-	//jalostaja-taho. Tuottaa producteja, mutta vaatii raaka-aineita(product) toimiakseen.
+	/**
+	 * Manufacturer tuottaa tuotetta simulaatioon.
+	 * Toimii samalla periaatteella kuin Producer, mutta
+	 * tarvitsee toista tuotetta tuottaakseen itse mitään.
+	 * @see Party
+	 * @see Producer
+	 * @author Kalle Rissanen
+	 * @version 0.9
+	 */
+	//jalostaja-taho. Tuottaa producteja, mutta vaatii raaka-aineita(product) toimi
 	
 //	public Manufacturer(String partyName, float money, Product productToProduce) {
 //		super(partyName, money, productToProduce);
@@ -30,10 +39,19 @@ public class Manufacturer extends Party {
 	
 	@Override
 	public void produce() {
-		double producedAmount = checkProducedAmount();
-		producedAmount = producedAmount + calculateRemainder(producedAmount);
-		//System.out.println(neededItemInventory.amount.get());
+		/**
+		 * Tuottaa vuorollaan tietyn määrän tuotetta.
+		 */
 		
+		//tuotettava määrä
+		double producedAmount = checkProducedAmount();
+		
+		//Party pystyy tuottamaan myös ei-kokonaislukuja.
+		//Tässä lasketaan jäännös mukaan, jos se on >=1
+		producedAmount = producedAmount + calculateRemainder(producedAmount);
+		
+		//Manufacturer ominaisuus. Ei voi tuottaa jos ei ole tarpeeksi
+		//tarvittavaa tuotetta.
 		if(producedAmount > neededItemInventory.amount.get()) {
 			int possibleAmount = neededItemInventory.amount.get();
 			
@@ -64,16 +82,26 @@ public class Manufacturer extends Party {
 //		}
 	}
 	public void evaluate(int day) {
+		/**
+		 * Kutsuu paljon misc metodeita. Evalueteta kutsutaan kerran simulaation
+		 * iteraatiossa.
+		 */
+		
 		buyNeededProduct((int)checkProducedAmount());
-		 putForSale();
-		 changePrice();
-		 kickEmployees(day);
+		putForSale();
+		changePrice();
+		kickEmployees(day);
 	}
 	private void buyNeededProduct(int amount) {
+		/**
+		 * Ostaa tarvittavaa tuotetta
+		 * @param amount, ostettava määrä
+		 */
+		
 		//TODO TEKOÄLY
 		int left = amount;
 		List<Item> items = market.checkItems(productToProduce.getProductNeeded());
-		while(left > 0) {
+		if(left > 0) {
 			Item cheapest = market.findNextCheapestItem(items);
 			int buyAmount = 0;
 			
