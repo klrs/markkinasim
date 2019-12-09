@@ -96,7 +96,7 @@ public class Secretary {
 	}
 	/**
 	 * Tuo kaikki Product-oliot ObservableList-muodossa käyttöliittymää varten.
-	 * @return palauttaa ObservableList-olion.
+	 * @return palauttaa ObservableList-olion
 	 */
 	@SuppressWarnings("unchecked")
 	public ObservableList<Product> getAllProductsFromDB() {
@@ -120,9 +120,8 @@ public class Secretary {
 		
 	}
 	/**
-	 * Tuo kaikki Party-oliot ObservableList-muodossa käyttöliittymää varten.
-	 * Muuttaa Party-oliot tietokannasta joko Manufacturer- tai Producer-olioksi.
-	 * @return palauttaa ObservableList-olion, mikä sisältää.
+	 * Tuo kaikki Party-oliot ObservableList-muodossa käyttöliittymää varten. Muuttaa Party-oliot tietokannasta joko Manufacturer- tai Producer-olioksi.
+	 * @return palauttaa ObservableList-olion
 	 */
 	@SuppressWarnings("unchecked")
 	public ObservableList<Party> getAllPartysFromDB() {
@@ -172,7 +171,11 @@ public class Secretary {
 		}
 		
 	}
-
+	/**
+	 * Yleinen metodi ohjelman view-osiolle, joka vie tietoa tietokantaan. Tätä metodia voi käyttää kaikenlaisten olioiden tietojen viemiseen tietokantaan.
+	 * @param o sisältää joko Party- tai Product-olion 
+	 * @return palauttaa True jos lisäys tietokantaan onnistui, False jos ei onnistunut tai Object oli jotain muuta kuin aiemmin sanotut.
+	 */
 	public boolean createNewObject(Object o) {
 		boolean done = false;
 		if(o instanceof Party) {
@@ -183,6 +186,11 @@ public class Secretary {
 		return done;
 	}
 	
+	/**
+	 * Poistaa tietokannasta yhden Product-olio tiedot. Poisto tapahtuu Product-olion id-muuttujaa käyttäen.
+	 * @param product ilmentymä Product-oliosta joka poistetaa
+	 * @return Palauttaa True jos poisto onnistui. False jos poisto epäonnistui
+	 */
 	public boolean removeProduct(Product product) {
 		boolean done = false;
 		Transaction transaktio = null;
@@ -200,7 +208,11 @@ public class Secretary {
 		}
 		return done;
 	}
-	
+	/**
+	 * Poistaa tietokannasta yhden Party-olio tiedot. Poisto tapahtuu Party-olion id-muuttujaa käyttäen.
+	 * @param party ilmentymä Product-oliosta joka poistetaa
+	 * @return Palauttaa True jos poisto onnistui. False jos poisto epäonnistui
+	 */
 	public boolean removeParty(Party party) {
 		boolean done = false;
 		Transaction transaktio = null;
@@ -218,7 +230,11 @@ public class Secretary {
 		}
 		return done;
 	}
-	
+	/**
+	 * Yleinen metodi ohjelman view-osiolle, joka poistaa tietoa tietokannasta.. Tätä metodia voi käyttää kaikenlaisten olioiden tietojen poistamiseen tietokannasta.
+	 * @param o sisältää joko Party- tai Product-olion 
+	 * @return palauttaa True jos lisäys tietokantaan onnistui, False jos ei onnistunut tai Object oli jotain muuta kuin aiemmin sanotut.
+	 */
 	public boolean removeObject(Object o) {
 		boolean done = false;
 		if(o instanceof Party) {

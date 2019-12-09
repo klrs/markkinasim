@@ -15,6 +15,10 @@ public class SecretaryTest {
 	
 	private Secretary sec = new Secretary();
 	
+	/**
+	 * Testaa meneekö lisätty Product-olio tietokannan läpi halutulla tavalla.
+	 * @result Tarkistaa onko olio tietokanna kautta tulleen olion nimi sama.
+	 */
 	@Test
 	void testAddProduct() {
 		Product product = new Product("test product");
@@ -24,6 +28,10 @@ public class SecretaryTest {
 		assertEquals("test product",realproduct.getProductName(),"Expected name to be 'test product'.");
 	}
 	
+	/**
+	 * Luo Party-luokan aliluokan Manufacturer-olion ja vie sen tietokannan läpi.
+	 * @result Tarkistaa onko olio tietokanna kautta tulleen olion nimi sama ja pystyykö olion castaamaan oikein.
+	 */
 	@Test
 	void testAddManufacturer() {
 		Party manufacturer = new Party();
@@ -35,6 +43,10 @@ public class SecretaryTest {
 		assertEquals("test manufacturer",realmanufacturer.getPartyName(),"Expected name to be 'test manufacturer'.");
 	}
 	
+	/**
+	 * Luo Party-luokan aliluokan Producer-olion ja vie sen tietokannan läpi.
+	 * @result Tarkistaa onko olio tietokanna kautta tulleen olion nimi sama ja pystyykö olion castaamaan oikein.
+	 */
 	@Test
 	void testAddProducer() {
 		Party producer = new Party();
