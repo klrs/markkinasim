@@ -20,22 +20,37 @@ import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
 @Access(AccessType.FIELD)
 
 public class Party {
-	// party elikkä kaupankäyntiä harrastava taho
-	//ÄLÄ ILMENNÄ TÄTÄ
+	/**
+	 * Party edustaa kauppaa käyvää tahoa.
+	 * Huom. Tämä luokka ei ole tarkoitettu ilmennettäväksi. Ilmennä tätä
+	 * perivät aliluokat Producer ja Manufacturer.
+	 * @author Kalle Rissanen
+	 * @version 1.0
+	 * @see Producer, Manufacturer
+	 */
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	protected int id;
+	
+	/**Inventaario tarvittaville tuotteille*/
 	@Transient
 	protected Item neededItemInventory;
+	
+	/**Inventaario tuotettaville tuotteille*/
 	@Transient
 	protected Item producedItemInventory;
+	
+	/**Jäljelle jäävä tuote. Tarvitaan koska tuotettu määrä on double.*/
 	@Transient
 	protected float productRemainder;
 	@Transient
 	protected StringProperty partyName;
 	@Transient
 	protected FloatProperty money;
+	
+	/**Lista Personeista, jotka ovat tällä taholla töissä*/
 	@Transient
 	protected ObservableList<Person> employees; // TODO TODO
 	@Transient
@@ -44,8 +59,12 @@ public class Party {
 	protected int productToProduceId;
 	@Transient
 	protected FloatProperty defaultSalary; // daily salaary
+	
+	/**Teho, eli kuinka paljon taho saa aikaiseksi päivässä*/
 	@Transient
 	protected FloatProperty effency;
+	
+	/**Laatu, eli kuinka laadukkaita tuotetut tuotteet ovat*/
 	@Transient
 	protected FloatProperty quality;
 	@Transient
@@ -55,7 +74,6 @@ public class Party {
 	protected int partyType;
 
 	public Party(int id, String partyName, float money, int productToProduceId) {
-		//TESTING PURPOSES!!
 		employees = FXCollections.observableArrayList();
 		this.id = id;
 		this.neededItemInventory = null;
@@ -85,15 +103,27 @@ public class Party {
 	}
 
 	public void init(Product neededProduct) {
-		//TÄTÄ KUULUU KUTSUA MISSÄ PARTYT ILMENNETÄÄN!
+		/**Teho, eli kuinka paljon taho saa aikaiseksi päivässä
+		 * Tätä kutsutaan sieltä, missä partyt ilmennetään.
+		 * @param neededProduct, tuote, jota party tarvitsee tuottaakseen
+		 */
 		
 		if(neededProduct != null) {
 			neededItemInventory = new Item(neededProduct, 0, this);
 		}
 		producedItemInventory = new Item(productToProduce, 0, this);
 	}
-	public void produce() {/*YLIKIRJOITA*/}
+	public void produce() {
+		/**
+		 * Metodi, joka tuottaa jotain. Producer ja Manufacturer tekevät oman
+		 * implementaationsa tästä.
+		 */
+	}
 	protected double checkProducedAmount() {
+		/**
+		 * Tarkistaa määrän, kuinka paljon party pystyy tuottamaan tuotetta.
+		 * @return producedAmount, tuotettava määrä
+		 */
 		double producedAmount = employees.size() * effency.get();
 		if(productRemainder >= 1) {
 			producedAmount++;
@@ -103,6 +133,12 @@ public class Party {
 		return producedAmount;
 	}
 	protected int calculateRemainder(double producedAmount) {
+		/**
+		 * Tarkistaa onko jäännös yli 1. Jos on, palauttaa yhden lisää, muuten
+		 * palauttaa 0.
+		 * @return 0 tai 1, riippuen siitä onko remainder >=1
+		 */
+		
 		if(producedAmount % 1 > 0) {
 			productRemainder =+ (float)producedAmount % 1;
 		}
@@ -115,15 +151,28 @@ public class Party {
 			return 0;
 		}
 	}
-	public void evaluate(int day) {/*YLIKIRJOITA*/}
+	public void evaluate(int day) {
+		/**
+		 * Metodi, jonka tarkistaa nykyisen tilanteen.
+		 * Producer ja Manufacturer ylikirjoittaa tämän metodin.
+		 * @param day, päivä, eli kuinka mones päivä on simulaatiossa menossa
+		 */
+	}
 	protected void putForSale() {
-		//laittaa kaikki vaan myyntiin
+		/**
+		 * Laittaa kaikki tuotteet myyntiin.
+		 */
 		int amount = producedItemInventory.amount.get();
 		market.vend(producedItemInventory);
 		//producedItemInventory.amount.set(0);
 		Controller.log("SET_SELL", amount, partyName.get(), producedItemInventory.product.getProductName());
 	}
 	protected void kickEmployees(int day) {
+		/**
+		 * Potkii työntekijöitä pihalle, mikäli partylla ei ole
+		 * varaa maksaa sille palkkaa.
+		 * @param day, päivä, eli kuinka mones päivä on simulaatiossa menossa
+		 */
 		if(day % 7 == 1) {
 			while(employees.size() * defaultSalary.get() > money.get() &&
 					!employees.isEmpty()) {
@@ -136,16 +185,27 @@ public class Party {
 	}
 	
 	protected void changePrice() {
+		/**
+		 * Muuttaa myytävän tuotteen hinnan yhdellä pienemmäksi.
+		 */
 		 if(employees.size() * defaultSalary.get() > money.get()) {
 			 producedItemInventory.priceEach.set(producedItemInventory.priceEach.get() - 1);
 		 }
 	}
 
 	public void addMoney(float addableMoney) {
+		/**
+		 * Lisää taholle rahaa.
+		 * @param addableMoney, lisättävä rahamäärä
+		 */
 		money.set(money.get() + addableMoney);
 	}
 
 	public boolean employeesNeeded() {
+		/**
+		 * Tarkistaa tarvitseeko taho työntekijöitä.
+		 * @param true/false, eli tarvitseeko taho työntekijöitä
+		 */
 		if(employees.size() * defaultSalary.get() < money.get()) {
 			return true;
 		}
@@ -155,10 +215,17 @@ public class Party {
 	}
 
 	public void addEmployee(Person employee) {
+		/**
+		 * Lisää taholle työntekijän
+		 * @param employee, lisättävä employee-olio
+		 */
 		employees.add(employee);
 	}
 
 	public void paySalaries() {
+		/**
+		 * Maksaa kaikille työntekijöillä defaultSalary:n mukaisen palkan.
+		 */
 		for (Person p : employees) {
 			money.set(money.get() - defaultSalary.get());
 			p.addMoney(defaultSalary.get());

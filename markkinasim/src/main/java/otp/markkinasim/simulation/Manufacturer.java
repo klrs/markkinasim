@@ -85,6 +85,7 @@ public class Manufacturer extends Party {
 		/**
 		 * Kutsuu paljon misc metodeita. Evalueteta kutsutaan kerran simulaation
 		 * iteraatiossa.
+		 * @param day, simulaation päivä
 		 */
 		
 		buyNeededProduct((int)checkProducedAmount());
