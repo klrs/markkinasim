@@ -145,11 +145,11 @@ public class SimulationSelectionController {
 			if (hasNeededProduct == null && hasNeededRawmaterial == null) {
 				view.getPersonData().clear();
 				if(view.getPersonCount()<=0) {
-					view.setPersonCount(10);
+					view.setPersonCount(30);
 				}
 				
 				if(view.getSimulationTime()<=0) {
-					view.setSimulationTime(10);
+					view.setSimulationTime(30);
 				}
 				
 				for(int i=0;i<view.getPersonCount();i++) {

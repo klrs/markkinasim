@@ -403,6 +403,7 @@ public class View extends Application implements IView{
 	 * Lähettää simulaation aloitus komennon.
 	 */
 	public void startSimulation() {
+		SimulationController.startSimulationChartSetup();
 		dataController.startSimulation(simulationPartyList, simulationProductList, personList);
 	}
 	
