@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -44,7 +43,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <TableView fx:id="partyTable" prefHeight="318.0" prefWidth="637.0" GridPane.columnSpan="3" GridPane.rowSpan="3">
+            <TableView fx:id="partyTable" prefHeight="318.0" prefWidth="637.0" GridPane.columnSpan="3" GridPane.rowSpan="2">
               <columns>
                 <TableColumn fx:id="partyName" prefWidth="120.0" text="%partyNameColumn" />
                   <TableColumn fx:id="partyProduct" prefWidth="120.0" text="%partyProductColumn" />
@@ -54,7 +53,7 @@
                   <TableColumn fx:id="partyMoney" prefWidth="120.0" text="%partyMoneyColumn" />
               </columns>
                <GridPane.margin>
-                  <Insets left="10.0" top="31.0" />
+                  <Insets left="10.0" right="10.0" top="31.0" />
                </GridPane.margin>
             </TableView>
             <ToolBar maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="1024.0" GridPane.columnSpan="4" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
@@ -69,22 +68,22 @@
                   <Insets left="10.0" />
                </padding>
             </ToolBar>
-            <TableView fx:id="personTable" prefHeight="238.0" prefWidth="304.0" GridPane.rowIndex="3">
+            <TableView fx:id="personTable" maxWidth="300.0" prefHeight="238.0" prefWidth="300.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.rowSpan="2">
               <columns>
                 <TableColumn fx:id="personCount" prefWidth="100.0" text="%personIdColumn" />
                 <TableColumn fx:id="personWork" prefWidth="100.0" text="%PersonWorkColumn" />
                   <TableColumn fx:id="personMoney" prefWidth="100.0" text="%PersonMoneyColumn" />
               </columns>
                <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </TableView>
-            <TextArea fx:id="simulationLog" editable="false" prefHeight="318.0" prefWidth="387.0" GridPane.columnIndex="3" GridPane.rowSpan="3">
+            <TextArea fx:id="simulationLog" editable="false" prefHeight="318.0" prefWidth="387.0" GridPane.columnIndex="3" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets right="10.0" top="31.0" />
                </GridPane.margin>
             </TextArea>
-            <LineChart fx:id="partyMoneyChart" prefHeight="238.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+            <LineChart fx:id="partyMoneyChart" prefHeight="238.0" prefWidth="293.0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="2">
               <xAxis>
                 <NumberAxis side="BOTTOM" />
               </xAxis>
@@ -92,7 +91,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
                <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="10.0" right="320.0" top="10.0" />
                </GridPane.margin>
             </LineChart>
          </children>
