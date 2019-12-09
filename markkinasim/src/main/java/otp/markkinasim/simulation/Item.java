@@ -5,7 +5,14 @@ import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 
 public class Item {
-	//DATA TYPE FOR WRAPPING PRODUCT AND AMOUNT TOGETHER. HUOM PUBLIC FIELDIT!!
+	/**
+	 * Item on tarkoitettu wrappaamaan tuote, määrä, hinta ja tuotteen omistaja 
+	 * yhdeksi datatyypiksi.
+	 * Huom. public-kentät!
+	 * @author Kalle Rissanen
+	 * @version 1.0
+	 */
+	
 	public Party partyHolder;
 	public Product product;
 	public FloatProperty priceEach;
@@ -13,7 +20,9 @@ public class Item {
 	
 	public Item(Product product, int amount, Party partyHolder) throws InvalidParameterException {
 		if(amount >= 0) {
-			//jos määrä on <0 heittää exceptionia, koska item on tarkoitettu olemassaolevaksi vain kun itemissä on jtn.
+			/**
+			 * @throws InvalidParameterException, jos amount on <0
+			 */
 			this.product = product;
 			this.priceEach = new SimpleFloatProperty(0);
 			this.amount = new SimpleIntegerProperty(amount);
@@ -25,7 +34,9 @@ public class Item {
 	}
 	public Item(Product product, float priceEach, int amount, Party partyHolder) throws InvalidParameterException {
 		if(amount >= 0) {
-			//jos määrä on <0 heittää exceptionia
+			/**
+			 * @throws InvalidParameterException, jos amount on <0
+			 */
 			this.product = product;
 			this.priceEach = new SimpleFloatProperty(priceEach);
 			this.amount = new SimpleIntegerProperty(amount);
@@ -36,18 +47,28 @@ public class Item {
 		}
 	}
 	public void subtractAmount(int subtractableAmount) throws InvalidParameterException {
-		//PIENENNÄ ITEMIN MÄÄRÄÄ! KUNHAN PIENENNETTÄVÄ ARVO EI OLE ISOMPI KUIN ITEMIN MÄÄRÄ
+		/**
+		 * Pienentää itemin määrää
+		 * @param subtractableAmount, pienennettävä määrä
+		 * @throws InvalidParameterException, jos subtractableAmount on isompi kuin määrä.
+		 */
 		if(amount.get()-subtractableAmount >= 0) {
 			amount.set(amount.get()-subtractableAmount);
 		}
 		else { throw new InvalidParameterException("Subtractable value too large!"); }
 	}
 	public void addAmount(int addableAmount) {
-		//lisää määrä itemin amounttiin.
+		/**
+		 * Lisää itemin määrää
+		 * @param addableAmount, lisättävä määrä
+		 */
 		amount.set(amount.get() + addableAmount);
 	}
 	public IntegerProperty amountProperty() {
-		// TODO Auto-generated method stub
+		/**
+		 * Palauttaa amount-kentän View-oliota varten.
+		 * @return amount, määrä
+		 */
 		return amount;
 	}
 }

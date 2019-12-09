@@ -10,6 +10,13 @@ import javax.persistence.*;
 
 
 public class Product {
+	/**
+	 * Tuote-luokka. Tarjoaa tahoille ja yksilöille luokan, joka kapsuloi tuotteen
+	 * ominaisuudet.
+	 * @author Kalle Rissanen
+	 * @version 1.0
+	 */
+	
 	public static int nextId = 0;	//ID JÄRJESTELMÄ AINA OLIOTA ILMENNETTÄESSÄ. KTS. CONSTRUCTOR.
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

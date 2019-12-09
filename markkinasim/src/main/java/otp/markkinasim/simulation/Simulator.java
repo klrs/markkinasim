@@ -12,6 +12,13 @@ import otp.markkinasim.view.View;
 import javafx.collections.FXCollections;
 
 public class Simulator {
+	/**
+	 * Simulator on facade-mallin mukainen pääjehu, joka pitää langat käsissään.
+	 * Tarjoaa controllerille toiminnalisuuden pyörittää ja alustaa simulaatio.
+	 * @author Kalle Rissanen
+	 * @version 1.0
+	 */
+	
 	//SINGLETON PATTERN//////////////////
 	//mahdollistaa vain yhden Simulator-olion olemassaolon!
 	private static Simulator simulator;
@@ -34,6 +41,12 @@ public class Simulator {
 
 	public void init(ObservableList<Party> parties, ObservableList<Product> products,
 			ObservableList<Person> persons) {
+		/**
+		 * Alustaa simulaation.
+		 * @param parties, lista simulaatioon menevistä tahoista
+		 * @param product, lista simulaatioon menevistä tuotteista
+		 * @param persons, lista simulaatioon menevistä yksilöistä
+		 */
 		personList = persons;
 		partyList = parties;
 		productList = products;
@@ -52,6 +65,9 @@ public class Simulator {
 	}
 
 	public void nextDay() {
+		/**
+		 * Menee simulaatiossa yhden iteraation (päivän) eteenpäin.
+		 */
 		day++;
 
 		//WIP

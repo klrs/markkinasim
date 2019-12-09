@@ -6,6 +6,13 @@ import otp.markkinasim.controller.Controller;
 import otp.markkinasim.view.View;
 
 public class Producer extends Party {
+	/**
+	 * Producer tarkoittaa tahoa, joka tuottaa raaka-aineta, eikä täten tarvitse
+	 * tuotteita tuottaakseen mitään. Perii Partyä.
+	 * @author Kalle Rissanen
+	 * @version 1.0
+	 * @see Party
+	 */
 	
 	public Producer() {
 		super();
@@ -24,6 +31,9 @@ public class Producer extends Party {
 	
 	@Override
 	public void produce() {
+		/**
+		 * Tuottaa x määrän tuotetta. Ylikirjoittaa Partyn tyhjän toteutuksen.
+		 */
 		double producedAmount = checkProducedAmount();
 		producedAmount = producedAmount + calculateRemainder(producedAmount);
 		
@@ -33,6 +43,11 @@ public class Producer extends Party {
 	
 	 @Override
 	 public void evaluate(int day) {
+			/**
+			 * Tarkistaa onko taholla jotain parannettavaa.
+			 * Ylikirjoittaa Partyn tyhjän toteutuksen.
+			 * @param day, simulaation päivä
+			 */
 		 putForSale();
 		 changePrice();
 		 kickEmployees(day);

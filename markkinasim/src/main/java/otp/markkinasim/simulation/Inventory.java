@@ -2,7 +2,15 @@ package otp.markkinasim.simulation;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class Inventory {
+	/**
+	 * Inventaario-luokka. Ei käytetty.
+	 * @author Kalle Rissanen
+	 * @version 0.9
+	 */
+	
+	
 	//itemList ei voi sisältää duplikaatteja produkteja!
 	//tämä on koko inventoryn idea! Muuten olisi voinut vaan pitää ArrayListinä
 	

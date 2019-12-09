@@ -9,17 +9,34 @@ import javafx.collections.FXCollections;
 import otp.markkinasim.controller.Controller;
 
 public class Market {
-	//Market sisältää kaikki myytävät itemit
+	/**
+	 * Market pitää sisällään listan kaikista myytävänä olevista tuotteista 
+	 * ja sisältää toiminnalisuuden ostamiseen / myymiseen.
+	 * @author Kalle Rissanen
+	 * @version 1.0
+	 */
+	
+	/**
+	 * Lista Item-olioista
+	 */
 	private List<Item> listedItems;
 	
 	public Market() {
 		listedItems = FXCollections.observableArrayList();
 	}
 	public void vend(Item item) {
+		/**
+		 * Lisää listaan tuotteen
+		 * @param item, lisättävä Item-olio
+		 */
 		listedItems.add(item);
 	}
 	public List<Item> checkItems(Product p) {
-		//palauttaa listan myytävistä itemeistä, jotka ovat tyyppiä p
+		/**
+		 * Tarkistaa onko myynnissä tuotetta p.
+		 * @param p, tarkistettava tuote-olio
+		 * @return itemsOfP, lista kaikista myytävistä p-tyyppisistä tuotteista.
+		 */
 		List<Item> itemsOfP = new ArrayList<Item>();
 		for(Item i : listedItems) {
 			if(p.equals(i.product)) {
@@ -30,6 +47,12 @@ public class Market {
 		return itemsOfP;
 	}
 	public Item findNextCheapestItem(List<Item> items){
+		/**
+		 * Hakee halvimman tuotteen items-listalta.
+		 * @param items, lisättävä Item-olio
+		 * @return cheapestItem, halvin tuote items-listalta.
+		 */
+		
 		//TODO
 		if(!items.isEmpty()) {
 			Item cheapestItem = items.get(0);
@@ -46,6 +69,14 @@ public class Market {
 		
 	}
 	public boolean buy(Party p, Item itemToBuy, int amount) {
+		/**
+		 * Ostaa tuotteen.
+		 * @param p, Taho, joka ostaa.
+		 * @param itemToBuy, ostettava tuote. Tämän saa esim.
+		 * findNextCheapestItem-metodilta.
+		 * @param amount, ostettava määrä
+		 * @return true/false, onnistuiko osto
+		 */
 		
 		//kokeile sisältääkö itemToBuy tarpeeksi tavaroita
 		int possibleAmount = amount;
@@ -67,6 +98,14 @@ public class Market {
 		}
 	}
 	public boolean buy(Person p, Item itemToBuy, int amount) {
+		/**
+		 * Yksilö ostaa tuotteen.
+		 * @param p, Yksilö, joka ostaa.
+		 * @param itemToBuy, ostettava tuote. Tämän saa esim.
+		 * findNextCheapestItem-metodilta.
+		 * @param amount, ostettava määrä
+		 * @return true/false, onnistuiko osto
+		 */
 		
 		if(itemToBuy != null) {
 			//kokeile sisältääkö itemToBuy tarpeeksi tavaroita
@@ -101,6 +140,7 @@ public class Market {
 	public int cleanEmpty() {
 		/**
 		 * Poistaa listedItems-listasta ne oliot, joiden amount on 0.
+		 * @return removed, poistettujen alkioiden määrä.
 		 */
 		int removed = 0;
 		for(int i = 0; i < listedItems.size(); i++) {
