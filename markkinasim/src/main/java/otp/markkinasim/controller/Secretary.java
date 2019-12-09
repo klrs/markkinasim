@@ -73,8 +73,8 @@ public class Secretary {
 		return done;
 	}
 	/**
-	 * Vie tietokantaan yhden Product-olion tiedot.
-	 * @param  party  tietokantaan vietävä Product-olio
+	 * Vie tietokantaan yhden Party-olion tiedot.
+	 * @param  party  tietokantaan vietävä Party-olio
  	 * @return palauttaa True, jos tiedon vieminen tietokantaan onnistui. False, jos epäonnistui.
 	 */
 	public boolean createParty(Party party) {
