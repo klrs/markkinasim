@@ -5,14 +5,15 @@ import javax.persistence.Transient;
 import otp.markkinasim.controller.Controller;
 import otp.markkinasim.view.View;
 
+
+/**
+ * Producer tarkoittaa tahoa, joka tuottaa raaka-aineta, eikä täten tarvitse
+ * tuotteita tuottaakseen mitään. Perii Partyä.
+ * @author Kalle Rissanen
+ * @version 1.0
+ * @see Party
+ */
 public class Producer extends Party {
-	/**
-	 * Producer tarkoittaa tahoa, joka tuottaa raaka-aineta, eikä täten tarvitse
-	 * tuotteita tuottaakseen mitään. Perii Partyä.
-	 * @author Kalle Rissanen
-	 * @version 1.0
-	 * @see Party
-	 */
 	
 	public Producer() {
 		super();
@@ -29,11 +30,12 @@ public class Producer extends Party {
 		
 	}
 	
+	/**
+	 * Tuottaa x määrän tuotetta. Ylikirjoittaa Partyn tyhjän toteutuksen.
+	 */
+	
 	@Override
 	public void produce() {
-		/**
-		 * Tuottaa x määrän tuotetta. Ylikirjoittaa Partyn tyhjän toteutuksen.
-		 */
 		double producedAmount = checkProducedAmount();
 		producedAmount = producedAmount + calculateRemainder(producedAmount);
 		
@@ -41,13 +43,14 @@ public class Producer extends Party {
 		Controller.log("PRODUCE", producedAmount, partyName.get(), productToProduce.getProductName());
 	}
 	
+	/**
+	 * Tarkistaa onko taholla jotain parannettavaa.
+	 * Ylikirjoittaa Partyn tyhjän toteutuksen.
+	 * @param day, simulaation päivä
+	 */
+	
 	 @Override
 	 public void evaluate(int day) {
-			/**
-			 * Tarkistaa onko taholla jotain parannettavaa.
-			 * Ylikirjoittaa Partyn tyhjän toteutuksen.
-			 * @param day, simulaation päivä
-			 */
 		 putForSale();
 		 changePrice();
 		 kickEmployees(day);

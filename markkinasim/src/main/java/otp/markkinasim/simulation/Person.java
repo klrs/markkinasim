@@ -14,14 +14,13 @@ import javax.persistence.*;
 @Entity
 @Table(name="Person")
 
+/**
+ * Person edustaa simulaatiossa yksilöä. Yksilö kuluttaa ja käy tahoilla
+ * töissä.
+ * @author Kalle Rissanen
+ * @version 1.0
+ */
 public class Person {
-	
-	/**
-	 * Person edustaa simulaatiossa yksilöä. Yksilö kuluttaa ja käy tahoilla
-	 * töissä.
-	 * @author Kalle Rissanen
-	 * @version 1.0
-	 */
 	
 	//private FloatProperty money;
 	private static int count;
@@ -59,11 +58,11 @@ public class Person {
 		this.id=count++;
 	}
 	
+	/**
+	 * Kuluttaa tuotetta, ostaen sen ensiksi.
+	 * @param productToBuy, ostettava tuote
+	 */
 	public void consume(Product productToBuy) {
-		/**
-		 * Kuluttaa tuotetta, ostaen sen ensiksi.
-		 * @param productToBuy, ostettava tuote
-		 */
 		List<Item> items = market.checkItems(productToBuy);
 		Item itemToBuy = market.findNextCheapestItem(items);
 		
@@ -73,11 +72,11 @@ public class Person {
 		}
 	}
 	
+	/**
+	 * Etsii töitä käymällä läpi kaikki tahot.
+	 * @param partyList, lista kaikista tahoista.
+	 */
 	public void findWork(ObservableList<Party> partyList) {
-		/**
-		 * Etsii töitä käymällä läpi kaikki tahot.
-		 * @param partyList, lista kaikista tahoista.
-		 */
 		Random rnd = new Random();
 		for(Party p : partyList) {
 			if(rnd.nextBoolean()) {

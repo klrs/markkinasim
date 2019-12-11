@@ -7,16 +7,17 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import otp.markkinasim.controller.Controller;
 
+
+/**
+ * Manufacturer tuottaa tuotetta simulaatioon.
+ * Toimii samalla periaatteella kuin Producer, mutta
+ * tarvitsee toista tuotetta tuottaakseen itse mitään.
+ * @see Party
+ * @see Producer
+ * @author Kalle Rissanen
+ * @version 1.0
+ */
 public class Manufacturer extends Party {
-	/**
-	 * Manufacturer tuottaa tuotetta simulaatioon.
-	 * Toimii samalla periaatteella kuin Producer, mutta
-	 * tarvitsee toista tuotetta tuottaakseen itse mitään.
-	 * @see Party
-	 * @see Producer
-	 * @author Kalle Rissanen
-	 * @version 0.9
-	 */
 	//jalostaja-taho. Tuottaa producteja, mutta vaatii raaka-aineita(product) toimi
 	
 //	public Manufacturer(String partyName, float money, Product productToProduce) {
@@ -37,11 +38,12 @@ public class Manufacturer extends Party {
 		
 	}
 	
+	/**
+	 * Tuottaa vuorollaan tietyn määrän tuotetta.
+	 */
+	
 	@Override
 	public void produce() {
-		/**
-		 * Tuottaa vuorollaan tietyn määrän tuotetta.
-		 */
 		
 		//tuotettava määrä
 		double producedAmount = checkProducedAmount();
@@ -81,23 +83,25 @@ public class Manufacturer extends Party {
 //			System.out.println(e.getMessage());
 //		}
 	}
+	
+	/**
+	 * Kutsuu paljon misc metodeita. Evalueteta kutsutaan kerran simulaation
+	 * iteraatiossa.
+	 * @param day, simulaation päivä
+	 */
 	public void evaluate(int day) {
-		/**
-		 * Kutsuu paljon misc metodeita. Evalueteta kutsutaan kerran simulaation
-		 * iteraatiossa.
-		 * @param day, simulaation päivä
-		 */
 		
 		buyNeededProduct((int)checkProducedAmount());
 		putForSale();
 		changePrice();
 		kickEmployees(day);
 	}
+	
+	/**
+	 * Ostaa tarvittavaa tuotetta
+	 * @param amount, ostettava määrä
+	 */
 	private void buyNeededProduct(int amount) {
-		/**
-		 * Ostaa tarvittavaa tuotetta
-		 * @param amount, ostettava määrä
-		 */
 		
 		//TODO TEKOÄLY
 		int left = amount;
