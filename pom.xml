@@ -60,6 +60,14 @@
         <artifactId>maven-surefire-plugin</artifactId>
 	<version>3.0.0-M4</version>
       </plugin>
-    </plugins>
+	    </plugins>
+	    <testResources>
+  <testResource>
+    <directory>markkinasim/src/test/java</directory>
+  </testResource>
+  <testResource>
+    <directory>markkinasim/src/test/resources</directory>
+  </testResource>
+</testResources>
   </build>
 </project>
