@@ -11,14 +11,13 @@ import otp.markkinasim.simulation.Product;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ProductTest {
 
-	@Ignore
+	
 	@Test
 	void testProductId() {
 //		ArrayList<Product> products = new ArrayList<Product>();
@@ -31,7 +30,7 @@ class ProductTest {
 //		}
 	}
 	
-	@Ignore
+	
 	@Test
 	void testProductId2() {
 //		ArrayList<Product> products = new ArrayList<Product>();
