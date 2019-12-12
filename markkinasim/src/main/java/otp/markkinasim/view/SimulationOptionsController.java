@@ -191,6 +191,7 @@ public class SimulationOptionsController {
 		Party selectedParty = partyTable.getSelectionModel().getSelectedItem();
 		if (selectedParty != null) {
 			boolean okClicked = view.showPartyEditDialog(selectedParty);
+			view.createNewObject(selectedParty);
 			tableRefresh();
 		} else {
 			// Nothing selected.
@@ -239,6 +240,7 @@ public class SimulationOptionsController {
 		Product selectedRawmaterial = rawmaterialTable.getSelectionModel().getSelectedItem();
 		if (selectedRawmaterial != null) {
 			boolean okClicked = view.showRawmaterialEditDialog(selectedRawmaterial);
+			view.createNewObject(selectedRawmaterial);
 			tableRefresh();
 		} else {
 			// Nothing selected.
@@ -336,6 +338,7 @@ public class SimulationOptionsController {
 		Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
 		if (selectedProduct != null) {
 			boolean okClicked = view.showProductEditDialog(selectedProduct);
+			view.createNewObject(selectedProduct);
 			tableRefresh();
 		} else {
 			// Nothing selected.

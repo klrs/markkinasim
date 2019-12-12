@@ -11,7 +11,7 @@
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="600.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text scaleX="5.0" scaleY="5.0" scaleZ="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Market Simulator" wrappingWidth="93.3359375">
+            <Text scaleX="5.0" scaleY="5.0" scaleZ="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Market Simulator" wrappingWidth="116.73594665527344">
                <FlowPane.margin>
                   <Insets bottom="50.0" />
                </FlowPane.margin>
